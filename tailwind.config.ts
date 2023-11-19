@@ -9,9 +9,35 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'bg_image' : "url('/img/Green-Background-2048x1152.jpg')",
+      },
+      colors: {
+        Gray100: '#FFFFFF',
+        Gray200: '#f2f3f3',
+        Gray300: '#e5e7e8',
+        Gray400: '#e4e4e4',
+        Gray500: '#a9adb1',
+        Gunmetal: '#26313B',
+        Teal100: '#DCF1E8',
+        Teal200: '#DBF0E7',
+        Teal300: '#BAE1D1',
+        Orange100: '#FFE8D8',
+        Orange200: '#FFCFAD',
+        Olive100: '#B1CB8F',
+        Olive200: '#018979',
+        Isabeline: '#F6F3F0',
+        LightCyan: '#D8EFEF',
+        Columbia: '#C9E8FB',
+      },
+      fontSize: {
+        H1CooperTextSize: '40px',
+        H2CooperTextSize: '34px',
+        H3CooperTextSize: '30px',
+        PPoppinsTextSize: '18px',
+      },
+      fontFamily: {
+        'poppins': ['Poppins', 'sans-serif'],
+        'cooper': ['Cooper', 'sans-serif'],
       },
     },
   },
