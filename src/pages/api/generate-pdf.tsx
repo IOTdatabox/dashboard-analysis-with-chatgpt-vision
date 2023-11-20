@@ -42,3 +42,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   doc.end();
 }
+
+export const config = {
+  api: {
+      bodyParser: {
+          sizeLimit: '4mb' // Set desired value here
+      }
+  }
+}
