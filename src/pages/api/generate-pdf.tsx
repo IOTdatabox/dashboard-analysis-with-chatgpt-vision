@@ -25,7 +25,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   });
 
   doc.fontSize(25).text('How to Improve Your Dashboard', { align: 'center' });
-  console.log("💨💨💨", fourthResponse);
+  doc.moveDown()
+  doc.fontSize(13).text("The dashboard", { align: 'center' });
+  doc.moveDown()
   if (imageBase64) {
     const imageBuffer = Buffer.from(imageBase64, 'base64');
     doc.image(imageBuffer, {
@@ -36,7 +38,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   doc.moveDown();
+  doc.fontSize(13).text("Quick Improvements", { align: 'center' });
+  doc.moveDown();
   doc.fontSize(12).text(fourthResponse, { align: 'left' });
+  doc.moveDown();
+  doc.fontSize(13).text("In Depth Explanations", { align: 'center' });
   doc.moveDown();
   doc.fontSize(12).text(fifthAnswer, { align: 'left' });
 
