@@ -62,6 +62,8 @@ const InputForm: React.FC<InputFormProps> = () => {
                   query: {
                     response: JSON.stringify(data),
                     image: base64String, // Pass the image Base64 string
+                    email: email,
+                    name: name
                   },
               });
           } else {

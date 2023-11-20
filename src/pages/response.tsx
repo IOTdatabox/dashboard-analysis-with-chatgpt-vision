@@ -10,6 +10,10 @@ const ResponsePage = () => {
     const [fourthAnswer, setFourthAnswer] = useState('');
     const [fifthAnswer, setFifthAnswer] = useState('');
     const [imageBase64, setImageBase64] = useState('');
+    const [emailToSend, setEmailToSend] = useState('');
+    const [username, setUsername] = useState(''); // Add this line
+
+
     const parseSection = (content: string, sectionName: string) => {
         const regex = new RegExp(`${sectionName}:\\s*([^]*?)(?=\\n\\d\\.|$)`, 'i');
         const match = content.match(regex);
@@ -38,18 +42,21 @@ const ResponsePage = () => {
                 setFourthAnswer(fourthAnswer);
                 setFifthAnswer(fifthAnswer);
 
-
-
             }
             setResponseData(router.query.response as string);
         }
         if (router.query.image) {
             setImageBase64(router.query.image as string);
         }
+        if (router.query.email) {
+            setEmailToSend(router.query.email as string);
+        }
+        if (router.query.username) {
+            setUsername(router.query.username as string);
+        }
     }, [router]);
 
     const handleGeneratePDF = async () => {
-        console.log("💨💨💨", imageBase64);
 
         // Send a request to generate-pdf.js endpoint
         const response = await fetch('/api/generate-pdf', {
@@ -65,14 +72,9 @@ const ResponsePage = () => {
         });
 
         if (response.ok) {
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            window.open(url, '_blank'); // Open the generated PDF in a new tab
-            // const pdfData = await response.json();
-            // const pdfBase64 = pdfData.pdfBase64;
-
-            // // Now send this PDF in an email
-            // await sendEmailWithPDF(pdfBase64);
+            const blob = await response.arrayBuffer();
+            const content = new Buffer(blob).toString('base64');
+            await sendEmailWithPDF(content);
         } else {
             // Handle error
             console.error('Failed to generate PDF');
@@ -87,11 +89,14 @@ const ResponsePage = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    toEmail: 'uo0901576@gmail.com', // Set the recipient's email address
+                    toEmail: emailToSend, // Set the recipient's email address
+                    username: username, // Include the username
                     pdfBase64: pdfBase64,
+                    
                 }),
             });
-
+            console.log("💨💨💨");
+            console.log(pdfBase64);
             if (response.ok) {
                 console.log('Email sent successfully');
             } else {
