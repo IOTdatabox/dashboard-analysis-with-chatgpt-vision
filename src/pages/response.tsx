@@ -209,7 +209,7 @@ const ResponsePage = () => {
                 </div>
                 <div className="mt-8">
                     <label className="block text-gray-700 text-PPoppinsTextSize font-poppins font-bold mb-2">
-                        We've already prepared a more detailed document for you. Click the button and we'll send it to your email.
+                        We&#39;ve already prepared a more detailed document for you. Click the button and we&#39;ll send it to your email.
                     </label>
                 </div>
                 <button
