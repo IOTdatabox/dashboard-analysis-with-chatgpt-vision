@@ -80,7 +80,8 @@ const InputForm: React.FC<InputFormProps> = () => {
             // Extract the Base64 encoded string by removing the data URL prefix
             const base64String = e.target.result.split(',')[1];
             setImageBase64(base64String);
-            console.log("❤❤❤❤❤❤");
+
+            console.log("❤❤❤❤❤❤", base64String);
             const response = await fetch('/api/analysis-dashboard', {
               method: 'POST',
               headers: {
@@ -155,8 +156,8 @@ const InputForm: React.FC<InputFormProps> = () => {
                 <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                 </svg>
-                <p className="mb-2 font-poppins text-PPoppinsTextSize text-gray-500 dark:text-gray-400"><span className="font-semibold font-poppins text-PPoppinsTextSize">Click to upload</span> or drag and drop</p>
-                <p className=" mx-5 text-sm text-gray-500 dark:text-gray-400">PNG or JPG or GIF (We recommend not uploading files that are too complex.)</p>
+                <p className="mb-2 font-poppins text-PPoppinsTextSize text-gray-500 dark:text-gray-400"><span className="font-semibold font-poppins text-PPoppinsTextSize">Click to upload</span></p>
+                <p className=" mx-5 text-sm text-gray-500 dark:text-gray-400">PNG or JPG or GIF (We recommend not uploading over 4MB files.)</p>
               </div>
               <input type="file" onChange={handleFileChange} onClick={handleFileInputClick} className="hidden" />
             </label>
