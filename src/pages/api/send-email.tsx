@@ -8,13 +8,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const { toEmail, username, pdfBase64 } = req.body; // Extract email and PDF Base64 string from the request body
-
+    
     // console.log("In send-email", pdfBase64);
     const msg = {
         to: toEmail, // Recipient email address
-        from: 'whaydigital@gmail.com', // Your verified sender address
-        subject: 'Your PDF Document',
-        html: `Hi ${username}, how are you? <br/> Please find the attached PDF document.`,
+        from: {
+            email: 'whaydigital@gmail.com',
+            name: "Vision Labs Insights"
+        }, // Your verified sender address
+        subject: 'Here are some insights to improve your dashboard.',
+        templateId: "d-c4a496ad89d84b9c8b70777d75cdd373",
+        dynamicTemplateData: {
+          subject: `Here are some insights to improve your dashboard.`,
+          username: username
+        },
+        isMultiple: false,
         attachments: [
             {
                 content: pdfBase64,

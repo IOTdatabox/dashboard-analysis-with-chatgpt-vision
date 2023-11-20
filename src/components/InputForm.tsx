@@ -122,6 +122,7 @@ const InputForm: React.FC<InputFormProps> = () => {
     <div className="flex justify-center items-center h-screen">
       <form className={`${isLoading ? 'opacity-50 pointer-events-none' : ''}`}>
         <div>
+          <h2 className=' text-H2CooperTextSize font-cooper mx-auto'>Your dashboard offers a window into your business, but our service paints the big picture for your dashboard.</h2>
           <label className="block mb-2 font-poppins text-PPoppinsTextSize font-medium text-gray-900 dark:text-white">Username</label>
           <div className="flex">
             <span className="inline-flex items-center px-3 text-PPoppinsTextSize text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">

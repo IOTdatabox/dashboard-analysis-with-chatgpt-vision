@@ -51,8 +51,8 @@ const ResponsePage = () => {
         if (router.query.email) {
             setEmailToSend(router.query.email as string);
         }
-        if (router.query.username) {
-            setUsername(router.query.username as string);
+        if (router.query.name) {
+            setUsername(router.query.name as string);
         }
     }, [router]);
 
