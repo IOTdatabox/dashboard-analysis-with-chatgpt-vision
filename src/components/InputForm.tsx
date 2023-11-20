@@ -121,8 +121,9 @@ const InputForm: React.FC<InputFormProps> = () => {
   return (
     <div className="flex justify-center items-center h-screen">
       <form className={`${isLoading ? 'opacity-50 pointer-events-none' : ''}`}>
-        <div>
-          <h2 className=' text-H2CooperTextSize font-cooper mx-auto'>Your dashboard offers a window into your business, but our service paints the big picture for your dashboard.</h2>
+      <h2 className=' text-H2CooperTextSize font-cooper mx-auto text-center'>While your dashboard offers a window into your business, </h2>
+      <h2 className=' text-H2CooperTextSize font-cooper mx-auto text-center'>our service paints the big picture for your dashboard. </h2>
+        <div className=' mt-4'>
           <label className="block mb-2 font-poppins text-PPoppinsTextSize font-medium text-gray-900 dark:text-white">Username</label>
           <div className="flex">
             <span className="inline-flex items-center px-3 text-PPoppinsTextSize text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
@@ -135,7 +136,7 @@ const InputForm: React.FC<InputFormProps> = () => {
               value={name} onChange={handleNameChange} />
           </div>
         </div>
-        <div>
+        <div className=' mt-4'>
           <label className="block mb-2 text-PPoppinsTextSize font-poppins text-gray-900 dark:text-white">Your Email</label>
           <div className="relative mb-6">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -158,7 +159,7 @@ const InputForm: React.FC<InputFormProps> = () => {
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                 </svg>
                 <p className="mb-2 font-poppins text-PPoppinsTextSize text-gray-500 dark:text-gray-400"><span className="font-semibold font-poppins text-PPoppinsTextSize">Click to upload</span></p>
-                <p className=" mx-5 text-sm text-gray-500 dark:text-gray-400">PNG or JPG or GIF (We recommend not uploading over 4MB files.)</p>
+                <p className=" mx-5 text-sm text-gray-500 dark:text-gray-400">PNG or JPG(We recommend not uploading over 4MB files.)</p>
               </div>
               <input type="file" onChange={handleFileChange} onClick={handleFileInputClick} className="hidden" />
             </label>
