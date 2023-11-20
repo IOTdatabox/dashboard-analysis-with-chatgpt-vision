@@ -1,6 +1,8 @@
 // InputForm.tsx
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Spinner from './Spinner';
+import { Island_Moments } from 'next/font/google';
 
 interface InputFormProps {
   // You can define additional props here if needed
@@ -13,6 +15,8 @@ const InputForm: React.FC<InputFormProps> = () => {
   const [warning, setWarning] = useState<string>('');
   const [imageBase64, setImageBase64] = useState('');
   const [showWarning, setShowWarning] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
 
 
   useEffect(() => {
@@ -35,7 +39,7 @@ const InputForm: React.FC<InputFormProps> = () => {
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
-  
+
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
@@ -54,7 +58,7 @@ const InputForm: React.FC<InputFormProps> = () => {
       console.log("showWarning", showWarning)
       return;
     }
-    
+
     const uploadedFile = event.target.files ? event.target.files[0] : null;
     if (uploadedFile) {
       const fileExtension = uploadedFile.name.split('.').pop()?.toLowerCase();
@@ -64,13 +68,14 @@ const InputForm: React.FC<InputFormProps> = () => {
         console.log("showWarning", showWarning)
         return;
       }
-      
+
       setFile(uploadedFile);
-      
+
       if (event.target.files && event.target.files[0]) {
         const file = event.target.files[0];
         const reader = new FileReader();
         reader.onload = async (e) => {
+          setIsLoading(true); // Start loading
           if (typeof e.target?.result === 'string') {
             // Extract the Base64 encoded string by removing the data URL prefix
             const base64String = e.target.result.split(',')[1];
@@ -83,31 +88,38 @@ const InputForm: React.FC<InputFormProps> = () => {
               },
               body: JSON.stringify({ image: base64String }),
             });
-
-            if (response.ok) {
-              const data = await response.json();
-              router.push({
-                pathname: '/response',
-                query: {
-                  response: JSON.stringify(data),
-                  image: base64String, // Pass the image Base64 string
-                  email: email,
-                  name: name
-                },
-              });
-            } else {
-              console.error('Failed to fetch API');
+            try {
+              if (response.ok) {
+                const data = await response.json();
+                router.push({
+                  pathname: '/response',
+                  query: {
+                    response: JSON.stringify(data),
+                    image: base64String, // Pass the image Base64 string
+                    email: email,
+                    name: name
+                  },
+                });
+              } else {
+                console.error('Failed to fetch API');
+                setIsLoading(false); // Stop loading in case of error
+              }
+            } catch (error) {
+              console.error('Error:', error);
+              setIsLoading(false); // Stop loading in case of error
             }
           }
         };
         reader.readAsDataURL(file);
       }
     }
+
+    console.log("Loading", isLoading)
   };
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <form>
+      <form className={`${isLoading ? 'opacity-50 pointer-events-none' : ''}`}>
         <div>
           <label className="block mb-2 font-poppins text-PPoppinsTextSize font-medium text-gray-900 dark:text-white">Username</label>
           <div className="flex">
@@ -136,27 +148,31 @@ const InputForm: React.FC<InputFormProps> = () => {
             />
           </div>
         </div>
+        <div className="relative">
+          <div className="flex items-center justify-center w-full">
+            <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                </svg>
+                <p className="mb-2 font-poppins text-PPoppinsTextSize text-gray-500 dark:text-gray-400"><span className="font-semibold font-poppins text-PPoppinsTextSize">Click to upload</span> or drag and drop</p>
+                <p className=" mx-5 text-sm text-gray-500 dark:text-gray-400">PNG or JPG or GIF (We recommend not uploading files that are too complex.)</p>
+              </div>
+              <input type="file" onChange={handleFileChange} onClick={handleFileInputClick} className="hidden" />
+            </label>
 
-        <div className="flex items-center justify-center w-full">
-          <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-              <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-              </svg>
-              <p className="mb-2 font-poppins text-PPoppinsTextSize text-gray-500 dark:text-gray-400"><span className="font-semibold font-poppins text-PPoppinsTextSize">Click to upload</span> or drag and drop</p>
-              <p className=" mx-5 text-sm text-gray-500 dark:text-gray-400">PNG or JPG or GIF (We recommend not uploading files that are too complex.)</p>
+          </div>
+          {isLoading && (
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <Spinner />
             </div>
-            <input type="file" onChange={handleFileChange} onClick={handleFileInputClick} className="hidden" />
-          </label>
+          )}
         </div>
-
         {showWarning && (
           <div className={`p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 ${showWarning ? 'fade-in' : 'fade-out'}`} role="alert">
             <span className="font-medium">Info alert!</span> {warning}
           </div>
         )}
-
-
       </form>
     </div>
   );

@@ -25,6 +25,7 @@ const config: Config = {
         Orange200: '#FFCFAD',
         Olive100: '#B1CB8F',
         Olive200: '#018979',
+        OliveHover: '#006B5F',
         Isabeline: '#F6F3F0',
         LightCyan: '#D8EFEF',
         Columbia: '#C9E8FB',
@@ -36,8 +37,8 @@ const config: Config = {
         PPoppinsTextSize: '18px',
       },
       fontFamily: {
-        'poppins': ['Poppins', 'sans-serif'],
-        'cooper': ['Cooper', 'sans-serif'],
+        'poppins': ['Poppins'],
+        'cooper': ['Cooper'],
       },
     },
   },

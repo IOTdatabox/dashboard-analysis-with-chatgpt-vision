@@ -43,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     ]
                 }
             ],
-            max_tokens: 1000
+            max_tokens: 3000
         };
 
         const headers = {

@@ -92,7 +92,7 @@ const ResponsePage = () => {
                     toEmail: emailToSend, // Set the recipient's email address
                     username: username, // Include the username
                     pdfBase64: pdfBase64,
-                    
+
                 }),
             });
             console.log("💨💨💨");
@@ -114,62 +114,63 @@ const ResponsePage = () => {
 
 
     return (
-        <div className="container mx-auto my-8 p-4">
-            {/* <h1 className="text-2xl font-bold mb-4">API Response</h1>
+        <div className="bg-[url('/img/background.jpg')] bg-cover bg-center w-screen h-screen">
+            <div className="container mx-auto py-8 px-32">
+                {/* <h1 className="text-2xl font-bold mb-4">API Response</h1>
             <textarea
                 className="w-full p-2 border border-gray-300 rounded-md"
                 rows={10}
                 value={responseData}
                 readOnly
             /> */}
-            <div className="mt-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                    What are you trying to convey?
-                </label>
-                <textarea
-                    rows={2}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    value={firstAnswer}
-                    readOnly
-                />
-            </div>
-            <div className="mt-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                    What type of data are you showing?
-                </label>
-                <textarea
-                    rows={2}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    value={secondAnswer}
-                    readOnly
-                />
-            </div>
-            <div className="mt-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                    Who is the intended audience?
-                </label>
-                <select
-                    className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                <div className="mt-4">
+                    <label className="block text-gray-700 text-PPoppinsTextSize font-poppins font-bold mb-2">
+                        What are you trying to convey?
+                    </label>
+                    <textarea
+                        rows={2}
+                        className="text-PPoppinsTextSize font-poppins shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-Gray200"
+                        value={firstAnswer}
+                        readOnly
+                    />
+                </div>
+                <div className="mt-4">
+                    <label className="block text-gray-700 text-PPoppinsTextSize font-poppins font-bold mb-2">
+                        What type of data are you showing?
+                    </label>
+                    <textarea
+                        rows={2}
+                        className="text-PPoppinsTextSize font-poppins shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  bg-Gray200"
+                        value={secondAnswer}
+                        readOnly
+                    />
+                </div>
+                <div className="mt-4">
+                    <label className="block text-gray-700 text-PPoppinsTextSize font-poppins font-bold mb-2">
+                        Who is the intended audience?
+                    </label>
+                    <select
+                        className="text-PPoppinsTextSize font-poppins shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  bg-Gray200"
+                    >
+                        {thirdAnswerOptions.map((option, index) => (
+                            <option key={index} value={option}>
+                                {option}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <button
+                    className="mt-4 bg-Olive200 hover:bg-OliveHover text-Gray100 font-poppins text-[20px] py-[20px] px-[30px] rounded"
+                    onClick={handleGeneratePDF}
                 >
-                    {thirdAnswerOptions.map((option, index) => (
-                        <option key={index} value={option}>
-                            {option}
-                        </option>
-                    ))}
-                </select>
+                    Generate PDF
+                </button>
+                <button
+                    className="mt-4 ml-4 bg-white hover:bg-Olive200 text-Olive200 hover:text-white font-poppins text-[20px] py-[20px] px-[30px] rounded border-2 border-Olive200 box-border"                    onClick={handleRestart}
+                >
+                    Restart
+                </button>
             </div>
-            <button
-                className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={handleGeneratePDF}
-            >
-                Generate PDF
-            </button>
-            <button
-                className="mt-4 ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                onClick={handleRestart}
-            >
-                Restart
-            </button>
         </div>
     );
 };
