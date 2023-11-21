@@ -1,9 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-@import url("https://fonts.googleapis.com/css2?family=Cooper&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cooper&display=swap');
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -20,12 +20,13 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
+  background: #272a36;
 }
 
 .fade-out {
@@ -36,4 +37,28 @@ body {
 .fade-in {
   transition: opacity 0.5s ease-in;
   opacity: 1;
+}
+
+.shadow {
+  box-shadow: -11px 16px 31.8px 5px rgba(255, 255, 255, 0.25);
+}
+
+.hero-title {
+  color: #fff;
+
+  font-family: Inter;
+  font-size: 80px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.hero-subtitle {
+  color: #fff;
+
+  font-family: Inter;
+  font-size: 31px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
