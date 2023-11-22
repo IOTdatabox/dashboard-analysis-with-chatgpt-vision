@@ -24,8 +24,7 @@ export default function Home() {
       <ScreenShot
         title='Feedback & Ideas'
         img='3.jpeg'
-        desc='Describe (1) what you are trying to convey in your reporting & (2) Your intended audience 
-'
+        desc='Describe (1) what you are trying to convey in your reporting & (2) Your intended audience'
       />
       <Faqs />
     </>

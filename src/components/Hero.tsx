@@ -1,30 +1,33 @@
-import Image from 'next/image';
-import React from 'react';
+import Image from 'next/legacy/image';
+import React, { useState, useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 const Hero = () => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    // Do something with the files
+    console.log(acceptedFiles);
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+  });
+
   return (
     <section className='text-gray-600 body-font   '>
       <div className='container px-5 py-4  mx-auto  grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3  gap-14 content-center'>
         <div className=' md:ml-auto  md:py-2 mt-0 lg:mt-20 md:mt-[100px]  flex items-center justify-center'>
-          <img
-            src='/img/phone.png'
-            className='w-[auto] h-[365px] lg:w-[339px] lg:h-[734px]  border-solid border-8 border-[#000] ring-inset shadow'
-            alt='phone'
-          />
+          <div className='w-[177px] h-[365px] lg:w-[339px] lg:h-[734px]  border-solid border-8 border-[#000] ring-inset shadow relative'>
+            <Image src='/img/phone.png' alt='phone' layout='fill' />
+          </div>
         </div>
         <div className='text-[#FFF]  rounded-lg overflow-hidden sm:mr-10 lg:p-10 flex items-end justify-start  col-span-0 lg:col-span-2'>
           <div className=''>
             <div className='flex'>
-              <img
-                src='/img/productOne.png'
-                className=' w-[140px] h-[73px] md:w-[170px] md:h-[73px] '
-                alt='phone'
-              />
-              <img
-                src='/img/productOne.png'
-                className=' w-[140px] h-[73px] md:w-[170px] md:h-[73px] '
-                alt='phone'
-              />
+              <div className=' w-[140px] h-[73px] md:w-[170px] md:h-[73px] relative'>
+                <Image src='/img/productOne.png' alt='phone' layout='fill' />
+              </div>
+              <div className=' w-[140px] h-[73px] md:w-[170px] md:h-[73px] relative'>
+                <Image src='/img/productOne.png' alt='phone' layout='fill' />
+              </div>
             </div>
             <h1 className='text-white text-lg hero-title lg:w-2/3 md:w-1'>
               Instant Dashboard Feedback
@@ -41,13 +44,29 @@ const Hero = () => {
                 <p className='  text-black  text-md py-2 mb-3'>
                   Have Reporting Feedback & Improvements
                 </p>
-                <div className='w-auto h-[284px] bg-zinc-300 bg-opacity-0 rounded-[20px] border-2 border-emerald-600 border-dashed flex   place-items-center items-center justify-center text-center text-emerald-600 font-bold'>
+                {/* <div className='w-auto h-[284px] bg-zinc-300 bg-opacity-0 rounded-[20px] border-2 border-emerald-600 border-dashed flex   place-items-center items-center justify-center text-center text-emerald-600 font-bold'>
                   <div className=''>
                     Drop Dashboard Screenshot Here <br />
                     <span className='text-lg'>- OR -</span>
                     <br />
                     <span>Browse Photos</span>
                   </div>
+                </div> */}
+                <div
+                  {...getRootProps()}
+                  className='w-auto h-[284px] bg-zinc-300 bg-opacity-0 rounded-[20px] border-2 border-emerald-600 border-dashed flex   place-items-center items-center justify-center text-center text-emerald-600 font-bold'
+                >
+                  <input {...getInputProps()} />
+                  {isDragActive ? (
+                    <p>Drop the files here ...</p>
+                  ) : (
+                    <div className=''>
+                      Drop Dashboard Screenshot Here <br />
+                      <span className='text-lg'>- OR -</span>
+                      <br />
+                      <span>Browse Photos</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -62,7 +81,7 @@ const Hero = () => {
                   id='countries'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
                 >
-                  <option selected>Director Level Report</option>
+                  <option defaultValue=''>Director Level Report</option>
                   <option value='1'>1</option>
                   <option value='2'>2</option>
                   <option value='3'>3</option>
@@ -89,7 +108,7 @@ const Hero = () => {
                   id='countries'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
                 >
-                  <option selected>Ecommerce</option>
+                  <option defaultValue='Ecommerce'>Ecommerce</option>
                   <option value='1'>1</option>
                   <option value='2'>2</option>
                   <option value='3'>3</option>

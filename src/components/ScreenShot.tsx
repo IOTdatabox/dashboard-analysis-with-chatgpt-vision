@@ -1,3 +1,4 @@
+import Image from 'next/legacy/image';
 import React from 'react';
 
 const ScreenShot = ({ title, img, desc }: any) => {
@@ -6,12 +7,14 @@ const ScreenShot = ({ title, img, desc }: any) => {
       <div className='grid grid-cols-1 lg:grid-cols-2 items-center  justify-items-center'>
         <div>
           <div
-            className={`h-[228px] lg:h-[355px] w-[276px] lg:w-[580px] rounded-[50px] `}
+            className={`h-[228px] lg:h-[355px] w-[276px] lg:w-[580px] rounded-[50px] relative`}
           >
-            <img
+            <Image
               src={`/img/${img}`}
-              alt=''
-              className={`h-[100%]  w-[100%] rounded-[50px] object-cover`}
+              alt='vision'
+              className={`rounded-[50px]`}
+              layout='fill' // required
+              objectFit='cover' // change to suit your needs
             />
           </div>
         </div>
