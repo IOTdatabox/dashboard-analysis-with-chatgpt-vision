@@ -20,7 +20,7 @@ const Navbar = () => {
                 <div className='flex h-16 items-center justify-between'>
                   <div className='flex items-center'>
                     <div className='flex-shrink-0'>
-                      <div className='h-[51px]  w-[192px] relative'>
+                      <div className='h-[51px]  w-[192px] relative '>
                         <Image
                           src='/img/Logo-3-1024x272.png'
                           alt='Vision'
@@ -29,7 +29,7 @@ const Navbar = () => {
                       </div>
                     </div>
                     <div className='hidden md:block'>
-                      <div className='ml-10 flex items-baseline space-x-4'>
+                      <div className='ml-10 flex items-baseline space-x-4 mt-3'>
                         {navigation.map((item) => (
                           <Link
                             key={item.name}
@@ -44,7 +44,7 @@ const Navbar = () => {
                     </div>
                   </div>
                   <div>
-                    <div className='ml-4 flex items-center md:ml-6 '>
+                    <div className='ml-4 flex items-center md:ml-6 mt-3'>
                       <Link
                         href='/'
                         className='bg-gray-500 text-white rounded-md px-4 py-2 text-sm font-medium'
