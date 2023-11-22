@@ -1,31 +1,21 @@
 import { Fragment } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Disclosure } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-};
+
 const navigation = [
   { name: 'Pricing', href: '#', current: true },
   { name: 'Sign Up', href: '#', current: false },
 ];
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-];
 
 const Navbar = () => {
   return (
-    <>
+    <Fragment>
       <div className='min-h-full'>
         <Disclosure as='nav'>
           {({ open }) => (
             <>
-              <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+              <div className='mx-auto max-w-7xl  px-4 sm:px-6 lg:px-8'>
                 <div className='flex h-16 items-center justify-between'>
                   <div className='flex items-center'>
                     <div className='flex-shrink-0'>
@@ -44,7 +34,7 @@ const Navbar = () => {
                             className={`
                               text-white  hover:bg-gray-700 hover:text-white
                               
-                              rounded-md px-3 py-2 text-sm font-medium'
+                              rounded-md px-5 py-2 mx-5  text-sm font-medium'
                             `}
                             aria-current={item.current ? 'page' : undefined}
                           >
@@ -111,7 +101,7 @@ const Navbar = () => {
           )}
         </Disclosure>
       </div>
-    </>
+    </Fragment>
   );
 };
 

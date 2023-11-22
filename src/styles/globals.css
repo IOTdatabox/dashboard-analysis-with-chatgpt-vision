@@ -1,9 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Cooper&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -47,7 +47,7 @@ body {
   color: #fff;
 
   font-family: Inter;
-  font-size: 80px;
+  font-size: 73px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -57,8 +57,23 @@ body {
   color: #fff;
 
   font-family: Inter;
-  font-size: 31px;
+  font-size: 26px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+/* BELOW 704px (Smaller tablets) */
+@media (max-width: 44em) {
+}
+
+/* BELOW 544px (Phones) */
+@media (max-width: 34em) {
+  .hero-title {
+    font-size: 45px;
+  }
+
+  .hero-subtitle {
+    font-size: 17px;
+  }
 }

@@ -3,11 +3,11 @@ import Card from './card';
 
 const Teams = () => {
   return (
-    <div className='overflow-hidden'>
-      <h1 className='text-center text-[64px] text-white font-semibold'>
+    <section className='overflow-hidden py-10 '>
+      <h3 className='text-center text-[34px] lg:text-[64px] text-white font-semibold mb-5'>
         What Teams Are Saying{' '}
-      </h1>
-      <div className='grid grid-rows-1 grid-flow-col gap-5 my-5 ms-[4rem]'>
+      </h3>
+      <div className='grid grid-rows-1 lg:grid-flow-col lg:gap-5 lg:my-5 lg:ms-[4rem] justify-center '>
         <Card />
         <Card />
         <Card />
@@ -16,7 +16,7 @@ const Teams = () => {
         <Card />
       </div>
 
-      <div className='grid grid-rows-1 grid-flow-col gap-5 my-5 ms-[-7rem]'>
+      <div className='grid grid-rows-1 lg:grid-flow-col lg:gap-5 lg:my-5 lg:ms-[-7rem] justify-center'>
         <Card />
         <Card />
         <Card />
@@ -24,7 +24,7 @@ const Teams = () => {
         <Card />
         <Card />
       </div>
-    </div>
+    </section>
   );
 };
 
