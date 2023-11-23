@@ -34,6 +34,7 @@ const InputForm: React.FC<InputFormProps> = () => {
       }
     };
   }, [showWarning]);
+  
   const router = useRouter();
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {

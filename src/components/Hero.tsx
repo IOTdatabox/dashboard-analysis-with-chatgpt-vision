@@ -1,15 +1,157 @@
 import Image from 'next/legacy/image';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useDropzone } from 'react-dropzone';
+import { toast } from 'react-toastify';
+import Spinner from './Spinner';
 
 const Hero = () => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     // Do something with the files
     console.log(acceptedFiles);
+    const file = acceptedFiles[0];
+
+    setSelectedFile(file);
+
+    if (file && file.type.match('image.*')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImageSrc(e.target?.result?.toString());
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImageSrc('');
+    }
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
   });
+
+  const [email, setEmail] = useState<string>('');
+  const [imageBase64, setImageBase64] = useState('');
+  const [warning, setWarning] = useState<string>('');
+  const [showWarning, setShowWarning] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [firstAnswer, setFirstAnswer] = useState('');
+  const [secondAnswerOptions, setSecondAnswerOptions] = useState<string[]>([]);
+  const [thirdAnswerOptions, setThirdAnswerOptions] = useState<string[]>([]);
+  const [fourthAnswer, setFourthAnswer] = useState('');
+  const [fifthAnswer, setFifthAnswer] = useState('');
+
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+
+  const [imageSrc, setImageSrc] = useState<string | null | undefined>('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  useEffect(() => {
+    let successTimeout: string | number | NodeJS.Timeout | undefined;
+    if (successMessage) {
+      setShowSuccess(true);
+      successTimeout = setTimeout(() => {
+        setShowSuccess(false);
+      }, 1500);
+    }
+
+    return () => {
+      if (successTimeout) clearTimeout(successTimeout);
+    };
+  }, [successMessage]);
+
+  useEffect(() => {
+    let errorTimeout: string | number | NodeJS.Timeout | undefined;
+    if (errorMessage) {
+      setShowError(true);
+      errorTimeout = setTimeout(() => {
+        setShowError(false);
+      }, 1500);
+    }
+
+    return () => {
+      if (errorTimeout) clearTimeout(errorTimeout);
+    };
+  }, [errorMessage]);
+
+  useEffect(() => {
+    let timeoutId: string | number | NodeJS.Timeout | undefined;
+
+    if (showWarning) {
+      timeoutId = setTimeout(() => {
+        setShowWarning(false);
+      }, 1500);
+    }
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [showWarning]);
+
+  useEffect(() => {
+
+  }, [thirdAnswerOptions]);
+
+  const router = useRouter();
+
+  const onEmailChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const isValidEmail = (email: string) => {
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return regex.test(email);
+  };
+
+  const onSubmitBtnClicked = async () => {
+    setIsLoading(true);
+    if (!isValidEmail(email)) {
+      toast('Input the correct email address!', { type: 'error' });
+      return;
+    }
+    if (imageSrc == null || imageSrc == undefined || imageSrc == "") {
+      console.log("wgegwgewge");
+      toast('Please upload any image!', { type: 'error' });
+      return;
+    }
+
+    const base64String = imageSrc?.split(',')[1];
+
+    const response = await fetch('/api/process-api', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ image: base64String, email: email }),
+    });
+    try {
+      if (response.ok) {
+        const data = await response.json();
+        setFirstAnswer(data.data.firstAnswer);
+
+        console.log(data.data.firstAnswer);
+
+        setSecondAnswerOptions(data.data.secondAnswer.slice(1).split('*'));
+        setThirdAnswerOptions(data.data.thirdAnswer.slice(1).split('*'));
+        console.log(data);
+        toast('Email Sent Successfully!', { type: 'success' });
+        setIsLoading(false);
+      } else {
+        toast('Internal Server Error!', { type: 'error' });
+        console.error('Failed to fetch API');
+        setIsLoading(false); // Stop loading in case of error
+      }
+    } catch (error) {
+      toast('Internal Server Error!', { type: 'error' });
+      console.error('Error:', error);
+      setIsLoading(false); // Stop loading in case of error
+    }
+  };
+
 
   return (
     <section className='text-gray-600 body-font   '>
@@ -36,7 +178,12 @@ const Hero = () => {
               Another Pair of Eyes In Minutes
             </p>
 
-            <div className='bg-[#FFF] text-[#000] w-[auto]  rounded-[20px] grid grid-cols-1 lg:grid-cols-2 gap-8 p-5 lg:p-8'>
+            <div className='bg-[#FFF] text-[#000] w-[auto]  rounded-[20px] grid grid-cols-1 lg:grid-cols-2 gap-8 p-5 lg:p-8 relative'>
+              {isLoading && (
+                <div className="absolute top-0 left-0 right-0 bottom-0 align-middle justify-items-center flex">
+                  <Spinner />
+                </div>
+              )}
               <div>
                 <h2 className='text-black text-2xl font-bold '>
                   Upload Dashboards
@@ -44,20 +191,13 @@ const Hero = () => {
                 <p className='  text-black  text-md py-2 mb-3'>
                   Have Reporting Feedback & Improvements
                 </p>
-                {/* <div className='w-auto h-[284px] bg-zinc-300 bg-opacity-0 rounded-[20px] border-2 border-emerald-600 border-dashed flex   place-items-center items-center justify-center text-center text-emerald-600 font-bold'>
-                  <div className=''>
-                    Drop Dashboard Screenshot Here <br />
-                    <span className='text-lg'>- OR -</span>
-                    <br />
-                    <span>Browse Photos</span>
-                  </div>
-                </div> */}
                 <div
                   {...getRootProps()}
-                  className='w-auto h-[284px] bg-zinc-300 bg-opacity-0 rounded-[20px] border-2 border-emerald-600 border-dashed flex   place-items-center items-center justify-center text-center text-emerald-600 font-bold'
+                  className='w-auto h-[284px] bg-zinc-300 bg-opacity-0 rounded-[20px] border-2 border-emerald-600 border-dashed flex   place-items-center items-center justify-center text-center text-emerald-600 font-bold overflow-hidden'
                 >
                   <input {...getInputProps()} />
-                  {isDragActive ? (
+                  {imageSrc && <img src={imageSrc} alt="Uploaded" />}
+                  {!imageSrc && (isDragActive ? (
                     <p>Drop the files here ...</p>
                   ) : (
                     <div className=''>
@@ -66,7 +206,7 @@ const Hero = () => {
                       <br />
                       <span>Browse Photos</span>
                     </div>
-                  )}
+                  ))}
                 </div>
               </div>
 
@@ -81,10 +221,7 @@ const Hero = () => {
                   id='countries'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
                 >
-                  <option defaultValue=''>Director Level Report</option>
-                  <option value='1'>1</option>
-                  <option value='2'>2</option>
-                  <option value='3'>3</option>
+                  {secondAnswerOptions.map((answer, index) => <option key={`secondAnswer-${index}`} value={index}>{answer}</option>)}
                 </select>
                 <label
                   htmlFor='countries'
@@ -96,8 +233,9 @@ const Hero = () => {
                   id='countries'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
                   placeholder='Describe your outcome'
+                  value={firstAnswer}
+                  readOnly
                 ></textarea>
-
                 <label
                   htmlFor='countries'
                   className='block mb-2 text-sm font-bold text-black dark:text-white'
@@ -108,10 +246,7 @@ const Hero = () => {
                   id='countries'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
                 >
-                  <option defaultValue='Ecommerce'>Ecommerce</option>
-                  <option value='1'>1</option>
-                  <option value='2'>2</option>
-                  <option value='3'>3</option>
+                  {thirdAnswerOptions.map((answer, index) => <option key={`thirdAnswer-${index}`} value={index}>{answer}</option>)}
                 </select>
                 <label
                   htmlFor='countries'
@@ -124,9 +259,10 @@ const Hero = () => {
                   type='email'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
                   placeholder='email@hotmail.com'
+                  onChange={onEmailChanged}
                 />
 
-                <button className='w-[190px] h-10 bg-emerald-600 rounded-[10px] text-white text-lg font-bold '>
+                <button className='w-[190px] h-10 bg-emerald-600 rounded-[10px] text-white text-lg font-bold ' onClick={onSubmitBtnClicked}>
                   Analyze Now
                 </button>
               </div>

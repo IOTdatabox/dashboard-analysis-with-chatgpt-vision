@@ -7,11 +7,14 @@ import Teams from '@/components/Teams';
 import ScreenShot from '@/components/ScreenShot';
 import Describe from '@/components/Describe';
 import Faqs from '@/components/Faqs';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   return (
     <>
+      <ToastContainer />
       <Navbar />
       <Hero />
       <Teams />

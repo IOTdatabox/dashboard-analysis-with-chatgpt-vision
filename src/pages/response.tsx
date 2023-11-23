@@ -19,14 +19,6 @@ const ResponsePage = () => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [showError, setShowError] = useState(false);
 
-
-
-    const parseSection = (content: string, sectionName: string) => {
-        const regex = new RegExp(`${sectionName}:\\s*([^]*?)(?=\\n\\d\\.|$)`, 'i');
-        const match = content.match(regex);
-        return match ? match[1].trim() : '';
-    };
-
     useEffect(() => {
         let successTimeout: string | number | NodeJS.Timeout | undefined;
         if (successMessage) {
