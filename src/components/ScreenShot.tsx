@@ -6,17 +6,11 @@ const ScreenShot = ({ title, img, desc }: any) => {
     <section className='bg-gray-700 p-14 lg:p-24 '>
       <div className='grid grid-cols-1 lg:grid-cols-2 items-center  justify-items-center'>
         <div>
-          <div
-            className={`h-[228px] lg:h-[355px] w-[276px] lg:w-[580px] rounded-[50px] relative`}
-          >
-            <Image
-              src={`/img/${img}`}
-              alt='vision'
-              className={`rounded-[50px]`}
-              layout='fill' // required
-              objectFit='cover' // change to suit your needs
-            />
-          </div>
+          <img
+            src={`/img/${img}`}
+            alt='vision'
+            className={`h-[228px] lg:h-[355px] w-[276px] lg:w-[580px] rounded-[50px] rounded-[50px] object-cover`}
+          />
         </div>
         <div className='mt-10 lg:mt-0'>
           <h4 className='text-white text-[34px] lg:text-[64px] font-semibold  '>

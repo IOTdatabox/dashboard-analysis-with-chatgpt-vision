@@ -92,9 +92,7 @@ const Hero = () => {
     };
   }, [showWarning]);
 
-  useEffect(() => {
-
-  }, [thirdAnswerOptions]);
+  useEffect(() => {}, [thirdAnswerOptions]);
 
   const router = useRouter();
 
@@ -113,8 +111,8 @@ const Hero = () => {
       toast('Input the correct email address!', { type: 'error' });
       return;
     }
-    if (imageSrc == null || imageSrc == undefined || imageSrc == "") {
-      console.log("wgegwgewge");
+    if (imageSrc == null || imageSrc == undefined || imageSrc == '') {
+      console.log('wgegwgewge');
       toast('Please upload any image!', { type: 'error' });
       return;
     }
@@ -152,24 +150,30 @@ const Hero = () => {
     }
   };
 
-
   return (
     <section className='text-gray-600 body-font   '>
       <div className='container px-5 py-4  mx-auto  grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3  gap-14 content-center'>
         <div className=' md:ml-auto  md:py-2 mt-0 lg:mt-20 md:mt-[100px]  flex items-center justify-center'>
-          <div className='w-[177px] h-[365px] lg:w-[339px] lg:h-[734px]  border-solid border-8 border-[#000] ring-inset shadow relative'>
-            <Image src='/img/phone.png' alt='phone' layout='fill' />
-          </div>
+          <img
+            src='/img/phone.png'
+            alt='phone'
+            className='w-[177px] h-[365px] lg:w-[339px] lg:h-[734px]  border-solid border-8 border-[#000] ring-inset shadow '
+          />
         </div>
         <div className='text-[#FFF]  rounded-lg overflow-hidden sm:mr-10 lg:p-10 flex items-end justify-start  col-span-0 lg:col-span-2'>
           <div className=''>
             <div className='flex'>
-              <div className=' w-[140px] h-[73px] md:w-[170px] md:h-[73px] relative'>
-                <Image src='/img/productOne.png' alt='phone' layout='fill' />
-              </div>
-              <div className=' w-[140px] h-[73px] md:w-[170px] md:h-[73px] relative'>
-                <Image src='/img/productOne.png' alt='phone' layout='fill' />
-              </div>
+              <img
+                src='/img/productOne.png'
+                alt='phone'
+                className=' w-[140px] h-[73px] md:w-[170px] md:h-[73px] '
+              />
+
+              <img
+                src='/img/productOne.png'
+                alt='phone'
+                className=' w-[140px] h-[73px] md:w-[170px] md:h-[73px] '
+              />
             </div>
             <h1 className='text-white text-lg hero-title lg:w-2/3 md:w-1'>
               Instant Dashboard Feedback
@@ -180,7 +184,7 @@ const Hero = () => {
 
             <div className='bg-[#FFF] text-[#000] w-[auto]  rounded-[20px] grid grid-cols-1 lg:grid-cols-2 gap-8 p-5 lg:p-8 relative'>
               {isLoading && (
-                <div className="absolute top-0 left-0 right-0 bottom-0 align-middle justify-items-center flex">
+                <div className='absolute top-0 left-0 right-0 bottom-0 align-middle justify-items-center flex'>
                   <Spinner />
                 </div>
               )}
@@ -196,17 +200,18 @@ const Hero = () => {
                   className='w-auto h-[284px] bg-zinc-300 bg-opacity-0 rounded-[20px] border-2 border-emerald-600 border-dashed flex   place-items-center items-center justify-center text-center text-emerald-600 font-bold overflow-hidden'
                 >
                   <input {...getInputProps()} />
-                  {imageSrc && <img src={imageSrc} alt="Uploaded" />}
-                  {!imageSrc && (isDragActive ? (
-                    <p>Drop the files here ...</p>
-                  ) : (
-                    <div className=''>
-                      Drop Dashboard Screenshot Here <br />
-                      <span className='text-lg'>- OR -</span>
-                      <br />
-                      <span>Browse Photos</span>
-                    </div>
-                  ))}
+                  {imageSrc && <img src={imageSrc} alt='Uploaded' />}
+                  {!imageSrc &&
+                    (isDragActive ? (
+                      <p>Drop the files here ...</p>
+                    ) : (
+                      <div className=''>
+                        Drop Dashboard Screenshot Here <br />
+                        <span className='text-lg'>- OR -</span>
+                        <br />
+                        <span>Browse Photos</span>
+                      </div>
+                    ))}
                 </div>
               </div>
 
@@ -221,7 +226,11 @@ const Hero = () => {
                   id='countries'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
                 >
-                  {secondAnswerOptions.map((answer, index) => <option key={`secondAnswer-${index}`} value={index}>{answer}</option>)}
+                  {secondAnswerOptions.map((answer, index) => (
+                    <option key={`secondAnswer-${index}`} value={index}>
+                      {answer}
+                    </option>
+                  ))}
                 </select>
                 <label
                   htmlFor='countries'
@@ -246,7 +255,11 @@ const Hero = () => {
                   id='countries'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
                 >
-                  {thirdAnswerOptions.map((answer, index) => <option key={`thirdAnswer-${index}`} value={index}>{answer}</option>)}
+                  {thirdAnswerOptions.map((answer, index) => (
+                    <option key={`thirdAnswer-${index}`} value={index}>
+                      {answer}
+                    </option>
+                  ))}
                 </select>
                 <label
                   htmlFor='countries'
@@ -262,7 +275,10 @@ const Hero = () => {
                   onChange={onEmailChanged}
                 />
 
-                <button className='w-[190px] h-10 bg-emerald-600 rounded-[10px] text-white text-lg font-bold ' onClick={onSubmitBtnClicked}>
+                <button
+                  className='w-[190px] h-10 bg-emerald-600 rounded-[10px] text-white text-lg font-bold '
+                  onClick={onSubmitBtnClicked}
+                >
                   Analyze Now
                 </button>
               </div>
