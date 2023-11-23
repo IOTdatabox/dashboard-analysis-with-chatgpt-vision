@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import { Inter } from 'next/font/google';
-import InputForm from '@/components/InputForm';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Teams from '@/components/Teams';
@@ -9,7 +7,6 @@ import Describe from '@/components/Describe';
 import Faqs from '@/components/Faqs';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   return (

@@ -116,8 +116,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             type: "text",
                             text: `Attached is a Data Dashboard. Please reply in the following format:
                             1. Purpose: [One sentence about the dashboard's purpose.]
-                            2. Data Type: [List four job positions, separated by asterisks (*).]
-                            3. Audience: [List four job positions, separated by asterisks (*).]
+                            2. Data Type: [List four job positions, separated by asterisks (*). Also include "*" at the beginning.]
+                            3. Audience: [List four job positions, separated by asterisks (*). Also include "*" at the beginning.]
                             4. Quick Improvements: [List at least four quick improvements, each starting with a dash (-).]
                             5. Detailed Improvements: [List at least four detailed improvements, each starting with a dash (-).]
                             Do not include anything on Mobile responsiveness.

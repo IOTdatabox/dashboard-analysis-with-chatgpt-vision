@@ -10,9 +10,6 @@ const Hero = () => {
     // Do something with the files
     console.log(acceptedFiles);
     const file = acceptedFiles[0];
-
-    setSelectedFile(file);
-
     if (file && file.type.match('image.*')) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -28,69 +25,13 @@ const Hero = () => {
   });
 
   const [email, setEmail] = useState<string>('');
-  const [imageBase64, setImageBase64] = useState('');
-  const [warning, setWarning] = useState<string>('');
-  const [showWarning, setShowWarning] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const [firstAnswer, setFirstAnswer] = useState('');
   const [secondAnswerOptions, setSecondAnswerOptions] = useState<string[]>([]);
   const [thirdAnswerOptions, setThirdAnswerOptions] = useState<string[]>([]);
-  const [fourthAnswer, setFourthAnswer] = useState('');
-  const [fifthAnswer, setFifthAnswer] = useState('');
-
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [showError, setShowError] = useState(false);
 
   const [imageSrc, setImageSrc] = useState<string | null | undefined>('');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  useEffect(() => {
-    let successTimeout: string | number | NodeJS.Timeout | undefined;
-    if (successMessage) {
-      setShowSuccess(true);
-      successTimeout = setTimeout(() => {
-        setShowSuccess(false);
-      }, 1500);
-    }
-
-    return () => {
-      if (successTimeout) clearTimeout(successTimeout);
-    };
-  }, [successMessage]);
-
-  useEffect(() => {
-    let errorTimeout: string | number | NodeJS.Timeout | undefined;
-    if (errorMessage) {
-      setShowError(true);
-      errorTimeout = setTimeout(() => {
-        setShowError(false);
-      }, 1500);
-    }
-
-    return () => {
-      if (errorTimeout) clearTimeout(errorTimeout);
-    };
-  }, [errorMessage]);
-
-  useEffect(() => {
-    let timeoutId: string | number | NodeJS.Timeout | undefined;
-
-    if (showWarning) {
-      timeoutId = setTimeout(() => {
-        setShowWarning(false);
-      }, 1500);
-    }
-
-    return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, [showWarning]);
 
   useEffect(() => {
 
@@ -108,19 +49,19 @@ const Hero = () => {
   };
 
   const onSubmitBtnClicked = async () => {
-    setIsLoading(true);
+    
     if (!isValidEmail(email)) {
       toast('Input the correct email address!', { type: 'error' });
       return;
     }
-    if (imageSrc == null || imageSrc == undefined || imageSrc == "") {
+    if (imageSrc == null || imageSrc == undefined || imageSrc == '') {
       console.log("wgegwgewge");
       toast('Please upload any image!', { type: 'error' });
       return;
     }
 
     const base64String = imageSrc?.split(',')[1];
-
+    
     const response = await fetch('/api/process-api', {
       method: 'POST',
       headers: {
@@ -180,7 +121,7 @@ const Hero = () => {
 
             <div className='bg-[#FFF] text-[#000] w-[auto]  rounded-[20px] grid grid-cols-1 lg:grid-cols-2 gap-8 p-5 lg:p-8 relative'>
               {isLoading && (
-                <div className="absolute top-0 left-0 right-0 bottom-0 align-middle justify-items-center flex">
+                <div className='absolute top-0 left-0 right-0 bottom-0 align-middle justify-items-center flex'>
                   <Spinner />
                 </div>
               )}
@@ -196,7 +137,7 @@ const Hero = () => {
                   className='w-auto h-[284px] bg-zinc-300 bg-opacity-0 rounded-[20px] border-2 border-emerald-600 border-dashed flex   place-items-center items-center justify-center text-center text-emerald-600 font-bold overflow-hidden'
                 >
                   <input {...getInputProps()} />
-                  {imageSrc && <img src={imageSrc} alt="Uploaded" />}
+                  {imageSrc && <img src={imageSrc} alt='Uploaded' />}
                   {!imageSrc && (isDragActive ? (
                     <p>Drop the files here ...</p>
                   ) : (
