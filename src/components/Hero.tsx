@@ -33,9 +33,7 @@ const Hero = () => {
 
   const [imageSrc, setImageSrc] = useState<string | null | undefined>('');
 
-  useEffect(() => {
-
-  }, [thirdAnswerOptions]);
+  useEffect(() => {}, [thirdAnswerOptions]);
 
   const router = useRouter();
 
@@ -55,7 +53,6 @@ const Hero = () => {
       return;
     }
     if (imageSrc == null || imageSrc == undefined || imageSrc == '') {
-      console.log("wgegwgewge");
       toast('Please upload any image!', { type: 'error' });
       return;
     }
@@ -93,24 +90,30 @@ const Hero = () => {
     }
   };
 
-
   return (
     <section className='text-gray-600 body-font   '>
       <div className='container px-5 py-4  mx-auto  grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3  gap-14 content-center'>
         <div className=' md:ml-auto  md:py-2 mt-0 lg:mt-20 md:mt-[100px]  flex items-center justify-center'>
-          <div className='w-[177px] h-[365px] lg:w-[339px] lg:h-[734px]  border-solid border-8 border-[#000] ring-inset shadow relative'>
-            <Image src='/img/phone.png' alt='phone' layout='fill' />
-          </div>
+          <img
+            src='/img/phone.png'
+            alt='phone'
+            className='w-[177px] h-[365px] lg:w-[339px] lg:h-[734px]  border-solid border-8 border-[#000] ring-inset shadow '
+          />
         </div>
         <div className='text-[#FFF]  rounded-lg overflow-hidden sm:mr-10 lg:p-10 flex items-end justify-start  col-span-0 lg:col-span-2'>
           <div className=''>
             <div className='flex'>
-              <div className=' w-[140px] h-[73px] md:w-[170px] md:h-[73px] relative'>
-                <Image src='/img/productOne.png' alt='phone' layout='fill' />
-              </div>
-              <div className=' w-[140px] h-[73px] md:w-[170px] md:h-[73px] relative'>
-                <Image src='/img/productOne.png' alt='phone' layout='fill' />
-              </div>
+              <img
+                src='/img/productOne.png'
+                alt='phone'
+                className=' w-[140px] h-[73px] md:w-[170px] md:h-[73px] '
+              />
+
+              <img
+                src='/img/productOne.png'
+                alt='phone'
+                className=' w-[140px] h-[73px] md:w-[170px] md:h-[73px] '
+              />
             </div>
             <h1 className='text-white text-lg hero-title lg:w-2/3 md:w-1'>
               Instant Dashboard Feedback
@@ -162,7 +165,11 @@ const Hero = () => {
                   id='countries'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
                 >
-                  {secondAnswerOptions.map((answer, index) => <option key={`secondAnswer-${index}`} value={index}>{answer}</option>)}
+                  {secondAnswerOptions.map((answer, index) => (
+                    <option key={`secondAnswer-${index}`} value={index}>
+                      {answer}
+                    </option>
+                  ))}
                 </select>
                 <label
                   htmlFor='countries'
@@ -187,7 +194,11 @@ const Hero = () => {
                   id='countries'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
                 >
-                  {thirdAnswerOptions.map((answer, index) => <option key={`thirdAnswer-${index}`} value={index}>{answer}</option>)}
+                  {thirdAnswerOptions.map((answer, index) => (
+                    <option key={`thirdAnswer-${index}`} value={index}>
+                      {answer}
+                    </option>
+                  ))}
                 </select>
                 <label
                   htmlFor='countries'
@@ -203,7 +214,10 @@ const Hero = () => {
                   onChange={onEmailChanged}
                 />
 
-                <button className='w-[190px] h-10 bg-emerald-600 rounded-[10px] text-white text-lg font-bold ' onClick={onSubmitBtnClicked}>
+                <button
+                  className='w-[190px] h-10 bg-emerald-600 rounded-[10px] text-white text-lg font-bold '
+                  onClick={onSubmitBtnClicked}
+                >
                   Analyze Now
                 </button>
               </div>

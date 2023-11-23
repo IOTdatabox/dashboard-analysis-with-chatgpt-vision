@@ -14,15 +14,11 @@ const Describe = () => {
           </p>
         </div>
         <div>
-          <div className='h-[228px] lg:h-[355px] w-[276px]  lg:w-[580px] relative'>
-            <Image
-              src='/img/2.jpeg'
-              alt='vision'
-              className={`rounded-[50px]`}
-              layout='fill' // required
-              objectFit='cover' // change to suit your needs
-            />
-          </div>
+          <img
+            src='/img/2.jpeg'
+            alt='vision'
+            className={`h-[228px] lg:h-[355px] w-[276px]  lg:w-[580px] rounded-[50px]`}
+          />
         </div>
       </div>
     </section>
