@@ -33,7 +33,7 @@ const Hero = () => {
 
   const [imageSrc, setImageSrc] = useState<string | null | undefined>('');
 
-  useEffect(() => {}, [thirdAnswerOptions]);
+  useEffect(() => { }, [thirdAnswerOptions]);
 
   const router = useRouter();
 
@@ -47,7 +47,7 @@ const Hero = () => {
   };
 
   const onSubmitBtnClicked = async () => {
-    
+
     if (!isValidEmail(email)) {
       toast('Input the correct email address!', { type: 'error' });
       return;
@@ -56,9 +56,9 @@ const Hero = () => {
       toast('Please upload any image!', { type: 'error' });
       return;
     }
-
+    setIsLoading(true)
     const base64String = imageSrc?.split(',')[1];
-    
+
     const response = await fetch('/api/process-api', {
       method: 'POST',
       headers: {
@@ -161,7 +161,7 @@ const Hero = () => {
                 >
                   Who is the audience?
                 </label>
-                <select
+                {/* <select
                   id='countries'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
                 >
@@ -170,7 +170,29 @@ const Hero = () => {
                       {answer}
                     </option>
                   ))}
-                </select>
+                </select> */}
+
+
+                {thirdAnswerOptions.length > 0 ? (
+                  <select
+                    id="countries"
+                    className="bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg block p-2.5 mb-2 focus:outline-none focus:ring-0 focus:border-gray-500"
+                  >
+                    {thirdAnswerOptions.map((answer, index) => (
+                      <option key={`thirdAnswer-${index}`} value={index}>
+                        {answer}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <div
+                    className="bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg block p-2.5 mb-2"
+                  >
+                    The analyzed results will appear.
+                  </div>
+                )}
+
+
                 <label
                   htmlFor='countries'
                   className='block mb-2 text-sm font-bold text-black dark:text-white'
@@ -180,7 +202,7 @@ const Hero = () => {
                 <textarea
                   id='countries'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
-                  placeholder='Describe your outcome'
+                  placeholder='The analyzed results will appear.'
                   value={firstAnswer}
                   readOnly
                 ></textarea>
@@ -190,7 +212,9 @@ const Hero = () => {
                 >
                   Type of Data
                 </label>
-                <select
+
+
+                {/* <select
                   id='countries'
                   className='bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2'
                 >
@@ -199,7 +223,29 @@ const Hero = () => {
                       {answer}
                     </option>
                   ))}
-                </select>
+                </select> */}
+
+
+                {secondAnswerOptions.length > 0 ? (
+                  <select
+                    id="countries"
+                    className="bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg block p-2.5 mb-2 focus:outline-none focus:ring-0 focus:border-gray-500"
+                  >
+                    {secondAnswerOptions.map((answer, index) => (
+                      <option key={`secondAnswer-${index}`} value={index}>
+                        {answer}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <div
+                    className="bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg block p-2.5 mb-2"
+                  >
+                    The analyzed results will appear.
+                  </div>
+                )}
+
+
                 <label
                   htmlFor='countries'
                   className='block mb-2 text-sm font-bold text-black dark:text-white'
