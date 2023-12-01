@@ -3,7 +3,6 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
-import Spinner from "./Spinner";
 
 const Hero2 = () => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -188,6 +187,8 @@ const Hero2 = () => {
               <input
                 id="email"
                 type="email"
+                value={email}
+                onChange={onEmailChanged}
                 className="bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2"
                 placeholder="email@hotmail.com"
               />
@@ -209,21 +210,32 @@ const Hero2 = () => {
                     ))}
                 </div>
                 <div className="w-[75.06px] h-[78px] relative">
-                  <div className="w-[75.06px] h-[78px] lg:left-[285px] md:left-[340px] left-[140px] top-[-38px] absolute bg-[#414557] rounded-full border-4 border-white">
+                  {/* <div className="w-[75.06px] h-[78px] lg:left-[285px] md:left-[340px] left-[140px] top-[-38px] absolute bg-[#414557] rounded-full border-4 border-white">
                     <p className="text-center text-white text-[32px] font-bold mt-2">
                       OR
                     </p>
-                  </div>
+                  </div> */}
                 </div>
 
-                <div {...getRootProps()} className="">
-                  <input {...getInputProps()} />
-
-                  <button className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold ">
-                    UPLOAD FILE HERE
+                <div>
+                <button onClick={() => {
+                  onSubmitBtnClicked() 
+                  router.push('/thankyou')
+                  }} className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold ">
+                    ANALYZE NOW
                   </button>
                 </div>
-              </div>
+
+                {/* <div {...getRootProps()} className="">
+                  <input {...getInputProps()} />
+
+                  <button className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold mb-10">
+                    UPLOAD FILE HERE
+                  </button>
+                  
+                </div> */}
+                  
+                </div>
             </div>
           </div>
         </div>

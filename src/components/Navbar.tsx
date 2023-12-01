@@ -44,7 +44,7 @@ const Navbar = () => {
                   <div>
                     <div className="ml-4 flex items-center md:ml-6 mt-3">
                       <Link
-                        href="/"
+                        href="/login"
                         className="bg-gray-500 text-white rounded-md px-4 py-2 text-sm font-medium"
                       >
                         Login
