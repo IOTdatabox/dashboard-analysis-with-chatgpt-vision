@@ -1,23 +1,22 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { supabase } from '../client';
 import Link from 'next/link';
 
 const SignUpPage = () => {
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-  })
+  });
 
   const handleChange = (event: any) => {
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
-        [event.target.name] : event.target.value
-      }
-    })
-  }
+        [event.target.name]: event.target.value,
+      };
+    });
+  };
 
   const handleSubmit = async () => {
     try {
@@ -30,13 +29,12 @@ const SignUpPage = () => {
           },
         },
       });
-      if (error) throw error
-      alert('Check your email for verification link')
-      console.log(data);
-    } catch(error) {
-      alert(error)
+      if (error) throw error;
+      alert('Check your email for verification link');
+    } catch (error) {
+      alert(error);
     }
-  }
+  };
 
   return (
     <div className="max-w-screen-md mx-auto mt-40">
@@ -54,7 +52,7 @@ const SignUpPage = () => {
             </label>
             <input
               id="name"
-              name='name'
+              name="name"
               type="text"
               onChange={handleChange}
               className="bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2"
@@ -68,7 +66,7 @@ const SignUpPage = () => {
             </label>
             <input
               id="email"
-              name='email'
+              name="email"
               type="email"
               onChange={handleChange}
               className="bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2"
@@ -82,19 +80,22 @@ const SignUpPage = () => {
             </label>
             <input
               id="password"
-              name='password'
+              name="password"
               type="password"
               onChange={handleChange}
               className="bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-4"
               placeholder="*******"
             />
 
-            <div className=' flex justify-between'>
-            <button onClick={() => handleSubmit()} className="w-[150px] h-10 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold ">
-              SIGN UP
-            </button>
+            <div className=" flex justify-between">
+              <button
+                onClick={() => handleSubmit()}
+                className="w-[150px] h-10 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold "
+              >
+                SIGN UP
+              </button>
 
-            <Link href='/login'>Sign In</Link>
+              <Link href="/login">Sign In</Link>
             </div>
           </div>
         </div>

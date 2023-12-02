@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const HomePage = () => {
+  const router = useRouter();
+
   const [token, setToken] = useState({
     user: {
       user_metadata: {
@@ -18,6 +21,11 @@ const HomePage = () => {
     }
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    router.push('/login');
+  };
+
   return (
     <section>
       <div className="flex flex-col justify-center mt-32">
@@ -25,13 +33,15 @@ const HomePage = () => {
           Welcome Back, {token.user.user_metadata.name}
         </h1>
 
-        <div className='flex justify-center mt-10'>
-        <button className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold ">
-          LOGOUT
-        </button>
+        <div className="flex justify-center mt-10">
+          <button
+            onClick={() => handleLogout()}
+            className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold "
+          >
+            LOGOUT
+          </button>
+        </div>
       </div>
-      </div>
-
     </section>
   );
 };

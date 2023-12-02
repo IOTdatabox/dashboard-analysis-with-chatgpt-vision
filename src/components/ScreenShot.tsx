@@ -9,7 +9,7 @@ const ScreenShot = ({ title, img, desc }: any) => {
           <img
             src={`/img/${img}`}
             alt='vision'
-            className={`h-[228px] lg:h-[355px] w-[276px] lg:w-[580px] rounded-[50px] rounded-[50px] object-cover`}
+            className={`h-[228px] lg:h-[355px] w-[276px] lg:w-[580px] rounded-[50px] object-cover`}
           />
         </div>
         <div className='mt-10 lg:mt-0'>

@@ -8,15 +8,17 @@ import Faqs from "@/components/Faqs";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Hero2 from "@/components/Hero2";
+import LoginPage from "@/components/LoginPage";
 
 export default function Home() {
   return (
     <>
       <ToastContainer />
-      <Navbar />
-      <Hero2 />
+      <LoginPage />
+      {/* <Navbar /> */}
+      {/* <Hero2 /> */}
       {/* <Hero /> */}
-      <Teams />
+      {/* <Teams /> */}
       {/* <ScreenShot
         title="Screenshot"
         img="1.jpeg"

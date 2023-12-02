@@ -1,8 +1,8 @@
-import Image from "next/legacy/image";
-import React, { useState, useCallback, useEffect } from "react";
-import { useRouter } from "next/router";
-import { useDropzone } from "react-dropzone";
-import { toast } from "react-toastify";
+import Image from 'next/legacy/image';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useDropzone } from 'react-dropzone';
+import { toast } from 'react-toastify';
 
 const Hero2 = () => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -10,28 +10,28 @@ const Hero2 = () => {
     console.log(acceptedFiles);
 
     const file = acceptedFiles[0];
-    if (file && file.type.match("image.*")) {
+    if (file && file.type.match('image.*')) {
       const reader = new FileReader();
       reader.onload = (e) => {
         setImageSrc(e.target?.result?.toString());
       };
       reader.readAsDataURL(file);
     } else {
-      setImageSrc("");
+      setImageSrc('');
     }
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
   });
 
-  const [email, setEmail] = useState<string>("");
+  const [email, setEmail] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const [firstAnswer, setFirstAnswer] = useState("");
+  const [firstAnswer, setFirstAnswer] = useState('');
   const [secondAnswerOptions, setSecondAnswerOptions] = useState<string[]>([]);
   const [thirdAnswerOptions, setThirdAnswerOptions] = useState<string[]>([]);
 
-  const [imageSrc, setImageSrc] = useState<string | null | undefined>("");
+  const [imageSrc, setImageSrc] = useState<string | null | undefined>('');
 
   useEffect(() => {}, [thirdAnswerOptions]);
 
@@ -48,20 +48,20 @@ const Hero2 = () => {
 
   const onSubmitBtnClicked = async () => {
     if (!isValidEmail(email)) {
-      toast("Input the correct email address!", { type: "error" });
+      toast('Input the correct email address!', { type: 'error' });
       return;
     }
-    if (imageSrc == null || imageSrc == undefined || imageSrc == "") {
-      toast("Please upload any image!", { type: "error" });
+    if (imageSrc == null || imageSrc == undefined || imageSrc == '') {
+      toast('Please upload any image!', { type: 'error' });
       return;
     }
     setIsLoading(true);
-    const base64String = imageSrc?.split(",")[1];
+    const base64String = imageSrc?.split(',')[1];
 
-    const response = await fetch("/api/process-api", {
-      method: "POST",
+    const response = await fetch('/api/process-api', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ image: base64String, email: email }),
     });
@@ -72,19 +72,19 @@ const Hero2 = () => {
 
         console.log(data.data.firstAnswer);
 
-        setSecondAnswerOptions(data.data.secondAnswer.slice(1).split("*"));
-        setThirdAnswerOptions(data.data.thirdAnswer.slice(1).split("*"));
+        setSecondAnswerOptions(data.data.secondAnswer.slice(1).split('*'));
+        setThirdAnswerOptions(data.data.thirdAnswer.slice(1).split('*'));
         console.log(data);
-        toast("Email Sent Successfully!", { type: "success" });
+        toast('Email Sent Successfully!', { type: 'success' });
         setIsLoading(false);
       } else {
-        toast("Internal Server Error!", { type: "error" });
-        console.error("Failed to fetch API");
+        toast('Internal Server Error!', { type: 'error' });
+        console.error('Failed to fetch API');
         setIsLoading(false); // Stop loading in case of error
       }
     } catch (error) {
-      toast("Internal Server Error!", { type: "error" });
-      console.error("Error:", error);
+      toast('Internal Server Error!', { type: 'error' });
+      console.error('Error:', error);
       setIsLoading(false); // Stop loading in case of error
     }
   };
@@ -218,10 +218,13 @@ const Hero2 = () => {
                 </div>
 
                 <div>
-                <button onClick={() => {
-                  onSubmitBtnClicked() 
-                  router.push('/thankyou')
-                  }} className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold ">
+                  <button
+                    onClick={() => {
+                      onSubmitBtnClicked();
+                      router.push('/thankyou');
+                    }}
+                    className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold "
+                  >
                     ANALYZE NOW
                   </button>
                 </div>
@@ -234,8 +237,7 @@ const Hero2 = () => {
                   </button>
                   
                 </div> */}
-                  
-                </div>
+              </div>
             </div>
           </div>
         </div>
