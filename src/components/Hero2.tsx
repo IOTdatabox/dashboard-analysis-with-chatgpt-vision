@@ -32,8 +32,17 @@ const Hero2 = () => {
   const [thirdAnswerOptions, setThirdAnswerOptions] = useState<string[]>([]);
 
   const [imageSrc, setImageSrc] = useState<string | null | undefined>('');
+  const [token, setToken] = useState({ user: { id: '' } });
 
   useEffect(() => {}, [thirdAnswerOptions]);
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      const data = localStorage.getItem('token');
+      const parsedData = JSON.parse(data || '');
+      setToken(parsedData);
+    }
+  }, []);
 
   const router = useRouter();
 
@@ -58,12 +67,14 @@ const Hero2 = () => {
     setIsLoading(true);
     const base64String = imageSrc?.split(',')[1];
 
+    const userId = token.user.id;
+
     const response = await fetch('/api/process-api', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ image: base64String, email: email }),
+      body: JSON.stringify({ image: base64String, email: email, userId: userId }),
     });
     try {
       if (response.ok) {

@@ -1,12 +1,12 @@
 import Navbar from '@/components/Navbar';
-import ReportCard from '@/components/ReportCard';
+import Results from '@/components/Results';
 import React from 'react';
 
 const index = () => {
   return (
     <div>
       <Navbar />
-      <ReportCard />
+      <Results />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import PDFDocument, { image } from 'pdfkit';
 import sgMail from '@sendgrid/mail';
+import { supabase } from '@/client';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY ?? '');
 
 const parseSection = (content: string, sectionName: string) => {
@@ -11,50 +12,103 @@ const parseSection = (content: string, sectionName: string) => {
   return match ? match[1].trim() : '';
 };
 
-const generatePDF = (
-  imageBase64: any,
-  fourthResponse: string,
-  fifthResponse: string
-) => {
-  return new Promise((resolve, reject) => {
-    const doc = new PDFDocument();
-    let buffers: any[] = [];
-    doc.on('data', buffers.push.bind(buffers));
-    doc.on('end', () => {
-      const pdfData = Buffer.concat(buffers);
-      const base64String = pdfData.toString('base64');
-      resolve(base64String);
-    });
-    doc.on('error', () => {
-      reject('error');
-    });
+const generateLink = async (token: String) => {
+  const { data, error } = await supabase
+    .from('results')
+    .select()
+    .eq('token', token);
 
-    doc.fontSize(25).text('How to Improve Your Dashboard', { align: 'center' });
-    doc.moveDown();
-    doc.fontSize(13).text('The dashboard', { align: 'center' });
-    doc.moveDown();
-    if (imageBase64) {
-      const imageBuffer = Buffer.from(imageBase64, 'base64');
-      doc.image(imageBuffer, {
-        fit: [500, 300], // Adjust the size as needed
-        align: 'center',
-        valign: 'center',
-      });
-    }
+  if (error) {
+    console.error(error);
+  }
 
-    doc.moveDown();
-    doc.fontSize(13).text('Quick Improvements', { align: 'center' });
-    doc.moveDown();
-    doc.fontSize(12).text(fourthResponse, { align: 'left' });
-    doc.moveDown();
-    doc.fontSize(13).text('In Depth Explanations', { align: 'center' });
-    doc.moveDown();
-    doc.fontSize(12).text(fifthResponse, { align: 'left' });
-    doc.end();
-  });
+  const generatedLink = `${process.env.NEXT_PUBLIC_URL}results?token=${data?.[0]?.token}`;
+  console.log(data);
+  console.log(generatedLink, 'generatedLink');
+  return generatedLink;
 };
 
-const sendEmailWithPDF = async (toEmail: string, pdfBase64: any) => {
+// const generatePDF = (
+//   imageBase64: any,
+//   fourthResponse: string,
+//   fifthResponse: string
+// ) => {
+//   return new Promise((resolve, reject) => {
+//     const doc = new PDFDocument();
+//     let buffers: any[] = [];
+//     doc.on('data', buffers.push.bind(buffers));
+//     doc.on('end', () => {
+//       const pdfData = Buffer.concat(buffers);
+//       const base64String = pdfData.toString('base64');
+//       resolve(base64String);
+//     });
+//     doc.on('error', () => {
+//       reject('error');
+//     });
+
+//     doc.fontSize(25).text('How to Improve Your Dashboard', { align: 'center' });
+//     doc.moveDown();
+//     doc.fontSize(13).text('The dashboard', { align: 'center' });
+//     doc.moveDown();
+//     if (imageBase64) {
+//       const imageBuffer = Buffer.from(imageBase64, 'base64');
+//       doc.image(imageBuffer, {
+//         fit: [500, 300], // Adjust the size as needed
+//         align: 'center',
+//         valign: 'center',
+//       });
+//     }
+
+//     doc.moveDown();
+//     doc.fontSize(13).text('Quick Improvements', { align: 'center' });
+//     doc.moveDown();
+//     doc.fontSize(12).text(fourthResponse, { align: 'left' });
+//     doc.moveDown();
+//     doc.fontSize(13).text('In Depth Explanations', { align: 'center' });
+//     doc.moveDown();
+//     doc.fontSize(12).text(fifthResponse, { align: 'left' });
+//     doc.end();
+//   });
+// };
+
+// const sendEmailWithPDF = async (toEmail: string, pdfBase64: any) => {
+//   const msg = {
+//     to: toEmail, // Recipient email address
+//     from: {
+//       email: 'whaydigital@gmail.com',
+//       name: 'Vision Labs Insights',
+//     }, // Your verified sender address
+//     subject: 'Here are some insights to improve your dashboard.',
+//     templateId: 'd-c4a496ad89d84b9c8b70777d75cdd373',
+//     dynamicTemplateData: {
+//       subject: `Here are some insights to improve your dashboard.`,
+//       username: `Client`,
+//     },
+//     isMultiple: false,
+//     attachments: [
+//       {
+//         content: pdfBase64,
+//         filename: 'dashboard_improvements.pdf',
+//         type: 'application/pdf',
+//         disposition: 'attachment',
+//         contentId: 'pdfDocument',
+//       },
+//     ],
+//   };
+
+//   // console.log(msg)
+
+//   try {
+//     await sgMail.send(msg);
+//     console.log('❤❤❤');
+//     return { success: true, message: 'Email sent successfully' };
+//   } catch (error) {
+//     console.error(error);
+//     return { success: false, error: 'Unknown error occurred' };
+//     // }
+//   }
+// };
+const sendEmailWithLink = async (toEmail: string, link: any) => {
   const msg = {
     to: toEmail, // Recipient email address
     from: {
@@ -66,17 +120,10 @@ const sendEmailWithPDF = async (toEmail: string, pdfBase64: any) => {
     dynamicTemplateData: {
       subject: `Here are some insights to improve your dashboard.`,
       username: `Client`,
+      result_page_link: link,
     },
+    
     isMultiple: false,
-    attachments: [
-      {
-        content: pdfBase64,
-        filename: 'dashboard_improvements.pdf',
-        type: 'application/pdf',
-        disposition: 'attachment',
-        contentId: 'pdfDocument',
-      },
-    ],
   };
 
   // console.log(msg)
@@ -92,6 +139,20 @@ const sendEmailWithPDF = async (toEmail: string, pdfBase64: any) => {
   }
 };
 
+function generateRandomToken() {
+  const characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const tokenLength = 32;
+  let token = '';
+
+  for (let i = 0; i < tokenLength; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    token += characters.charAt(randomIndex);
+  }
+
+  return token;
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -105,6 +166,7 @@ export default async function handler(
     console.log('❤❤❤❤');
     const imageBase64 = req.body.image; // Assuming image is sent in base64 format
     const toEmail = req.body.email;
+    const userId = req.body.userId;
     if (!imageBase64) {
       console.error('No image data found in the request body');
       return res.status(400).json({ message: 'No image data provided' });
@@ -123,28 +185,45 @@ export default async function handler(
               text: `Attached is a Data Dashboard. Please reply in the following format:
                             1. Purpose: [provide 3 positives & 7 areas improvement of the dashboard.]
                             2. Positives: [Title: Good Feedback]
-                            - [Title: Positive Aspect 1]
+                            - Title: [Positive Aspect 1]
                               Positive Point 1 Description
-                            - [Title: Positive Aspect 2]
+                            - Title: [Positive Aspect 2]
                               Positive Point 2 Description
-                            - [Title: Positive Aspect 3]
+                            - Title: [Positive Aspect 3]
                               Positive Point 3 Description
                             3. Improvements: [Title: Areas for Improvement]
-                            - [Title: Improvement Aspect 1]
+                            - Title: [Improvement Aspect 1]
                               Improvement Point 1 Description
-                            - [Title: Improvement Aspect 2]
+                              Possible Solution: [Your possible solution for Improvement Aspect 1]
+                            - Title: [Improvement Aspect 2]
                               Improvement Point 1 Description
-                            - [Title: Improvement Aspect 3]
+                              Possible Solution: [Your possible solution for Improvement Aspect 2]
+                            - Title: [Improvement Aspect 3]
                               Improvement Point 1 Description
-                            - [Title: Improvement Aspect 4]
+                              Possible Solution: [Your possible solution for Improvement Aspect 3]
+                            - Title: [Improvement Aspect 4]
                               Improvement Point 1 Description
-                            - [Title: Improvement Aspect 5]
+                              Possible Solution: [Your possible solution for Improvement Aspect 4]
+                            - Title: [Improvement Aspect 5]
                               Improvement Point 1 Description
-                            - [Title: Improvement Aspect 6]
+                              Possible Solution: [Your possible solution for Improvement Aspect 5]
+                            - Title: [Improvement Aspect 6]
                               Improvement Point 1 Description
-                            - [Title: Improvement Aspect 7]
+                              Possible Solution: [Your possible solution for Improvement Aspect 6]
+                            - Title: [Improvement Aspect 7]
                               Improvement Point 1 Description
-                            4. Quick Improvements: [List at least four quick improvements, each starting with a dash (-).]
+                              Possible Solution: [Your possible solution for Improvement Aspect 7]
+                            4. Rating: [provide appropriate score for readability, color usage, chart selection, understandability, accessibility out of 10]
+                            - Readability: [provide appropriate score for readability out of 10]
+                              Readability Description
+                            - Color Usage: [provide appropriate score for color-usage out of 10]
+                              Color Usage Description
+                            - Chart Selection: [provide appropriate score for chart selection out of 10]
+                              Chart Selection Description
+                            - Understandability: [provide appropriate score for understandability out of 10]
+                              Understandability Description
+                            - Accessibility: [provide appropriate score for accessibility out of 10]
+                              Accessibility Description
                             5. Detailed Improvements: [List at least four detailed improvements, each starting with a dash (-).]
                             Do not include anything on Mobile responsiveness.
                             `,
@@ -181,10 +260,8 @@ export default async function handler(
       const firstAnswer = parseSection(content, '1. Purpose');
       const secondAnswer = parseSection(content, '2. Positives');
       const thirdAnswer = parseSection(content, '3. Improvements');
-      const fourthAnswer = parseSection(content, '4. Quick Improvements');
+      const fourthAnswer = parseSection(content, '4. Rating');
       const fifthAnswer = parseSection(content, '5. Detailed Improvements');
-
-      console.log(firstAnswer);
 
       let dataTypeString = secondAnswer.split('*');
       let jobTypeString = thirdAnswer.split('*');
@@ -194,23 +271,55 @@ export default async function handler(
         secondAnswer: dataTypeString,
         thirdAnswer: jobTypeString, // Assuming you want to include the split string of thirdAnswer
         fourthAnswer: fourthAnswer,
-        fifthAnswer: fifthAnswer,
       };
 
-      console.log(apiResponse);
+      const { data, error } = await supabase
+        .from('results')
+        .upsert([
+          {
+            user_id: userId,
+            image: imageBase64,
+            positives: apiResponse.secondAnswer,
+            improvements: apiResponse.thirdAnswer,
+            rating: apiResponse.fourthAnswer,
+            token: generateRandomToken(),
+          },
+        ])
+        .select();
 
-      // const response = await generatePDF(imageBase64, fourthAnswer, fifthAnswer);
-      // if (response == "error") {
-      //     return res.status(500).json({ message: 'Internal Server Error' });
+      if (error) {
+        console.error('Supabase Error:', error.message);
+        return res
+          .status(500)
+          .json({ message: 'Internal Server Error', error });
+      }
+
+      const token = data.map((d) => d.token).toString();
+
+      const link = await generateLink(token);
+
+      console.log(link, 'Line no 300');
+
+      // const response = await generatePDF(
+      //   imageBase64,
+      //   fourthAnswer,
+      //   fifthAnswer
+      // );
+      // if (response == 'error') {
+      //   return res.status(500).json({ message: 'Internal Server Error' });
       // }
       // const emailResponse = await sendEmailWithPDF(toEmail, response);
-      // if (emailResponse.success) {
-      //     res.status(200).json({ message: emailResponse.message, data: { firstAnswer, secondAnswer, thirdAnswer } });
-      //     console.log('Email sent successfully');
-      // } else {
-      //     res.status(500).json({ error: emailResponse.error });
-      //     console.log('Unknown error occurred');
-      // }
+      const emailResponse = await sendEmailWithLink(toEmail, link);
+      if (emailResponse.success) {
+        res.status(200).json({
+          message: emailResponse.message,
+          data: { firstAnswer, secondAnswer, thirdAnswer },
+        });
+        console.log('Email sent successfully');
+      } else {
+        res.status(500).json({ error: emailResponse.error });
+        console.log('Unknown error occurred');
+      }
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
