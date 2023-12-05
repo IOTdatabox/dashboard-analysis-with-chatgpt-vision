@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import PDFDocument, { image } from 'pdfkit';
+import fs from 'fs';
 import sgMail from '@sendgrid/mail';
 import { supabase } from '@/client';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY ?? '');
@@ -122,7 +123,7 @@ const sendEmailWithLink = async (toEmail: string, link: any) => {
       username: `Client`,
       result_page_link: link,
     },
-    
+
     isMultiple: false,
   };
 
@@ -184,48 +185,55 @@ export default async function handler(
               type: 'text',
               text: `Attached is a Data Dashboard. Please reply in the following format:
                             1. Purpose: [provide 3 positives & 7 areas improvement of the dashboard.]
-                            2. Positives: [Title: Good Feedback]
-                            - Title: [Positive Aspect 1]
-                              Positive Point 1 Description
-                            - Title: [Positive Aspect 2]
-                              Positive Point 2 Description
-                            - Title: [Positive Aspect 3]
-                              Positive Point 3 Description
-                            3. Improvements: [Title: Areas for Improvement]
-                            - Title: [Improvement Aspect 1]
-                              Improvement Point 1 Description
-                              Possible Solution: [Your possible solution for Improvement Aspect 1]
-                            - Title: [Improvement Aspect 2]
-                              Improvement Point 1 Description
-                              Possible Solution: [Your possible solution for Improvement Aspect 2]
-                            - Title: [Improvement Aspect 3]
-                              Improvement Point 1 Description
-                              Possible Solution: [Your possible solution for Improvement Aspect 3]
-                            - Title: [Improvement Aspect 4]
-                              Improvement Point 1 Description
-                              Possible Solution: [Your possible solution for Improvement Aspect 4]
-                            - Title: [Improvement Aspect 5]
-                              Improvement Point 1 Description
-                              Possible Solution: [Your possible solution for Improvement Aspect 5]
-                            - Title: [Improvement Aspect 6]
-                              Improvement Point 1 Description
-                              Possible Solution: [Your possible solution for Improvement Aspect 6]
-                            - Title: [Improvement Aspect 7]
-                              Improvement Point 1 Description
-                              Possible Solution: [Your possible solution for Improvement Aspect 7]
+                            2. Positives:
+                             "Title": [Positive Aspect 1]
+                             "description": [Positive Point 1 Description]
+                             "Title": [Positive Aspect 2]
+                             "description": [Positive Point 2 Description]
+                             "Title": [Positive Aspect 3]
+                             "description": [Positive Point 3 Description]
+                            3. Improvements:
+                             "Title": [Improvement Aspect 1]
+                            "description": [Improvement Point 1 Description]
+                              "Possible Solution": [Your possible solution for Improvement Aspect 1]
+                             "Title": [Improvement Aspect 2]
+                            "description": [Improvement Point 2 Description]
+                              "Possible Solution": [Your possible solution for Improvement Aspect 2]
+                             "Title": [Improvement Aspect 3]
+                            "description": [Improvement Point 3 Description]
+                              "Possible Solution": [Your possible solution for Improvement Aspect 3]
+                             "Title": [Improvement Aspect 4]
+                            "description": [Improvement Point 4 Description]
+                              "Possible Solution": [Your possible solution for Improvement Aspect 4]
+                             "Title": [Improvement Aspect 5]
+                            "description": [Improvement Point 5 Description]
+                              "Possible Solution": [Your possible solution for Improvement Aspect 5]
+                             "Title": [Improvement Aspect 6]
+                            "description": [Improvement Point 6 Description]
+                              "Possible Solution": [Your possible solution for Improvement Aspect 6]
+                             "Title": [Improvement Aspect 7]
+                            "description": [Improvement Point 7 Description]
+                              "Possible Solution": [Your possible solution for Improvement Aspect 7]
                             4. Rating: [provide appropriate score for readability, color usage, chart selection, understandability, accessibility out of 10]
-                            - Readability: [provide appropriate score for readability out of 10]
-                              Readability Description
-                            - Color Usage: [provide appropriate score for color-usage out of 10]
-                              Color Usage Description
-                            - Chart Selection: [provide appropriate score for chart selection out of 10]
-                              Chart Selection Description
-                            - Understandability: [provide appropriate score for understandability out of 10]
-                              Understandability Description
-                            - Accessibility: [provide appropriate score for accessibility out of 10]
-                              Accessibility Description
-                            5. Detailed Improvements: [List at least four detailed improvements, each starting with a dash (-).]
+                              "Title": [Readability] 
+                             "score": [provide appropriate score for readability out of 10]
+                              "description": [Readability Description]
+                              "Title": [Color Usage]
+                             "score": [provide appropriate score for color-usage out of 10]
+                             "description": [Color Usage Description]
+                             "Title": [Chart Selection]
+                             "score": [provide appropriate score for chart selection out of 10]
+                             "description": [Chart Selection Description]
+                             "Title": [Understandability]
+                             "score": [provide appropriate score for understandability out of 10]
+                             "description": [Understandability Description]
+                             "Title": [Accessibility]
+                             "score": [provide appropriate score for accessibility out of 10]
+                             "description": [Accessibility Description]
                             Do not include anything on Mobile responsiveness.
+                            also Improvements section format like this [{"title":"","Description":"","PossibleSolution":""},{"title":"","Description":"","PossibleSolution":""}].
+                            also Positives section format like this [{"title":"","Description":""},{"title":"","Description":""}].
+                            also Rating section format like this [{"title":"","score":"","Description":""},{"title":"","score":"","Description":""}]
                             `,
             },
             {
@@ -261,7 +269,6 @@ export default async function handler(
       const secondAnswer = parseSection(content, '2. Positives');
       const thirdAnswer = parseSection(content, '3. Improvements');
       const fourthAnswer = parseSection(content, '4. Rating');
-      const fifthAnswer = parseSection(content, '5. Detailed Improvements');
 
       let dataTypeString = secondAnswer.split('*');
       let jobTypeString = thirdAnswer.split('*');
@@ -272,6 +279,14 @@ export default async function handler(
         thirdAnswer: jobTypeString, // Assuming you want to include the split string of thirdAnswer
         fourthAnswer: fourthAnswer,
       };
+
+      // const image = imageBase64.split(';base64,').pop();
+      // const imageBuffer = Buffer.from(image, 'base64');
+
+      // const imageName = `image_${generateRandomToken()}.png`;
+      // const imagePath = `E:/Projects/dashboard-analysis-with-chatgpt-vision/public/img/${imageName}`;
+
+      // fs.writeFileSync(imagePath, imageBuffer, 'binary');
 
       const { data, error } = await supabase
         .from('results')
