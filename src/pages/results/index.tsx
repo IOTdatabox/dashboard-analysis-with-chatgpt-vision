@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 import Results from '@/components/Results';
 import React from 'react';
 
-const index = () => {
+const Index = () => {
   return (
     <div>
       <Navbar />
@@ -11,4 +11,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

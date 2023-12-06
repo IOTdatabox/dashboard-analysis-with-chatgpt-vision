@@ -1,7 +1,7 @@
 import SignUpPage from '@/components/SignUpPage';
 import React from 'react';
 
-const index = () => {
+const Index = () => {
   return (
     <div>
       <SignUpPage />
@@ -9,4 +9,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

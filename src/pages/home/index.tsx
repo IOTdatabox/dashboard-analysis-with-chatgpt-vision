@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar';
 import Teams from '@/components/Teams';
 import { useRouter } from 'next/navigation';
 
-const index = () => {
+const Index = () => {
   const { push } = useRouter();
 
   useEffect(() => {
@@ -26,4 +26,5 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
+

@@ -3,7 +3,7 @@ import ThankYou from "@/components/ThankYou";
 import { useRouter } from "next/navigation";
 import React, {useEffect} from "react";
 
-const index = () => {
+const Index = () => {
   const { push } = useRouter();
 
   useEffect(() => {
@@ -22,4 +22,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
