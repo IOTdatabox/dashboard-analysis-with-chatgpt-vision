@@ -1,15 +1,33 @@
-import { Fragment } from "react";
-import { Disclosure } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import Image from "next/legacy/image";
+import { Fragment, useEffect, useState } from 'react';
+import { Disclosure } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import Image from 'next/legacy/image';
+import { useRouter } from 'next/navigation';
 
 const navigation = [
-  { name: "Pricing", href: "#", current: true },
-  { name: "Sign Up", href: "#", current: false },
+  { name: 'Pricing', href: '#', current: true },
+  { name: 'Sign Up', href: '#', current: false },
 ];
 
 const Navbar = () => {
+  const router = useRouter();
+
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      const data = localStorage.getItem('token');
+      const parsedData = data || '';
+      setToken(parsedData);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    router.push('/');
+  };
+
   return (
     <Fragment>
       <div className="min-h-full">
@@ -24,6 +42,9 @@ const Navbar = () => {
                         src="/img/Logo-3-1024x272.png"
                         alt="Vision"
                         className="h-[51px]  w-[192px]"
+                        onClick={() =>
+                          token ? router.push('/home') : router.push('/')
+                        }
                       />
                     </div>
                     {/* <div className='hidden md:block'>
@@ -43,12 +64,21 @@ const Navbar = () => {
                   </div>
                   <div>
                     <div className="ml-4 flex items-center md:ml-6 mt-3">
-                      <Link
-                        href="/login"
-                        className="bg-gray-500 text-white rounded-md px-4 py-2 text-sm font-medium"
-                      >
-                        Login
-                      </Link>
+                      {token ? (
+                        <button
+                          onClick={() => handleLogout()}
+                          className="bg-gray-500 text-white rounded-md px-4 py-2 text-sm font-medium"
+                        >
+                          Logout
+                        </button>
+                      ) : (
+                        <Link
+                          href="/"
+                          className="bg-gray-500 text-white rounded-md px-4 py-2 text-sm font-medium"
+                        >
+                          Login
+                        </Link>
+                      )}
                     </div>
                   </div>
                   {/* <div className="-mr-2 flex md:hidden">
@@ -81,12 +111,12 @@ const Navbar = () => {
                       className={`
                         ${
                           item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                            ? 'bg-gray-900 text-white'
+                            : 'text-gray-300 hover:bg-gray-700 hover:text-white'
                         }
                         'block rounded-md px-3 py-2 text-base font-medium'
                       `}
-                      aria-current={item.current ? "page" : undefined}
+                      aria-current={item.current ? 'page' : undefined}
                     >
                       {item.name}
                     </Disclosure.Button>

@@ -1,6 +1,12 @@
-import React from "react";
+import { supabase } from '@/client';
+import { useRouter } from 'next/router';
 
 const ThankYou = () => {
+  const router = useRouter();
+
+  const email = router.query.email;
+  console.log(email);
+
   return (
     <section>
       <div className="flex justify-center  mt-32">
@@ -10,7 +16,7 @@ const ThankYou = () => {
       </div>
       <div className="flex justify-center  mt-36 md:mt-8">
         <p className="text-[#FAC3F8] text-center text-[32px] font-medium w-[100%] md:w-[60%]">
-          An email will be sent to email in the next few minutes with a link to
+          An email will be sent to {email} in the next few minutes with a link to
           your personalized Dashboard feedback 😎
         </p>
       </div>

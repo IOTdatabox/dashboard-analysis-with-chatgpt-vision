@@ -4,6 +4,7 @@ import { supabase } from '@/client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -22,8 +23,28 @@ const LoginPage = () => {
     });
   };
 
+  const isValidEmail = (email: string) => {
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return regex.test(email);
+  };
+
+  const email = isValidEmail(formData.email);
+
   const handleSubmit = async () => {
     try {
+      //email
+      if (formData.email.trim() === '') {
+        toast('Email cannot be empty!', { type: 'error' });
+        return;
+      } else if (!email) {
+        toast('Please enter valid email!', { type: 'error' });
+        return;
+      }
+      //password
+      if (formData.password.trim() === '') {
+        toast('Password cannot be empty!', { type: 'error' });
+        return;
+      }
       const { data, error } = await supabase.auth.signInWithPassword({
         email: formData.email,
         password: formData.password,

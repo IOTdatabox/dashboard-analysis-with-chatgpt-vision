@@ -292,6 +292,7 @@ export default async function handler(
         .from('results')
         .upsert([
           {
+            email: toEmail,
             user_id: userId,
             image: imageBase64,
             positives: apiResponse.secondAnswer,

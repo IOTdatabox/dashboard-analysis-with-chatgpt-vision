@@ -1,8 +1,19 @@
 import Navbar from "@/components/Navbar";
 import ThankYou from "@/components/ThankYou";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, {useEffect} from "react";
 
 const index = () => {
+  const { push } = useRouter();
+
+  useEffect(() => {
+    const loginCheck = localStorage.getItem('token');
+
+    if (!loginCheck) {
+      push('/');
+    }
+  }, []);
+
   return (
     <div>
       <Navbar />

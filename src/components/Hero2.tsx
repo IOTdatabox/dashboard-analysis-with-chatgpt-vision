@@ -3,6 +3,9 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+import Spinner from './spinner/Spinner';
+import { supabase } from '@/client';
 
 const Hero2 = () => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -33,6 +36,7 @@ const Hero2 = () => {
 
   const [imageSrc, setImageSrc] = useState<string | null | undefined>('');
   const [token, setToken] = useState({ user: { id: '' } });
+  const [createdAt, setCreatedAt] = useState('');
 
   useEffect(() => {}, [thirdAnswerOptions]);
 
@@ -40,6 +44,8 @@ const Hero2 = () => {
     if (localStorage.getItem('token')) {
       const data = localStorage.getItem('token');
       const parsedData = JSON.parse(data || '');
+      setCreatedAt(parsedData.user.created_at);
+
       setToken(parsedData);
     }
   }, []);
@@ -55,53 +61,169 @@ const Hero2 = () => {
     return regex.test(email);
   };
 
+  function isTimeDifference12Hours(
+    timeStr1: string | number | Date,
+    timeStr2: string | number | Date
+  ) {
+    // Convert input time strings to Date objects
+    const time1: any = new Date(timeStr1);
+    const time2: any = new Date(timeStr2);
+
+    // Calculate the difference in time in milliseconds
+    const timeDifference = Math.abs(time1 - time2);
+    console.log(timeDifference, 'timeDifference');
+
+    // Define the threshold for 12 hours in milliseconds
+    const twelveHours = 12 * 60 * 60 * 1000;
+    console.log(twelveHours, 'twelveHours');
+
+    // Check if the difference is exactly 12 hours
+    const result = timeDifference > twelveHours;
+
+    return result;
+  }
+
   const onSubmitBtnClicked = async () => {
-    if (!isValidEmail(email)) {
-      toast('Input the correct email address!', { type: 'error' });
-      return;
-    }
-    if (imageSrc == null || imageSrc == undefined || imageSrc == '') {
-      toast('Please upload any image!', { type: 'error' });
-      return;
-    }
-    setIsLoading(true);
-    const base64String = imageSrc?.split(',')[1];
+    const currTime = new Date().toUTCString();
 
-    const userId = token.user.id;
+    const result = isTimeDifference12Hours(createdAt, currTime);
+    console.log(result, 'result');
 
-    const response = await fetch('/api/process-api', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ image: base64String, email: email, userId: userId }),
-    });
-    try {
-      if (response.ok) {
-        const data = await response.json();
-        setFirstAnswer(data.data.firstAnswer);
-
-        console.log(data.data.firstAnswer);
-
-        setSecondAnswerOptions(data.data.secondAnswer.slice(1).split('*'));
-        setThirdAnswerOptions(data.data.thirdAnswer.slice(1).split('*'));
-        console.log(data);
+    if (result) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Trial over...',
+        text: 'To Continue, Please buy Subscription!',
+        // footer: '<a href="#">Why do I have this issue?</a>',
+      });
+    } else {
+      setTimeout(() => {
         toast('Email Sent Successfully!', { type: 'success' });
         setIsLoading(false);
-      } else {
+        router.push(`/thankyou?email=${email}`);
+      }, 4000);
+
+      const nameInput = document.getElementById('name') as HTMLInputElement;
+      const name = nameInput.value.trim();
+      if (
+        name === '' &&
+        !isValidEmail(email) &&
+        (imageSrc == null || imageSrc == undefined || imageSrc == '')
+      ) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Inputs!',
+          html: '<p>Name cannot be Empty!</p><p>Input the correct email address!</p><p>Please upload any image!</p>',
+        });
+        return;
+      }
+      if (
+        !isValidEmail(email) &&
+        (imageSrc == null || imageSrc == undefined || imageSrc == '')
+      ) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Inputs!',
+          html: '<p>Input the correct email address!</p><p>Please upload any image!</p>',
+        });
+        return;
+      }
+      if (
+        name === '' &&
+        (imageSrc == null || imageSrc == undefined || imageSrc == '')
+      ) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Inputs!',
+          html: '<p>Name cannot be Empty!</p><p>Please upload any image!</p>',
+        });
+        return;
+      }
+      if (name === '' && !isValidEmail(email)) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Inputs!',
+          html: '<p>Name cannot be Empty!</p><p>Input the correct email address!',
+        });
+        return;
+      }
+      // Name validation
+      if (name === '') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Name cannot be Empty!',
+          text: 'Please enter valid name!',
+        });
+        return;
+      }
+
+      //Email validation
+      if (!isValidEmail(email)) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Email!',
+          text: 'Input the correct email address!',
+        });
+        return;
+      }
+
+      //Image validation
+      if (imageSrc == null || imageSrc == undefined || imageSrc == '') {
+        Swal.fire({
+          icon: 'error',
+          title: 'No Image!',
+          text: 'Please upload any image!',
+        });
+        return;
+      }
+
+      setIsLoading(true);
+      const base64String = imageSrc?.split(',')[1];
+
+      const userId = token.user.id;
+
+      const response = await fetch('/api/process-api', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          image: base64String,
+          email: email,
+          userId: userId,
+        }),
+      });
+
+      try {
+        if (response.ok) {
+          const data = await response.json();
+          setFirstAnswer(data.data.firstAnswer);
+
+          console.log(data.data.firstAnswer);
+
+          setSecondAnswerOptions(data.data.secondAnswer.slice(1).split('*'));
+          setThirdAnswerOptions(data.data.thirdAnswer.slice(1).split('*'));
+          console.log(data);
+
+          // toast('Email Sent Successfully!', { type: 'success' });
+          setIsLoading(false);
+          // router.push(`/thankyou?email=${email}`);
+        } else {
+          toast('Internal Server Error!', { type: 'error' });
+          console.error('Failed to fetch API');
+          setIsLoading(false); // Stop loading in case of error
+        }
+      } catch (error) {
         toast('Internal Server Error!', { type: 'error' });
-        console.error('Failed to fetch API');
+        console.error('Error:', error);
         setIsLoading(false); // Stop loading in case of error
       }
-    } catch (error) {
-      toast('Internal Server Error!', { type: 'error' });
-      console.error('Error:', error);
-      setIsLoading(false); // Stop loading in case of error
     }
   };
 
   return (
     <section className="text-gray-600 body-font  bg-[#414557] ">
+      {isLoading && <Spinner />}
       <div className="container px-5 py-4  mx-auto  grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2  gap-14 content-center">
         <div className="text-[#FFF]  rounded-lg overflow-hidden  lg:p-10 flex items-center justify-center  ">
           <div className="w-[100%]">
@@ -222,17 +344,16 @@ const Hero2 = () => {
                 </div>
                 <div className="w-[75.06px] h-[78px] relative">
                   {/* <div className="w-[75.06px] h-[78px] lg:left-[285px] md:left-[340px] left-[140px] top-[-38px] absolute bg-[#414557] rounded-full border-4 border-white">
-                    <p className="text-center text-white text-[32px] font-bold mt-2">
-                      OR
-                    </p>
-                  </div> */}
+                          <p className="text-center text-white text-[32px] font-bold mt-2">
+                            OR
+                          </p>
+                        </div> */}
                 </div>
 
                 <div>
                   <button
                     onClick={() => {
                       onSubmitBtnClicked();
-                      router.push('/thankyou');
                     }}
                     className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold "
                   >
@@ -241,13 +362,13 @@ const Hero2 = () => {
                 </div>
 
                 {/* <div {...getRootProps()} className="">
-                  <input {...getInputProps()} />
-
-                  <button className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold mb-10">
-                    UPLOAD FILE HERE
-                  </button>
-                  
-                </div> */}
+                        <input {...getInputProps()} />
+      
+                        <button className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold mb-10">
+                          UPLOAD FILE HERE
+                        </button>
+                        
+                      </div> */}
               </div>
             </div>
           </div>

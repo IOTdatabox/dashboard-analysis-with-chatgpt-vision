@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '@/client';
 import { useRouter } from 'next/router';
+import Spinner from './spinner/Spinner';
 
 const Results = () => {
   const router = useRouter();
   const [data, setData] = useState<any>([{}]);
+  
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async (token: any) => {
+      setIsLoading(true)
       try {
         const { data, error } = await supabase
           .from('results')
@@ -18,9 +22,11 @@ const Results = () => {
           throw error;
         }
         setData(data);
-        // console.log(data);
+        console.log(data);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
+        setIsLoading(false)
       }
     };
 
@@ -56,12 +62,9 @@ const Results = () => {
   // Map the average to a scale out of 10
   const averageOutOf10 = (average / 10) * 10;
 
-  // Log the results
-  console.log(`Average: ${average}`);
-  console.log(`Average out of 10: ${Math.round(averageOutOf10)}`);
-
   return (
     <div className="container px-5 py-4  mx-auto">
+      {isLoading && <Spinner />}
       <div className="  grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2  gap-14 content-center">
         {/* image section */}
         <div>
@@ -77,6 +80,7 @@ const Results = () => {
                     : '/img/background.jpg'
                 }
                 alt="photo"
+                className='w-full h-full object-cover'
               />
             </div>
             <h3 className="h-15 text-white text-[32px] font-extrabold my-5">

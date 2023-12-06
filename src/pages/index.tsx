@@ -1,19 +1,17 @@
-import Image from "next/image";
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Teams from "@/components/Teams";
-import ScreenShot from "@/components/ScreenShot";
-import Describe from "@/components/Describe";
-import Faqs from "@/components/Faqs";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Hero2 from "@/components/Hero2";
-import LoginPage from "@/components/LoginPage";
+import Image from 'next/image';
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Hero';
+import Teams from '@/components/Teams';
+import ScreenShot from '@/components/ScreenShot';
+import Describe from '@/components/Describe';
+import Faqs from '@/components/Faqs';
+
+import Hero2 from '@/components/Hero2';
+import LoginPage from '@/components/LoginPage';
 
 export default function Home() {
   return (
     <>
-      <ToastContainer />
       <LoginPage />
       {/* <Navbar /> */}
       {/* <Hero2 /> */}
