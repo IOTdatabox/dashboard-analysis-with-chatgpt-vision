@@ -90,92 +90,98 @@ const Hero2 = () => {
     console.log(result, 'result');
 
     if (result) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Trial over...',
-        text: 'To Continue, Please buy Subscription!',
-        // footer: '<a href="#">Why do I have this issue?</a>',
+      // Swal.fire({
+      //   icon: 'error',
+      //   title: 'Trial over...',
+      //   text: 'To Continue, Please buy Subscription!',
+      //   // footer: '<a href="#">Why do I have this issue?</a>',
+      // });
+      toast('Your trial period is over. Please buy subscription to continue', {
+        type: 'error',
       });
     } else {
+      const nameInput = document.getElementById('name') as HTMLInputElement;
+      const name = nameInput.value.trim();
+      if (
+        name === '' ||
+        !isValidEmail(email) ||
+        imageSrc == null ||
+        imageSrc == undefined ||
+        imageSrc == ''
+      ) {
+        // Swal.fire({
+        //   icon: 'error',
+        //   title: 'Invalid Inputs!',
+        //   html: '<p>Name cannot be Empty!</p><p>Input the correct email address!</p><p>Please upload any image!</p>',
+        // });
+        toast('Please fill up all form data', { type: 'error' });
+        return;
+      }
+
       setTimeout(() => {
         toast('Email Sent Successfully!', { type: 'success' });
         setIsLoading(false);
         router.push(`/thankyou?email=${email}`);
       }, 4000);
+      // if (
+      //   !isValidEmail(email) &&
+      //   (imageSrc == null || imageSrc == undefined || imageSrc == '')
+      // ) {
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'Invalid Inputs!',
+      //     html: '<p>Input the correct email address!</p><p>Please upload any image!</p>',
+      //   });
+      //   return;
+      // }
+      // if (
+      //   name === '' &&
+      //   (imageSrc == null || imageSrc == undefined || imageSrc == '')
+      // ) {
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'Invalid Inputs!',
+      //     html: '<p>Name cannot be Empty!</p><p>Please upload any image!</p>',
+      //   });
+      //   return;
+      // }
+      // if (name === '' && !isValidEmail(email)) {
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'Invalid Inputs!',
+      //     html: '<p>Name cannot be Empty!</p><p>Input the correct email address!',
+      //   });
+      //   return;
+      // }
+      // // Name validation
+      // if (name === '') {
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'Name cannot be Empty!',
+      //     text: 'Please enter valid name!',
+      //   });
+      //   return;
+      // }
 
-      const nameInput = document.getElementById('name') as HTMLInputElement;
-      const name = nameInput.value.trim();
-      if (
-        name === '' &&
-        !isValidEmail(email) &&
-        (imageSrc == null || imageSrc == undefined || imageSrc == '')
-      ) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Invalid Inputs!',
-          html: '<p>Name cannot be Empty!</p><p>Input the correct email address!</p><p>Please upload any image!</p>',
-        });
-        return;
-      }
-      if (
-        !isValidEmail(email) &&
-        (imageSrc == null || imageSrc == undefined || imageSrc == '')
-      ) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Invalid Inputs!',
-          html: '<p>Input the correct email address!</p><p>Please upload any image!</p>',
-        });
-        return;
-      }
-      if (
-        name === '' &&
-        (imageSrc == null || imageSrc == undefined || imageSrc == '')
-      ) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Invalid Inputs!',
-          html: '<p>Name cannot be Empty!</p><p>Please upload any image!</p>',
-        });
-        return;
-      }
-      if (name === '' && !isValidEmail(email)) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Invalid Inputs!',
-          html: '<p>Name cannot be Empty!</p><p>Input the correct email address!',
-        });
-        return;
-      }
-      // Name validation
-      if (name === '') {
-        Swal.fire({
-          icon: 'error',
-          title: 'Name cannot be Empty!',
-          text: 'Please enter valid name!',
-        });
-        return;
-      }
+      // //Email validation
+      // if (!isValidEmail(email)) {
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'Invalid Email!',
+      //     text: 'Input the correct email address!',
+      //   });
+      //   return;
+      // }
 
-      //Email validation
-      if (!isValidEmail(email)) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Invalid Email!',
-          text: 'Input the correct email address!',
-        });
-        return;
-      }
-
-      //Image validation
-      if (imageSrc == null || imageSrc == undefined || imageSrc == '') {
-        Swal.fire({
-          icon: 'error',
-          title: 'No Image!',
-          text: 'Please upload any image!',
-        });
-        return;
-      }
+      // //Image validation
+      // if (imageSrc == null || imageSrc == undefined || imageSrc == '') {
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'No Image!',
+      //     text: 'Please upload any image!',
+      //   });
+      //   return;
+      // }
 
       setIsLoading(true);
       const base64String = imageSrc?.split(',')[1];
@@ -209,7 +215,7 @@ const Hero2 = () => {
           setIsLoading(false);
           // router.push(`/thankyou?email=${email}`);
         } else {
-          toast('Internal Server Error!', { type: 'error' });
+          toast('Error inside response!', { type: 'error' });
           console.error('Failed to fetch API');
           setIsLoading(false); // Stop loading in case of error
         }

@@ -6,12 +6,12 @@ import Spinner from './spinner/Spinner';
 const Results = () => {
   const router = useRouter();
   const [data, setData] = useState<any>([{}]);
-  
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async (token: any) => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
         const { data, error } = await supabase
           .from('results')
@@ -26,7 +26,7 @@ const Results = () => {
         setIsLoading(false);
       } catch (error) {
         console.log(error);
-        setIsLoading(false)
+        setIsLoading(false);
       }
     };
 
@@ -80,7 +80,7 @@ const Results = () => {
                     : '/img/background.jpg'
                 }
                 alt="photo"
-                className='w-full h-full object-cover'
+                className="w-full h-full object-cover"
               />
             </div>
             <h3 className="h-15 text-white text-[32px] font-extrabold my-5">
@@ -127,18 +127,23 @@ const Results = () => {
                   {item.score}/10
                 </div>
               </div>
-              <div className="w-full bg-[#564060] rounded-full h-3 dark:bg-gray-700 mb-2" style={{backgroundColor:
-                      i == 0
-                        ? '#DA7ED642'
-                        : i == 1
-                        ? '#E68D4C7A'
-                        : i == 2
-                        ? '#F7F97C66'
-                        : i == 3
-                        ? '#79C9EC8C'
-                        : i == 4
-                        ? '#97EC6F42'
-                        : '#000000',}}>
+              <div
+                className="w-full bg-[#564060] rounded-full h-3 dark:bg-gray-700 mb-2"
+                style={{
+                  backgroundColor:
+                    i == 0
+                      ? '#DA7ED642'
+                      : i == 1
+                      ? '#E68D4C7A'
+                      : i == 2
+                      ? '#F7F97C66'
+                      : i == 3
+                      ? '#79C9EC8C'
+                      : i == 4
+                      ? '#97EC6F42'
+                      : '#000000',
+                }}
+              >
                 <div
                   className="h-3 rounded-full "
                   style={{
