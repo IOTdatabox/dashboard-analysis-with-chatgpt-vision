@@ -5,6 +5,8 @@ import sgMail from '@sendgrid/mail';
 import { supabase } from '@/client';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY ?? '');
 
+export const maxDuration = 50;
+
 const parseSection = (content: string, sectionName: string) => {
   const regex = new RegExp(`${sectionName}:\\s*([^]*?)(?=\\n\\d\\.|$)`, 'i');
   const match = content.match(regex);
