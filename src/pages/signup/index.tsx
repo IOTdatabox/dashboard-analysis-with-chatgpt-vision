@@ -1,3 +1,4 @@
+import Navbar from '@/components/Navbar';
 import SignUpPage from '@/components/SignUpPage';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
@@ -16,6 +17,7 @@ const Index = () => {
 
   return (
     <div>
+      <Navbar />
       <SignUpPage />
     </div>
   );

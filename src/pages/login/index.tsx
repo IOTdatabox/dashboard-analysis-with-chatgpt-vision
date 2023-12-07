@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import LoginPage from '@/components/LoginPage';
+import Navbar from '@/components/Navbar';
 
 const Index = () => {
   const { push } = useRouter();
@@ -15,6 +16,7 @@ const Index = () => {
 
   return (
     <div>
+      <Navbar />
       <LoginPage />
     </div>
   );

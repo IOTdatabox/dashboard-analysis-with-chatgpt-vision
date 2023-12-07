@@ -3,7 +3,7 @@ import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import Image from 'next/legacy/image';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 const navigation = [
   { name: 'Pricing', href: '#', current: true },
@@ -42,10 +42,8 @@ const Navbar = () => {
                       <img
                         src="/img/Logo-3-1024x272.png"
                         alt="Vision"
-                        className="h-[51px]  w-[192px]"
-                        onClick={() =>
-                          token ? router.push('/') : router.push('/login')
-                        }
+                        className="h-[51px] w-[192px] hover:cursor-pointer"
+                        onClick={() => router.push('/')}
                       />
                     </div>
                   </div>

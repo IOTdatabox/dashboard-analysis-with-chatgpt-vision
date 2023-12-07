@@ -109,9 +109,9 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="max-w-screen-md mx-auto mt-40">
-      <div className="text-[#FFF]  rounded-lg overflow-hidden lg:p-10 flex justify-center items-center ">
-        <div className="w-[100%]">
+    <div className="h-screen w-screen bg-[#414557]">
+      <div className="text-[#FFF] max-w-screen-md mx-auto rounded-lg overflow-hidden lg:p-10 flex justify-center items-center ">
+        <div className="w-[100%] mt-20">
           <h2 className="text-center text-[#ABEB78] text-4xl font-bold">
             SIGN UP
           </h2>

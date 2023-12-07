@@ -1,4 +1,3 @@
-import { supabase } from '@/client';
 import { useRouter } from 'next/router';
 
 const ThankYou = () => {
