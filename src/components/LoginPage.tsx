@@ -52,7 +52,7 @@ const LoginPage = () => {
       if (error) throw error;
       console.log(data);
       localStorage.setItem('token', JSON.stringify(data));
-      router.push('/home');
+      router.push('/');
     } catch (error) {
       alert(error);
     }

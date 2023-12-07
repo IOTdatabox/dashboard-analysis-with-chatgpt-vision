@@ -201,7 +201,7 @@ const SignUpPage = () => {
                 SIGN UP
               </button>
 
-              <Link href="/">Sign In</Link>
+              <Link href="/login">Sign In</Link>
             </div>
           </div>
         </div>

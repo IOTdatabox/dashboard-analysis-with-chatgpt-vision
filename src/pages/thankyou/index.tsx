@@ -10,7 +10,7 @@ const Index = () => {
     const loginCheck = localStorage.getItem('token');
 
     if (!loginCheck) {
-      push('/');
+      push('/login');
     }
   }, []);
 

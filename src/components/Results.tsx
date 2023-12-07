@@ -13,10 +13,6 @@ const Results = () => {
     const fetchData = async (token: any) => {
       setIsLoading(true);
 
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 2000);
-
       try {
         const { data, error } = await supabase
           .from('results')
@@ -27,7 +23,6 @@ const Results = () => {
           throw error;
         }
         setData(data);
-        // console.log(data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);

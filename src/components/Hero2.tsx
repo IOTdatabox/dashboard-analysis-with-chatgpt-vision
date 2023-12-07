@@ -1,11 +1,8 @@
-import Image from 'next/legacy/image';
 import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
-import Swal from 'sweetalert2';
 import Spinner from './spinner/Spinner';
-import { supabase } from '@/client';
 
 const Hero2 = () => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -35,8 +32,9 @@ const Hero2 = () => {
   const [thirdAnswerOptions, setThirdAnswerOptions] = useState<string[]>([]);
 
   const [imageSrc, setImageSrc] = useState<string | null | undefined>('');
-  const [token, setToken] = useState({ user: { id: '' } });
+  const [id, setId] = useState({ user: { id: '' } });
   const [createdAt, setCreatedAt] = useState('');
+  const [token, setToken] = useState('');
 
   useEffect(() => {}, [thirdAnswerOptions]);
 
@@ -45,8 +43,8 @@ const Hero2 = () => {
       const data = localStorage.getItem('token');
       const parsedData = JSON.parse(data || '');
       setCreatedAt(parsedData.user.created_at);
-
       setToken(parsedData);
+      setId(parsedData);
     }
   }, []);
 
@@ -90,12 +88,6 @@ const Hero2 = () => {
     console.log(result, 'result');
 
     if (result) {
-      // Swal.fire({
-      //   icon: 'error',
-      //   title: 'Trial over...',
-      //   text: 'To Continue, Please buy Subscription!',
-      //   // footer: '<a href="#">Why do I have this issue?</a>',
-      // });
       toast('Your trial period is over. Please buy subscription to continue', {
         type: 'error',
       });
@@ -109,11 +101,6 @@ const Hero2 = () => {
         imageSrc == undefined ||
         imageSrc == ''
       ) {
-        // Swal.fire({
-        //   icon: 'error',
-        //   title: 'Invalid Inputs!',
-        //   html: '<p>Name cannot be Empty!</p><p>Input the correct email address!</p><p>Please upload any image!</p>',
-        // });
         toast('Please fill up all form data', { type: 'error' });
         return;
       }
@@ -125,70 +112,11 @@ const Hero2 = () => {
         setIsLoading(false);
         router.push(`/thankyou?email=${email}`);
       }, 4000);
-      // if (
-      //   !isValidEmail(email) &&
-      //   (imageSrc == null || imageSrc == undefined || imageSrc == '')
-      // ) {
-      //   Swal.fire({
-      //     icon: 'error',
-      //     title: 'Invalid Inputs!',
-      //     html: '<p>Input the correct email address!</p><p>Please upload any image!</p>',
-      //   });
-      //   return;
-      // }
-      // if (
-      //   name === '' &&
-      //   (imageSrc == null || imageSrc == undefined || imageSrc == '')
-      // ) {
-      //   Swal.fire({
-      //     icon: 'error',
-      //     title: 'Invalid Inputs!',
-      //     html: '<p>Name cannot be Empty!</p><p>Please upload any image!</p>',
-      //   });
-      //   return;
-      // }
-      // if (name === '' && !isValidEmail(email)) {
-      //   Swal.fire({
-      //     icon: 'error',
-      //     title: 'Invalid Inputs!',
-      //     html: '<p>Name cannot be Empty!</p><p>Input the correct email address!',
-      //   });
-      //   return;
-      // }
-      // // Name validation
-      // if (name === '') {
-      //   Swal.fire({
-      //     icon: 'error',
-      //     title: 'Name cannot be Empty!',
-      //     text: 'Please enter valid name!',
-      //   });
-      //   return;
-      // }
-
-      // //Email validation
-      // if (!isValidEmail(email)) {
-      //   Swal.fire({
-      //     icon: 'error',
-      //     title: 'Invalid Email!',
-      //     text: 'Input the correct email address!',
-      //   });
-      //   return;
-      // }
-
-      // //Image validation
-      // if (imageSrc == null || imageSrc == undefined || imageSrc == '') {
-      //   Swal.fire({
-      //     icon: 'error',
-      //     title: 'No Image!',
-      //     text: 'Please upload any image!',
-      //   });
-      //   return;
-      // }
 
       setIsLoading(true);
       const base64String = imageSrc?.split(',')[1];
 
-      const userId = token.user.id;
+      const userId = id.user.id;
 
       const response = await fetch('/api/process-api', {
         method: 'POST',
@@ -200,8 +128,7 @@ const Hero2 = () => {
           email: email,
           userId: userId,
         }),
-      })
-       
+      });
 
       console.log(response, 'openai-response');
 
@@ -215,13 +142,10 @@ const Hero2 = () => {
           setSecondAnswerOptions(data.data.secondAnswer.slice(1).split('*'));
           setThirdAnswerOptions(data.data.thirdAnswer.slice(1).split('*'));
           console.log(data);
-
-          // toast('Email Sent Successfully!', { type: 'success' });
           setIsLoading(false);
-          // router.push(`/thankyou?email=${email}`);
         } else {
-          const errorData = await response.json(); 
-          console.log(errorData)
+          const errorData = await response.json();
+          console.log(errorData);
           toast('Error inside response!', { type: 'error' });
           console.error('Failed to fetch API');
           setIsLoading(false); // Stop loading in case of error
@@ -356,32 +280,20 @@ const Hero2 = () => {
                     ))}
                 </div>
                 <div className="w-[75.06px] h-[78px] relative">
-                  {/* <div className="w-[75.06px] h-[78px] lg:left-[285px] md:left-[340px] left-[140px] top-[-38px] absolute bg-[#414557] rounded-full border-4 border-white">
-                          <p className="text-center text-white text-[32px] font-bold mt-2">
-                            OR
-                          </p>
-                        </div> */}
                 </div>
 
                 <div>
                   <button
                     onClick={() => {
-                      onSubmitBtnClicked();
+                      token
+                        ? onSubmitBtnClicked()
+                        : (router.push('/login'), toast('To Analyze, Please Login First!', { type: 'error' }));
                     }}
                     className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold "
                   >
                     ANALYZE NOW
                   </button>
                 </div>
-
-                {/* <div {...getRootProps()} className="">
-                        <input {...getInputProps()} />
-      
-                        <button className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold mb-10">
-                          UPLOAD FILE HERE
-                        </button>
-                        
-                      </div> */}
               </div>
             </div>
           </div>

@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react';
-
-import Hero2 from '@/components/Hero2';
-import HomePage from '@/components/HomePage';
-import Navbar from '@/components/Navbar';
-import Teams from '@/components/Teams';
 import { useRouter } from 'next/navigation';
+import LoginPage from '@/components/LoginPage';
 
 const Index = () => {
   const { push } = useRouter();
@@ -12,19 +8,16 @@ const Index = () => {
   useEffect(() => {
     const loginCheck = localStorage.getItem('token');
 
-    if (!loginCheck) {
+    if (loginCheck) {
       push('/');
     }
   }, []);
 
   return (
     <div>
-      <Navbar />
-      <Hero2 />
-      <Teams />
+      <LoginPage />
     </div>
   );
 };
 
 export default Index;
-

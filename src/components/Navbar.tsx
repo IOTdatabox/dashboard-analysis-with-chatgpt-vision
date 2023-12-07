@@ -25,6 +25,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    setToken('');
     router.push('/');
   };
 
@@ -43,24 +44,10 @@ const Navbar = () => {
                         alt="Vision"
                         className="h-[51px]  w-[192px]"
                         onClick={() =>
-                          token ? router.push('/home') : router.push('/')
+                          token ? router.push('/') : router.push('/login')
                         }
                       />
                     </div>
-                    {/* <div className='hidden md:block'>
-                      <div className='ml-10 flex items-baseline space-x-4 mt-3'>
-                        {navigation.map((item) => (
-                          <Link
-                            key={item.name}
-                            href={item.href}
-                            className='text-white  hover:bg-gray-700 hover:text-white rounded-md px-10 py-2 mx-10  font-bold'
-                            aria-current={item.current ? 'page' : undefined}
-                          >
-                            {item.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </div> */}
                   </div>
                   <div>
                     <div className="ml-4 flex items-center md:ml-6 mt-3">
@@ -73,7 +60,7 @@ const Navbar = () => {
                         </button>
                       ) : (
                         <Link
-                          href="/"
+                          href="/login"
                           className="bg-gray-500 text-white rounded-md px-4 py-2 text-sm font-medium"
                         >
                           Login
@@ -81,23 +68,6 @@ const Navbar = () => {
                       )}
                     </div>
                   </div>
-                  {/* <div className="-mr-2 flex md:hidden">
-                    <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="absolute -inset-0.5" />
-                      <span className="sr-only">Open main menu</span>
-                      {open ? (
-                        <XMarkIcon
-                          className="block h-6 w-6"
-                          aria-hidden="true"
-                        />
-                      ) : (
-                        <Bars3Icon
-                          className="block h-6 w-6"
-                          aria-hidden="true"
-                        />
-                      )}
-                    </Disclosure.Button>
-                  </div> */}
                 </div>
               </div>
 

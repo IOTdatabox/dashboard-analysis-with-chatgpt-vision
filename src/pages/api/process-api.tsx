@@ -1,8 +1,6 @@
 // pages/api/analyze-dashboard.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
-import PDFDocument, { image } from 'pdfkit';
-import fs from 'fs';
 import sgMail from '@sendgrid/mail';
 import { supabase } from '@/client';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY ?? '');
@@ -29,86 +27,6 @@ const generateLink = async (token: String) => {
   return generatedLink;
 };
 
-// const generatePDF = (
-//   imageBase64: any,
-//   fourthResponse: string,
-//   fifthResponse: string
-// ) => {
-//   return new Promise((resolve, reject) => {
-//     const doc = new PDFDocument();
-//     let buffers: any[] = [];
-//     doc.on('data', buffers.push.bind(buffers));
-//     doc.on('end', () => {
-//       const pdfData = Buffer.concat(buffers);
-//       const base64String = pdfData.toString('base64');
-//       resolve(base64String);
-//     });
-//     doc.on('error', () => {
-//       reject('error');
-//     });
-
-//     doc.fontSize(25).text('How to Improve Your Dashboard', { align: 'center' });
-//     doc.moveDown();
-//     doc.fontSize(13).text('The dashboard', { align: 'center' });
-//     doc.moveDown();
-//     if (imageBase64) {
-//       const imageBuffer = Buffer.from(imageBase64, 'base64');
-//       doc.image(imageBuffer, {
-//         fit: [500, 300], // Adjust the size as needed
-//         align: 'center',
-//         valign: 'center',
-//       });
-//     }
-
-//     doc.moveDown();
-//     doc.fontSize(13).text('Quick Improvements', { align: 'center' });
-//     doc.moveDown();
-//     doc.fontSize(12).text(fourthResponse, { align: 'left' });
-//     doc.moveDown();
-//     doc.fontSize(13).text('In Depth Explanations', { align: 'center' });
-//     doc.moveDown();
-//     doc.fontSize(12).text(fifthResponse, { align: 'left' });
-//     doc.end();
-//   });
-// };
-
-// const sendEmailWithPDF = async (toEmail: string, pdfBase64: any) => {
-//   const msg = {
-//     to: toEmail, // Recipient email address
-//     from: {
-//       email: 'whaydigital@gmail.com',
-//       name: 'Vision Labs Insights',
-//     }, // Your verified sender address
-//     subject: 'Here are some insights to improve your dashboard.',
-//     templateId: 'd-c4a496ad89d84b9c8b70777d75cdd373',
-//     dynamicTemplateData: {
-//       subject: `Here are some insights to improve your dashboard.`,
-//       username: `Client`,
-//     },
-//     isMultiple: false,
-//     attachments: [
-//       {
-//         content: pdfBase64,
-//         filename: 'dashboard_improvements.pdf',
-//         type: 'application/pdf',
-//         disposition: 'attachment',
-//         contentId: 'pdfDocument',
-//       },
-//     ],
-//   };
-
-//   // console.log(msg)
-
-//   try {
-//     await sgMail.send(msg);
-//     console.log('❤❤❤');
-//     return { success: true, message: 'Email sent successfully' };
-//   } catch (error) {
-//     console.error(error);
-//     return { success: false, error: 'Unknown error occurred' };
-//     // }
-//   }
-// };
 const sendEmailWithLink = async (toEmail: string, link: any) => {
   const msg = {
     to: toEmail, // Recipient email address
@@ -126,8 +44,6 @@ const sendEmailWithLink = async (toEmail: string, link: any) => {
 
     isMultiple: false,
   };
-
-  // console.log(msg)
 
   try {
     await sgMail.send(msg);
@@ -282,14 +198,6 @@ export default async function handler(
         fourthAnswer: fourthAnswer,
       };
 
-      // const image = imageBase64.split(';base64,').pop();
-      // const imageBuffer = Buffer.from(image, 'base64');
-
-      // const imageName = `image_${generateRandomToken()}.png`;
-      // const imagePath = `E:/Projects/dashboard-analysis-with-chatgpt-vision/public/img/${imageName}`;
-
-      // fs.writeFileSync(imagePath, imageBuffer, 'binary');
-
       const { data, error } = await supabase
         .from('results')
         .upsert([
@@ -316,17 +224,6 @@ export default async function handler(
 
       const link = await generateLink(token);
 
-      console.log(link, 'Line no 300');
-
-      // const response = await generatePDF(
-      //   imageBase64,
-      //   fourthAnswer,
-      //   fifthAnswer
-      // );
-      // if (response == 'error') {
-      //   return res.status(500).json({ message: 'Internal Server Error' });
-      // }
-      // const emailResponse = await sendEmailWithPDF(toEmail, response);
       const emailResponse = await sendEmailWithLink(toEmail, link);
       if (emailResponse.success) {
         res.status(200).json({
