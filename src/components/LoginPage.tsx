@@ -50,6 +50,7 @@ const LoginPage = () => {
         password: formData.password,
       });
       if (error) throw error;
+      console.log(data);
       localStorage.setItem('token', JSON.stringify(data));
       router.push('/home');
     } catch (error) {

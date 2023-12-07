@@ -34,7 +34,25 @@ const SignUpPage = () => {
     return regex.test(email);
   };
 
-  const email = isValidEmail(formData.email)
+  const email = isValidEmail(formData.email);
+
+  const dataStore = async (userName: any, userEmail: any, companySize: any) => {
+    const { data, error } = await supabase
+      .from('users')
+      .upsert([
+        {
+          name: userName,
+          email: userEmail,
+          companySize: companySize,
+        },
+      ])
+      .select();
+
+    if (error) {
+      console.error('Supabase Error:', error.message);
+      return;
+    }
+  };
 
   const handleSubmit = async () => {
     try {
@@ -74,13 +92,17 @@ const SignUpPage = () => {
           data: {
             name: formData.name,
             companySize: formData.companySize,
-            termsChecked: termsChecked,
           },
         },
       });
       if (error) throw error;
       alert('Check your email for verification link');
       router.push('/');
+      const userDetails = await dataStore(
+        data.user?.user_metadata.name,
+        data.user?.email,
+        data.user?.user_metadata.companySize
+      );
     } catch (error) {
       alert(error);
     }

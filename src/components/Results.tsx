@@ -12,6 +12,11 @@ const Results = () => {
   useEffect(() => {
     const fetchData = async (token: any) => {
       setIsLoading(true);
+
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+
       try {
         const { data, error } = await supabase
           .from('results')
@@ -22,7 +27,7 @@ const Results = () => {
           throw error;
         }
         setData(data);
-        console.log(data);
+        // console.log(data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -37,7 +42,6 @@ const Results = () => {
     }
   }, [router.query.token]);
 
-  // console.log(data[0].rating);
   const improve = JSON.parse(data[0].improvements || '[]');
   const improve1 = improve[0];
 
@@ -51,7 +55,6 @@ const Results = () => {
   const rating = JSON.parse(data[0].rating || '[]');
 
   const data2 = rating.map((item: { score: any }) => item.score);
-  // const data2 = [5, 5, 8, 9, 7, 6];
 
   const numericData = data2.map(Number);
 
