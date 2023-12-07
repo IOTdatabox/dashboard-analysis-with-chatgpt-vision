@@ -262,8 +262,7 @@ export default async function handler(
     );
     const responseParsed = response.data;
 
-
-    console.log("responseParsed", responseParsed)
+    console.log('responseParsed', response);
 
     if (responseParsed.choices && responseParsed.choices.length > 0) {
       const content = responseParsed.choices[0].message.content;
@@ -343,6 +342,7 @@ export default async function handler(
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // This means the error is related to Axios or the OpenAI API call
+      res.status(500).json({ body: error.response?.data || error.message });
       console.error('Axios Error:', error.response?.data || error.message);
     } else {
       // Generic error

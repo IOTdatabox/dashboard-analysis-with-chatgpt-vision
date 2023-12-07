@@ -119,7 +119,9 @@ const Hero2 = () => {
       }
 
       setTimeout(() => {
-        toast('An Email will be Sent in the next few minutes!', { type: 'success' });
+        toast('An Email will be Sent in the next few minutes!', {
+          type: 'success',
+        });
         setIsLoading(false);
         router.push(`/thankyou?email=${email}`);
       }, 4000);
@@ -198,7 +200,10 @@ const Hero2 = () => {
           email: email,
           userId: userId,
         }),
-      });
+      })
+       
+
+      console.log(response, 'openai-response');
 
       try {
         if (response.ok) {
@@ -215,6 +220,8 @@ const Hero2 = () => {
           setIsLoading(false);
           // router.push(`/thankyou?email=${email}`);
         } else {
+          const errorData = await response.json(); 
+          console.log(errorData)
           toast('Error inside response!', { type: 'error' });
           console.error('Failed to fetch API');
           setIsLoading(false); // Stop loading in case of error
