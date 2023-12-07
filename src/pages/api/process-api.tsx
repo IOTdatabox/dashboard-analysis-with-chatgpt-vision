@@ -183,7 +183,6 @@ export default async function handler(
 
     console.log(JSON.stringify(totalResponse));
 
-    res.status(200).json({});
 
     // const headers = {
     //   'Content-Type': 'application/json',
