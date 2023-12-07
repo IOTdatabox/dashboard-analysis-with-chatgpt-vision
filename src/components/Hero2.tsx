@@ -119,7 +119,7 @@ const Hero2 = () => {
       }
 
       setTimeout(() => {
-        toast('Email Sent Successfully!', { type: 'success' });
+        toast('An Email will be Sent in the next few minutes!', { type: 'success' });
         setIsLoading(false);
         router.push(`/thankyou?email=${email}`);
       }, 4000);

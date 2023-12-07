@@ -262,6 +262,9 @@ export default async function handler(
     );
     const responseParsed = response.data;
 
+
+    console.log("responseParsed", responseParsed)
+
     if (responseParsed.choices && responseParsed.choices.length > 0) {
       const content = responseParsed.choices[0].message.content;
 
