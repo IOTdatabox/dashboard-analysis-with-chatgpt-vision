@@ -3,11 +3,12 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import sgMail from '@sendgrid/mail';
 import { supabase } from '@/client';
+import OpenAI from 'openai';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY ?? '');
 
 export const maxDuration = 50;
 
-export const runtime = 'edge';
+// export const runtime = 'edge';
 
 const parseSection = (content: string, sectionName: string) => {
   const regex = new RegExp(`${sectionName}:\\s*([^]*?)(?=\\n\\d\\.|$)`, 'i');
@@ -95,7 +96,7 @@ export default async function handler(
     console.log('Image Base64 Length:', imageBase64.length);
     console.log('Email:', toEmail);
 
-    const payload = {
+    const payload: OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming = {
       model: 'gpt-4-vision-preview',
       messages: [
         {
@@ -167,25 +168,40 @@ export default async function handler(
         },
       ],
       max_tokens: 3000,
+      stream: true,
     };
 
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, // Use environment variable for API key
-    };
-    console.log('start axios');
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
 
-    const response = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
-      payload,
-      { headers }
-    );
-    const responseParsed = response.data;
+    const response = await openai.chat.completions.create(payload);
+    let totalResponse = "";
+    for await (const part of response) {
+      totalResponse = totalResponse.concat(part.choices[0].delta.content ?? "");
+    }
 
+    console.log(JSON.stringify(totalResponse));
+
+    res.status(200).json({});
+
+    // const headers = {
+    //   'Content-Type': 'application/json',
+    //   Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, // Use environment variable for API key
+    // };
+    // console.log('start axios');
+
+    // const response = await axios.post(
+    //   'https://api.openai.com/v1/chat/completions',
+    //   payload,
+    //   { headers }
+    // );
     console.log('responseParsed', response);
 
-    if (responseParsed.choices && responseParsed.choices.length > 0) {
-      const content = responseParsed.choices[0].message.content;
+    // if (responseParsed.choices && responseParsed.choices.length > 0) {
+      // const content = responseParsed.choices[0].message.content;
+
+      const content = totalResponse;
 
       const firstAnswer = parseSection(content, '1. Purpose');
       const secondAnswer = parseSection(content, '2. Positives');
@@ -239,7 +255,7 @@ export default async function handler(
         res.status(500).json({ error: emailResponse.error });
         console.log('Unknown error occurred');
       }
-    }
+    // }
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // This means the error is related to Axios or the OpenAI API call
