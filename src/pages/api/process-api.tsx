@@ -6,7 +6,7 @@ import { supabase } from '@/client';
 import OpenAI from 'openai';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY ?? '');
 
-export const maxDuration = 50;
+export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
 
 // export const runtime = 'edge';
