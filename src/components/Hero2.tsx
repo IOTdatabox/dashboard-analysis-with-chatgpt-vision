@@ -360,16 +360,16 @@ const Hero2 = () => {
 
                 <div>
                   <button
-                    // onClick={() => {
-                    //   token
-                    //     ? onSubmitBtnClicked()
-                    //     : (router.push('/login'), toast('To Analyze, Please Login First!', { type: 'error' }));
-                    // }}
-
-                    // User can submit and get feecback without login.
                     onClick={() => {
-                      onSubmitBtnClicked();
+                      token
+                        ? onSubmitBtnClicked()
+                        : (router.push('/login'), toast('To Analyze, Please Login First!', { type: 'error' }));
                     }}
+
+                    // User can get the link without login
+                    // onClick={() => {
+                    //   onSubmitBtnClicked()
+                    // }}
                     className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold "
                   >
                     ANALYZE NOW
