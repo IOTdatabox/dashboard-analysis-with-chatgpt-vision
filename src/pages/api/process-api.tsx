@@ -272,5 +272,5 @@ export const config = {
       sizeLimit: '4mb', // Set desired value here
     },
   },
-  maxDuration: 60,
+  maxDuration: 120,
 };
