@@ -6,7 +6,6 @@ import { supabase } from '@/client';
 import OpenAI from 'openai';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY ?? '');
 
-
 export const dynamic = 'force-dynamic';
 
 // export const runtime = 'edge';
@@ -97,7 +96,8 @@ export default async function handler(
     console.log('Image Base64 Length:', imageBase64.length);
     console.log('Email:', toEmail);
 
-    const payload: OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming = {
+    const payload: OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming =
+    {
       model: 'gpt-4-vision-preview',
       messages: [
         {
@@ -138,19 +138,19 @@ export default async function handler(
                               "Possible Solution": [Your possible solution for Improvement Aspect 7]
                             4. Rating: [provide appropriate score for readability, color usage, chart selection, understandability, accessibility out of 10]
                               "Title": [Readability] 
-                             "score": [provide appropriate score for readability out of 10]
+                             "score": [provide appropriate score for readability out of 10, ensure it's between 2 and 9]
                               "description": [Readability Description]
                               "Title": [Color Usage]
-                             "score": [provide appropriate score for color-usage out of 10]
+                             "score": [provide appropriate score for color-usage out of 10, ensure it's between 2 and 9]
                              "description": [Color Usage Description]
                              "Title": [Chart Selection]
-                             "score": [provide appropriate score for chart selection out of 10]
+                             "score": [provide appropriate score for chart selection out of 10, ensure it's between 2 and 9]
                              "description": [Chart Selection Description]
                              "Title": [Understandability]
-                             "score": [provide appropriate score for understandability out of 10]
+                             "score": [provide appropriate score for understandability out of 10, ensure it's between 2 and 9]
                              "description": [Understandability Description]
                              "Title": [Accessibility]
-                             "score": [provide appropriate score for accessibility out of 10]
+                             "score": [provide appropriate score for accessibility out of 10, ensure it's between 2 and 9]
                              "description": [Accessibility Description]
                             Do not include anything on Mobile responsiveness.
                             also Improvements section format like this [{"title":"","Description":"","PossibleSolution":""},{"title":"","Description":"","PossibleSolution":""}].
@@ -177,13 +177,12 @@ export default async function handler(
     });
 
     const response = await openai.chat.completions.create(payload);
-    let totalResponse = "";
+    let totalResponse = '';
     for await (const part of response) {
-      totalResponse = totalResponse.concat(part.choices[0].delta.content ?? "");
+      totalResponse = totalResponse.concat(part.choices[0].delta.content ?? '');
     }
 
     console.log(JSON.stringify(totalResponse));
-
 
     // const headers = {
     //   'Content-Type': 'application/json',
@@ -199,62 +198,60 @@ export default async function handler(
     console.log('responseParsed', response);
 
     // if (responseParsed.choices && responseParsed.choices.length > 0) {
-      // const content = responseParsed.choices[0].message.content;
+    // const content = responseParsed.choices[0].message.content;
 
-      const content = totalResponse;
+    const content = totalResponse;
 
-      const firstAnswer = parseSection(content, '1. Purpose');
-      const secondAnswer = parseSection(content, '2. Positives');
-      const thirdAnswer = parseSection(content, '3. Improvements');
-      const fourthAnswer = parseSection(content, '4. Rating');
+    const firstAnswer = parseSection(content, '1. Purpose');
+    const secondAnswer = parseSection(content, '2. Positives');
+    const thirdAnswer = parseSection(content, '3. Improvements');
+    const fourthAnswer = parseSection(content, '4. Rating');
 
-      let dataTypeString = secondAnswer.split('*');
-      let jobTypeString = thirdAnswer.split('*');
+    let dataTypeString = secondAnswer.split('*');
+    let jobTypeString = thirdAnswer.split('*');
 
-      const apiResponse = {
-        firstAnswer: firstAnswer,
-        secondAnswer: dataTypeString,
-        thirdAnswer: jobTypeString, // Assuming you want to include the split string of thirdAnswer
-        fourthAnswer: fourthAnswer,
-      };
+    const apiResponse = {
+      firstAnswer: firstAnswer,
+      secondAnswer: dataTypeString,
+      thirdAnswer: jobTypeString, // Assuming you want to include the split string of thirdAnswer
+      fourthAnswer: fourthAnswer,
+    };
 
-      const { data, error } = await supabase
-        .from('results')
-        .upsert([
-          {
-            email: toEmail,
-            user_id: userId,
-            image: imageBase64,
-            positives: apiResponse.secondAnswer,
-            improvements: apiResponse.thirdAnswer,
-            rating: apiResponse.fourthAnswer,
-            token: generateRandomToken(),
-          },
-        ])
-        .select();
+    const { data, error } = await supabase
+      .from('results')
+      .upsert([
+        {
+          email: toEmail,
+          user_id: userId,
+          image: imageBase64,
+          positives: apiResponse.secondAnswer,
+          improvements: apiResponse.thirdAnswer,
+          rating: apiResponse.fourthAnswer,
+          token: generateRandomToken(),
+        },
+      ])
+      .select();
 
-      if (error) {
-        console.error('Supabase Error:', error.message);
-        return res
-          .status(500)
-          .json({ message: 'Internal Server Error', error });
-      }
+    if (error) {
+      console.error('Supabase Error:', error.message);
+      return res.status(500).json({ message: 'Internal Server Error', error });
+    }
 
-      const token = data.map((d) => d.token).toString();
+    const token = data.map((d) => d.token).toString();
 
-      const link = await generateLink(token);
+    const link = await generateLink(token);
 
-      const emailResponse = await sendEmailWithLink(toEmail, link);
-      if (emailResponse.success) {
-        res.status(200).json({
-          message: emailResponse.message,
-          data: { firstAnswer, secondAnswer, thirdAnswer },
-        });
-        console.log('Email sent successfully');
-      } else {
-        res.status(500).json({ error: emailResponse.error });
-        console.log('Unknown error occurred');
-      }
+    const emailResponse = await sendEmailWithLink(toEmail, link);
+    if (emailResponse.success) {
+      res.status(200).json({
+        message: emailResponse.message,
+        data: { firstAnswer, secondAnswer, thirdAnswer },
+      });
+      console.log('Email sent successfully');
+    } else {
+      res.status(500).json({ error: emailResponse.error });
+      console.log('Unknown error occurred');
+    }
     // }
   } catch (error) {
     if (axios.isAxiosError(error)) {
