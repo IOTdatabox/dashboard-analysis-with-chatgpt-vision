@@ -25,6 +25,7 @@ const Hero2 = () => {
   });
 
   const [email, setEmail] = useState<string>('');
+  const [name, setName] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
 
   const [firstAnswer, setFirstAnswer] = useState('');
@@ -52,6 +53,10 @@ const Hero2 = () => {
 
   const onEmailChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+  };
+
+  const onNameChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
   };
 
   const isValidEmail = (email: string) => {
@@ -108,6 +113,10 @@ const Hero2 = () => {
       const base64String = imageSrc?.split(',')[1];
 
       const userId = id.user.id;
+  
+      const data = localStorage.getItem('token');
+      const parsedData = JSON.parse(data || '');
+      const userInfo = parsedData.user.user_metadata;
 
       const response = await fetch('/api/process-api', {
         method: 'POST',
@@ -118,6 +127,7 @@ const Hero2 = () => {
           image: base64String,
           email: email,
           userId: userId,
+          userName: name
         }),
       });
 
@@ -310,6 +320,7 @@ const Hero2 = () => {
               <input
                 id="name"
                 type="name"
+                onChange={onNameChanged}
                 className="bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2"
                 placeholder="John doe"
               />
@@ -354,6 +365,11 @@ const Hero2 = () => {
                         ? onSubmitBtnClicked()
                         : (router.push('/login'), toast('To Analyze, Please Login First!', { type: 'error' }));
                     }}
+
+                    // User can get the link without login
+                    // onClick={() => {
+                    //   onSubmitBtnClicked()
+                    // }}
                     className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold "
                   >
                     ANALYZE NOW

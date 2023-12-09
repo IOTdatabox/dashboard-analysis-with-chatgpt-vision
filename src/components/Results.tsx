@@ -70,7 +70,8 @@ const Results = () => {
             Dashboard Design
           </h1>
           <div className="pl-4">
-            <div className="w-[679px] h-[398px]">
+            {/* <div className="w-[679px] h-[398px]"> */}
+            <div className="w-[540px] h-[320px]">
               <img
                 src={
                   data[0].image

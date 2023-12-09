@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import sgMail from '@sendgrid/mail';
+
 import { supabase } from '@/client';
 import OpenAI from 'openai';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY ?? '');
@@ -32,18 +33,18 @@ const generateLink = async (token: String) => {
   return generatedLink;
 };
 
-const sendEmailWithLink = async (toEmail: string, link: any) => {
+const sendEmailWithLink = async (toEmail: string, link: any, userName: string) => {
   const msg = {
     to: toEmail, // Recipient email address
     from: {
-      email: 'whaydigital@gmail.com',
+      email: 'hello@visionlabs.com',
       name: 'Vision Labs Insights',
     }, // Your verified sender address
     subject: 'Here are some insights to improve your dashboard.',
     templateId: 'd-c4a496ad89d84b9c8b70777d75cdd373',
     dynamicTemplateData: {
       subject: `Here are some insights to improve your dashboard.`,
-      username: `Client`,
+      username: userName,
       result_page_link: link,
     },
 
@@ -89,6 +90,7 @@ export default async function handler(
     const imageBase64 = req.body.image; // Assuming image is sent in base64 format
     const toEmail = req.body.email;
     const userId = req.body.userId;
+    const userName = req.body.userName;
     if (!imageBase64) {
       console.error('No image data found in the request body');
       return res.status(400).json({ message: 'No image data provided' });
@@ -97,15 +99,15 @@ export default async function handler(
     console.log('Email:', toEmail);
 
     const payload: OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming =
-      {
-        model: 'gpt-4-vision-preview',
-        messages: [
-          {
-            role: 'user',
-            content: [
-              {
-                type: 'text',
-                text: `Attached is a Data Dashboard. Please reply in the following format:
+    {
+      model: 'gpt-4-vision-preview',
+      messages: [
+        {
+          role: 'user',
+          content: [
+            {
+              type: 'text',
+              text: `Attached is a Data Dashboard. Please reply in the following format:
                             1. Purpose: [provide 3 positives & 7 areas improvement of the dashboard.]
                             2. Positives:
                              "Title": [Positive Aspect 1]
@@ -241,7 +243,7 @@ export default async function handler(
 
     const link = await generateLink(token);
 
-    const emailResponse = await sendEmailWithLink(toEmail, link);
+    const emailResponse = await sendEmailWithLink(toEmail, link, userName);
     if (emailResponse.success) {
       res.status(200).json({
         message: emailResponse.message,
@@ -272,5 +274,5 @@ export const config = {
       sizeLimit: '4mb', // Set desired value here
     },
   },
-  maxDuration: 60,
+  maxDuration: 120,
 };
