@@ -48,7 +48,7 @@ const Navbar = () => {
                     </div>
                   </div>
                   <div>
-                    <div className="ml-4 flex items-center md:ml-6 mt-3">
+                    {/* <div className="ml-4 flex items-center md:ml-6 mt-3">
                       {token ? (
                         <button
                           onClick={() => handleLogout()}
@@ -64,7 +64,7 @@ const Navbar = () => {
                           Login
                         </Link>
                       )}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

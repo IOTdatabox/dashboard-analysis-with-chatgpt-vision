@@ -18,17 +18,8 @@ const parseSection = (content: string, sectionName: string) => {
 };
 
 const generateLink = async (token: String) => {
-  const { data, error } = await supabase
-    .from('results')
-    .select()
-    .eq('token', token);
 
-  if (error) {
-    console.error(error);
-  }
-
-  const generatedLink = `${process.env.NEXT_PUBLIC_URL}results?token=${data?.[0]?.token}`;
-  console.log(data);
+  const generatedLink = `${process.env.NEXT_PUBLIC_URL}results?token=${token}`;
   console.log(generatedLink, 'generatedLink');
   return generatedLink;
 };
@@ -89,7 +80,7 @@ export default async function handler(
     console.log('❤❤❤❤');
     const imageBase64 = req.body.image; // Assuming image is sent in base64 format
     const toEmail = req.body.email;
-    const userId = req.body.userId;
+    // const userId = req.body.userId;
     const userName = req.body.userName;
     if (!imageBase64) {
       console.error('No image data found in the request body');
@@ -224,7 +215,7 @@ export default async function handler(
       .upsert([
         {
           email: toEmail,
-          user_id: userId,
+          // user_id: userId,
           image: imageBase64,
           positives: apiResponse.secondAnswer,
           improvements: apiResponse.thirdAnswer,

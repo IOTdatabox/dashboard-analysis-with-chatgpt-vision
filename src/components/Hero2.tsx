@@ -87,76 +87,75 @@ const Hero2 = () => {
   }
 
   const onSubmitBtnClicked = async () => {
+    // const nameInput = document.getElementById('name') as HTMLInputElement;
+    // const name = nameInput.value.trim();
+    if (
+      name === '' ||
+      !isValidEmail(email) ||
+      imageSrc == null ||
+      imageSrc == undefined ||
+      imageSrc == ''
+    ) {
+      toast('Please fill up all form data', { type: 'error' });
+      return;
+    }
 
-    const nameInput = document.getElementById('name') as HTMLInputElement;
-      const name = nameInput.value.trim();
-      if (
-        name === '' ||
-        !isValidEmail(email) ||
-        imageSrc == null ||
-        imageSrc == undefined ||
-        imageSrc == ''
-      ) {
-        toast('Please fill up all form data', { type: 'error' });
-        return;
-      }
-
-      setTimeout(() => {
-        toast('An Email will be Sent in the next few minutes!', {
-          type: 'success',
-        });
-        setIsLoading(false);
-        router.push(`/thankyou?email=${email}`);
-      }, 4000);
-
-      setIsLoading(true);
-      const base64String = imageSrc?.split(',')[1];
-
-      const userId = id.user.id;
-  
-      const data = localStorage.getItem('token');
-      const parsedData = JSON.parse(data || '');
-      const userInfo = parsedData.user.user_metadata;
-
-      const response = await fetch('/api/process-api', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          image: base64String,
-          email: email,
-          userId: userId,
-          userName: name
-        }),
+    setTimeout(() => {
+      toast('An Email will be Sent in the next few minutes!', {
+        type: 'success',
       });
+      setIsLoading(false);
+      router.push(`/thankyou?email=${email}`);
+    }, 4000);
 
-      console.log(response, 'openai-response');
+    setIsLoading(true);
+    const base64String = imageSrc?.split(',')[1];
 
-      try {
-        if (response.ok) {
-          const data = await response.json();
-          setFirstAnswer(data.data.firstAnswer);
+    // const userId = id.user.id;
 
-          console.log(data.data.firstAnswer);
+    // const data = localStorage.getItem('token');
+    // const parsedData = JSON.parse(data || '');
+    // const userInfo = parsedData.user.user_metadata;
 
-          setSecondAnswerOptions(data.data.secondAnswer.slice(1).split('*'));
-          setThirdAnswerOptions(data.data.thirdAnswer.slice(1).split('*'));
-          console.log(data);
-          setIsLoading(false);
-        } else {
-          const errorData = await response.json();
-          console.log(errorData);
-          toast('Error inside response!', { type: 'error' });
-          console.error('Failed to fetch API');
-          setIsLoading(false); // Stop loading in case of error
-        }
-      } catch (error) {
-        toast('Internal Server Error!', { type: 'error' });
-        console.error('Error:', error);
+    const response = await fetch('/api/process-api', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        image: base64String,
+        email: email,
+        // userId: userId,
+        userName: name,
+      }),
+    });
+
+    console.log(response, 'openai-response');
+
+    try {
+      if (response.ok) {
+        const data = await response.json();
+        setFirstAnswer(data.data.firstAnswer);
+
+        console.log(data.data.firstAnswer);
+
+        setSecondAnswerOptions(data.data.secondAnswer.slice(1).split('*'));
+        setThirdAnswerOptions(data.data.thirdAnswer.slice(1).split('*'));
+        console.log(data);
+        setIsLoading(false);
+      } else {
+        const errorData = await response.json();
+        console.log(errorData);
+        toast('Error inside response!', { type: 'error' });
+        console.error('Failed to fetch API');
         setIsLoading(false); // Stop loading in case of error
       }
-      
+    } catch (error) {
+      toast('Internal Server Error!', { type: 'error' });
+      console.error('Error:', error);
+      setIsLoading(false); // Stop loading in case of error
+    }
+
     // const currTime = new Date().toUTCString();
 
     // const result = isTimeDifference12Hours(createdAt, currTime);
@@ -320,6 +319,7 @@ const Hero2 = () => {
               <input
                 id="name"
                 type="name"
+                value={name}
                 onChange={onNameChanged}
                 className="bg-[#F1F1F1] w-full text-gray-900 text-sm rounded-lg  block p-2.5 mb-2"
                 placeholder="John doe"
@@ -355,21 +355,20 @@ const Hero2 = () => {
                       </div>
                     ))}
                 </div>
-                <div className="w-[75.06px] h-[78px] relative">
-                </div>
+                <div className="w-[75.06px] h-[78px] relative"></div>
 
                 <div>
                   <button
-                    onClick={() => {
-                      token
-                        ? onSubmitBtnClicked()
-                        : (router.push('/login'), toast('To Analyze, Please Login First!', { type: 'error' }));
-                    }}
+                    // onClick={() => {
+                    //   token
+                    //     ? onSubmitBtnClicked()
+                    //     : (router.push('/login'), toast('To Analyze, Please Login First!', { type: 'error' }));
+                    // }}
 
                     // User can get the link without login
-                    // onClick={() => {
-                    //   onSubmitBtnClicked()
-                    // }}
+                    onClick={() => {
+                      onSubmitBtnClicked();
+                    }}
                     className="w-[210px] h-14 bg-[#C742C1] rounded-[10px] text-white text-lg font-bold "
                   >
                     ANALYZE NOW

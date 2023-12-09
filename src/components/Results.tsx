@@ -88,7 +88,7 @@ const Results = () => {
                 {Math.round(averageOutOf10) || 0}/10
               </span>
             </h3>
-            <div className="w-full bg-[#A1FD5966] rounded-full h-3.5 dark:bg-gray-700">
+            <div className="w-full bg-[rgba(161,253,89,0.259)] rounded-full h-3.5 dark:bg-gray-700">
               <div
                 className="bg-[#A1FC58] h-3.5 rounded-full"
                 style={{ width: Math.round(averageOutOf10) * 10 + '%' }}
@@ -127,19 +127,19 @@ const Results = () => {
                 </div>
               </div>
               <div
-                className="w-full bg-[#564060] rounded-full h-3 dark:bg-gray-700 mb-2"
+                className="w-full rounded-full h-3 dark:bg-gray-700 mb-2"
                 style={{
                   backgroundColor:
                     i == 0
-                      ? '#DA7ED642'
+                      ? 'rgba(218, 126, 214, 0.259)'
                       : i == 1
-                      ? '#E68D4C7A'
+                      ? 'rgba(230, 141, 76, 0.259)'
                       : i == 2
-                      ? '#F7F97C66'
+                      ? 'rgba(247, 249, 124, 0.259)'
                       : i == 3
-                      ? '#79C9EC8C'
+                      ? 'rgba(121, 201, 236, 0.259)'
                       : i == 4
-                      ? '#97EC6F42'
+                      ? 'rgba(151, 236, 111, 0.259)'
                       : '#000000',
                 }}
               >

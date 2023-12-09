@@ -4,15 +4,15 @@ import { useRouter } from "next/navigation";
 import React, {useEffect} from "react";
 
 const Index = () => {
-  const { push } = useRouter();
+  // const { push } = useRouter();
 
-  useEffect(() => {
-    const loginCheck = localStorage.getItem('token');
+  // useEffect(() => {
+  //   const loginCheck = localStorage.getItem('token');
 
-    if (!loginCheck) {
-      push('/login');
-    }
-  }, []);
+  //   if (!loginCheck) {
+  //     push('/login');
+  //   }
+  // }, []);
 
   return (
     <div>
