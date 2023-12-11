@@ -18,6 +18,7 @@ const card = ({ name, detail }: any) => {
         </div>
       </div>
     </div>
+    
   );
 };
 
