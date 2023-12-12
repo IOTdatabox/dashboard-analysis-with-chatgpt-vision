@@ -40,12 +40,20 @@ const Hero2 = () => {
   useEffect(() => {}, [thirdAnswerOptions]);
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      const data = localStorage.getItem('token');
-      const parsedData = JSON.parse(data || '');
-      setCreatedAt(parsedData.user.created_at);
-      setToken(parsedData);
-      setId(parsedData);
+    const tokenData = localStorage.getItem('token');
+    if (tokenData) {
+      try {
+        const parsedData = JSON.parse(tokenData);
+        // Check if parsedData has the required structure
+        if (parsedData && parsedData.user && parsedData.user.created_at) {
+          setCreatedAt(parsedData.user.created_at);
+          setToken(parsedData);
+          setId(parsedData);
+        }
+      } catch (error) {
+        console.error('Error parsing token data:', error);
+        // Handle the error as needed (e.g., clear localStorage, redirect, etc.)
+      }
     }
   }, []);
 
