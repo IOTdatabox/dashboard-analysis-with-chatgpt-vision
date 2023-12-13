@@ -311,7 +311,7 @@ const Hero2 = () => {
         {isLoading && <Spinner />}
         <div className="py-4 md:mb-20 items-center justify-center flex-col xl:flex-row flex xl:items-start xl:justify-between">
           <div className="rounded-lg overflow-hidden mb-10 lg:mb-0 lg:p-10">
-            <div className="text-emerald-600 text-center xl:text-left text-lg font-normal leading-loose mb-[24px]">
+            <div className="text-emerald-600 text-center xl:text-left text-[28px] font-normal leading-loose mb-[24px]">
               Empowering Your Business
             </div>
             <div className="w-[100%]">
@@ -497,8 +497,7 @@ const Hero2 = () => {
                   className="w-[445px] h-[188px] bg-neutral-900 rounded-xl border border-dashed border-gray-600 flex-col justify-center items-center gap-5 inline-flex"
                 >
                   <input {...getInputProps()} />
-                  {imageSrc && <img src={imageSrc} alt="Uploaded" />}
-
+                  {imageSrc && <img src={imageSrc} alt="Uploaded" className='h-full w-full object-cover rounded-xl' />}
                   {!imageSrc &&
                     (isDragActive ? (
                       <p>Drop the files here ...</p>
