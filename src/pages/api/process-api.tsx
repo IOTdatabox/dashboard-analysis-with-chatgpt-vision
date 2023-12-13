@@ -146,6 +146,7 @@ export default async function handler(
                              "score": [provide appropriate score for accessibility out of 10, ensure it's between 2 and 9]
                              "description": [Accessibility Description]
                             Do not include anything on Mobile responsiveness.
+                            Please consider Desktop screens only. Do not consider mobile devices.
                             also Improvements section format like this [{"title":"","Description":"","PossibleSolution":""},{"title":"","Description":"","PossibleSolution":""}].
                             also Positives section format like this [{"title":"","Description":""},{"title":"","Description":""}].
                             also Rating section format like this [{"title":"","score":"","Description":""},{"title":"","score":"","Description":""}]

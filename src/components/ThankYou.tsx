@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Footer from './Footer';
+import { useEffect } from 'react';
 
 const ThankYou = () => {
   const router = useRouter();
@@ -13,24 +14,39 @@ const ThankYou = () => {
         <div className="flex justify-center">
           <div>
             <div>
-              <h1 className="text-center text-indigo-50 text-[64px] font-bold leading-[76.80px]">
+              <h1 className="text-center text-indigo-50 text-[54px] sm:text-[58px] md:text-[64px] font-bold leading-[76.80px]">
                 Thank You!
               </h1>
-              <p className="text-center text-slate-300 text-lg font-normal leading-loose mt-4">
+              <p className="text-center mx-auto w-[350px] sm:w-[450px] md:w-[627px] lg:w-[806px] text-slate-300 text-sm lg:text-lg font-normal leading-loose mt-4">
                 An email will be sent to {email} in the next few minutes with a
-                link to your <br />
-                personalized Dashboard feedback 😎
+                link to your personalized Dashboard feedback 😎
               </p>
             </div>
-            <div className="w-[853px] h-[480px] rounded-md bg-black bg-opacity-0 mx-auto my-14">
+            <div className="w-[450px] h-[260px] sm:w-[600px] sm:h-[300px] md:w-[720px] md:h-[370px] lg:w-[853px] lg:h-[480px] rounded-md bg-black bg-opacity-0 mx-auto my-14">
               <img
                 src="/img/Video-player.jpg"
                 alt="video"
                 className="h-full w-full object-cover rounded-md"
               />
+              {/* <iframe
+                style={{borderRadius: '6px'}}
+                src="https://player.vimeo.com/video/235215203?h=f7635d145a"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+              <p>
+                <a href="https://vimeo.com/235215203">Vimeo Placeholder</a> from{' '}
+                <a href="https://vimeo.com/user71635169">
+                  Elementor Website Builder
+                </a>{' '}
+                on <a href="https://vimeo.com">Vimeo</a>.
+              </p> */}
             </div>
-            <div className="flex justify-center gap-16 pb-28">
-              <div className="text-center flex flex-col items-center w-[100px] gap-8">
+            <div className="flex justify-center gap-5 sm:gap-8 md:gap-16 pb-28">
+              <div className="text-center flex flex-col items-center w-[80px] md:w-[100px] gap-4 md:gap-8">
                 <div className="h-[108px] w-[147px]">
                   <div className="p-10">
                     <svg
@@ -113,17 +129,17 @@ const ThankYou = () => {
                     </svg>
                   </div>
                 </div>
-                <p className="text-center text-white text-2xl font-bold leading-[31.20px]">
+                <p className="text-center text-white text-xl md:text-2xl font-bold leading-[31.20px]">
                   Upload
                 </p>
-                <p className="text-center text-stone-300 text-sm font-normal capitalize">
+                <p className="text-center text-stone-300 text-xs md:text-sm font-normal capitalize">
                   Drag & Drop
                   <br /> Dashboard
                   <br />
                   Screenshots
                 </p>
               </div>
-              <div className="text-center flex flex-col items-center w-[100px] gap-8">
+              <div className="text-center flex flex-col items-center w-[80px] md:w-[100px] gap-4 md:gap-8">
                 <div className="h-[108px] w-[147px]">
                   <div className="p-10">
                     <svg
@@ -174,15 +190,15 @@ const ThankYou = () => {
                     </svg>
                   </div>
                 </div>
-                <p className="text-center text-white text-2xl font-bold leading-[31.20px]">
+                <p className="text-center text-white text-xl md:text-2xl font-bold leading-[31.20px]">
                   Email
                 </p>
-                <p className="text-center text-stone-300 text-sm font-normal capitalize">
+                <p className="text-center text-stone-300 text-xs md:text-sm font-normal capitalize">
                   Check Your
                   <br /> Email
                 </p>
               </div>
-              <div className="text-center flex flex-col items-center w-[100px] gap-8">
+              <div className="text-center flex flex-col items-center w-[80px] md:w-[100px] gap-4 md:gap-8">
                 <div className="h-[108px] w-[147px]">
                   <div className="p-10">
                     <svg
@@ -249,15 +265,15 @@ const ThankYou = () => {
                     </svg>
                   </div>
                 </div>
-                <p className="text-center text-white text-2xl font-bold leading-[31.20px]">
+                <p className="text-center text-white text-xl md:text-2xl font-bold leading-[31.20px]">
                   Link
                 </p>
-                <p className="text-center text-stone-300 text-sm font-normal capitalize">
+                <p className="text-center text-stone-300 text-xs md:text-sm font-normal capitalize">
                   Click the link In
                   <br /> your Email
                 </p>
               </div>
-              <div className="text-center flex flex-col items-center w-[100px] gap-8">
+              <div className="text-center flex flex-col items-center w-[80px] md:w-[100px] gap-4 md:gap-8">
                 <div className="h-[108px] w-[147px]">
                   <div className="p-10">
                     <svg
@@ -372,10 +388,10 @@ const ThankYou = () => {
                     </svg>
                   </div>
                 </div>
-                <p className="text-center text-white text-2xl font-bold leading-[31.20px]">
+                <p className="text-center text-white text-xl md:text-2xl font-bold leading-[31.20px]">
                   Report
                 </p>
-                <p className="text-center text-stone-300 text-sm font-normal capitalize">
+                <p className="text-center text-stone-300 text-xs md:text-sm font-normal capitalize">
                   View and
                   <br /> analyze report
                 </p>

@@ -36,13 +36,13 @@ const Navbar = () => {
           {({ open }) => (
             <>
               <div className="mx-auto max-w-[90rem]  px-4 py-4 lg:py-5 sm:px-6 lg:px-8">
-                <div className="flex h-16 items-center justify-between">
+                <div className="flex flex-col md:flex-row h-auto md:h-16 gap-5 md:gap-0 items-center justify-between">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
                       <img
                         src="/img/Logo-3-1024x272.png"
                         alt="Vision"
-                        className="h-[51px] w-[192px] hover:cursor-pointer"
+                        className="h-[75px] w-[260px] md:h-[51px] md:w-[192px] hover:cursor-pointer"
                         onClick={() => router.push('/')}
                       />
                     </div>

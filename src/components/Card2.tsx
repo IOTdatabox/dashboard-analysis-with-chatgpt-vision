@@ -3,9 +3,9 @@ import React from 'react';
 
 const Card2 = ({ name, detail, occupation }: any) => {
   return (
-    <div className='flex'>
+    <div className='flex flex-col lg:flex-row'>
       <div className="w-[423px] h-[230px] ml-[100px] mr-[22px]">
-        <div className="w-[392px] h-48 flex-col justify-start items-start gap-[30px] inline-flex">
+        <div className="w-[392px] h-48 flex-col justify-center items-center lg:justify-start lg:items-start gap-[30px] inline-flex">
           <div className="flex">
             <svg
               width="18"
