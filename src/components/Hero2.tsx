@@ -303,18 +303,18 @@ const Hero2 = () => {
         {isLoading && <Spinner />}
         <div className="py-4 md:mb-20 items-center justify-center flex-col xl:flex-row flex xl:items-start xl:justify-between">
           <div className="rounded-lg overflow-hidden mb-10 lg:mb-0 lg:p-10">
-            <div className="text-emerald-600 text-lg font-normal leading-loose mb-[24px]">
+            <div className="text-emerald-600 text-center xl:text-left text-lg font-normal leading-loose mb-[24px]">
               Empowering Your Business
             </div>
             <div className="w-[100%]">
-              <h1 className="w-[520px] lg:w-[580px] text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[58px] lg:text-[63px] font-bold leading-[76.80px] mb-[26px] inline-block tracking-tight">
+              <h1 className="w-[520px] lg:w-[580px] text-center xl:text-left text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[58px] lg:text-[63px] font-bold leading-[76.80px] mb-[26px] inline-block tracking-tight">
                 Powerful solutions for your Dashboard
               </h1>
-              <p className="w-[580px] lg:w-[632px] text-slate-200 text-sm lg:text-lg font-normal leading-loose mb-[26px]">
+              <p className="w-[580px] lg:w-[632px] text-center xl:text-left text-slate-200 text-sm lg:text-lg font-normal leading-loose mb-[26px]">
                 Lorem ipsum is a placeholder text commonly used to demonstrate
                 the visual form of a document or a typeface without
               </p>
-              <div className="flex mb-[26px]">
+              <div className="flex justify-center xl:justify-start mb-[26px]">
                 <img
                   src="/img/productTwo.png"
                   alt="product"
@@ -326,7 +326,7 @@ const Hero2 = () => {
                   className="w-[160px] lg:w-[170px] h-[63px] lg:h-[73px] mr-[30px] lg:mr-[40px]"
                 />
               </div>
-              <div className="flex items-center">
+              <div className="flex justify-center xl:justify-start items-center">
                 <div className="w-[200px] h-14">
                   <button className="w-[200px] h-14 bg-emerald-600 rounded border-none flex justify-between items-center pl-16 pr-5">
                     <span className="text-center text-white text-base font-semibold leading-tight">
