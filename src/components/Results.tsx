@@ -451,7 +451,10 @@ const Results = () => {
         </h3>
 
         {parsedPositivesData.map((item: any, index: any) => (
-          <div className="w-full h-auto p-4 rounded-2xl border border-gray-900 justify-start items-center gap-4 inline-flex">
+          <div
+            key={item.uniqueIdentifier || index} // Replace 'item.uniqueIdentifier' with a unique identifier from your item if available
+            className="w-full h-auto p-4 rounded-2xl border border-gray-900 justify-start items-center gap-4 inline-flex"
+          >
             <div className="w-[52px] h-[52px] p-2 bg-white bg-opacity-10 rounded-xl justify-center items-center gap-2 flex">
               <div className="text-slate-300 text-xl font-normal leading-9">
                 {index + 1}
