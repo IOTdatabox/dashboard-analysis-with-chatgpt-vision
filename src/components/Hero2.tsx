@@ -4,7 +4,6 @@ import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
 import Spinner from './spinner/Spinner';
 import Teams from './Teams';
-import Footer from './Footer';
 import { supabase } from '@/client';
 
 const Hero2 = () => {
@@ -41,6 +40,7 @@ const Hero2 = () => {
   const [id, setId] = useState({ user: { id: '' } });
   const [createdAt, setCreatedAt] = useState('');
   const [token, setToken] = useState('');
+  const [show, setShow] = useState('');
 
   useEffect(() => {}, [thirdAnswerOptions]);
 
@@ -305,38 +305,80 @@ const Hero2 = () => {
     // }
   };
 
+  const toggleIcons = (id: String) => {
+    if (id === show) {
+      return (
+        <svg
+          data-accordion-icon
+          className="w-3 h-3 rotate-180 shrink-0"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 10 6"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5 5 1 1 5"
+          />
+        </svg>
+      );
+    } else {
+      return (
+        <svg
+          data-accordion-icon
+          className="w-3 h-3 rotate-360 shrink-0"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 10 6"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5 5 1 1 5"
+          />
+        </svg>
+      );
+    }
+  };
+
   return (
     <>
       <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950">
         {isLoading && <Spinner />}
-        <div className="py-4 md:mb-20 items-center justify-center flex-col xl:flex-row flex xl:items-start xl:justify-between">
-          <div className="rounded-lg overflow-hidden mb-10 lg:mb-0 lg:p-10">
-            <div className="text-emerald-600 text-center xl:text-left text-[28px] font-normal leading-loose mb-[24px]">
+        <div className="w-full py-4 md:mb-20 items-center justify-center flex-col xl:flex-row flex xl:items-start xl:justify-between">
+          <div className="w-auto xl:w-[50%] 2xl:w-auto rounded-lg overflow-hidden mb-10 lg:mb-0 lg:p-10">
+            <div className="text-emerald-600 text-center xl:text-left text-[19px] sm:text-[28px] font-normal leading-loose mb-[24px]">
               Empowering Your Business
             </div>
             <div className="w-[100%]">
-              <h1 className="w-[520px] lg:w-[580px] text-center xl:text-left text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[58px] lg:text-[63px] font-bold leading-[76.80px] mb-[26px] inline-block tracking-tight">
+              <h1 className="w-[520px] mx-auto xl:mx-0 2xl:w-[580px] text-center xl:text-left px-[120px] sm:px-0 text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[25px] sm:text-[58px] 2xl:text-[63px] font-bold leading-[51.8px] sm:leading-[76.80px] mb-[26px] inline-block tracking-tight">
                 Powerful solutions for your Dashboard
               </h1>
-              <p className="w-[580px] lg:w-[632px] text-center xl:text-left text-slate-200 text-sm lg:text-lg font-normal leading-loose mb-[26px]">
+              <p className="w-[58%] mx-auto sm:w-[540px] 2xl:w-[632px] text-center px-10 sm:px-0 xl:text-left text-slate-200 text-sm lg:text-lg font-normal leading-loose mb-[26px]">
                 Lorem ipsum is a placeholder text commonly used to demonstrate
                 the visual form of a document or a typeface without
               </p>
-              <div className="flex justify-center xl:justify-start mb-[26px]">
+              <div className="flex flex-col items-center sm:items-start sm:flex-row justify-normal sm:justify-center xl:justify-start mb-[26px]">
                 <img
                   src="/img/productTwo.png"
                   alt="product"
-                  className="w-[160px] lg:w-[170px] h-[63px] lg:h-[73px] mr-[30px] lg:mr-[40px]"
+                  className="w-[160px] lg:w-[170px] h-[63px] lg:h-[73px] mr-[25px] sm:mr-[30px] lg:mr-[40px]"
                 />
                 <img
                   src="/img/productTwo.png"
                   alt="product"
-                  className="w-[160px] lg:w-[170px] h-[63px] lg:h-[73px] mr-[30px] lg:mr-[40px]"
+                  className="w-[160px] lg:w-[170px] h-[63px] lg:h-[73px] mr-[25px] sm:mr-[30px] lg:mr-[40px]"
                 />
               </div>
-              <div className="flex justify-center xl:justify-start items-center">
-                <div className="w-[200px] h-14">
-                  <button className="w-[200px] h-14 bg-emerald-600 rounded border-none flex justify-between items-center pl-16 pr-5">
+              <div className="flex flex-col sm:flex-row justify-center xl:justify-start items-center">
+                <div className="w-[160px] sm:w-[200px] h-14 mb-5 sm:mb-0">
+                  <button className="w-[160px] sm:w-[200px] h-14 bg-emerald-600 rounded border-none flex justify-between items-center pl-8 sm:pl-16 pr-5">
                     <span className="text-center text-white text-base font-semibold leading-tight">
                       Start Free
                     </span>
@@ -368,23 +410,23 @@ const Hero2 = () => {
                       <img className="w-12 h-12" src="/img/2.png" />
                     </div>
                   </div>
-                  <div className="left-[130px] top-[13px] absolute text-slate-300 text-base font-normal leading-7">
+                  <div className="left-[120px] sm:left-[130px] top-[13px] absolute text-slate-300 text-base font-normal leading-7">
                     +4.7K Users
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="w-[445px] h-[488px] flex-col justify-start items-start gap-6 inline-flex">
-            <div className="flex-col justify-start items-center gap-[30px] flex lg:pt-10">
+          <div className="w-[100%] sm:w-[445px] h-[488px] flex-col justify-start items-start gap-6 inline-flex">
+            <div className="w-full flex-col justify-start items-center gap-[30px] flex lg:pt-10">
               <div className="px-2.5 justify-start items-start gap-2.5 inline-flex">
                 <h2 className="text-center text-white text-2xl font-bold leading-[31.20px]">
                   Get Started Now
                 </h2>
               </div>
-              <div className="flex-col justify-start items-center gap-3 inline-flex">
-                <div className="self-stretch justify-center items-start gap-2 inline-flex">
-                  <div className="grow shrink basis-0 h-[41px] p-4 bg-neutral-900 rounded-xl border border-gray-600 justify-start items-center gap-1 flex">
+              <div className="w-full flex-col justify-start items-center gap-3 inline-flex">
+                <div className="w-full justify-center items-start gap-2 inline-flex">
+                  <div className="w-[50%] h-[41px] p-4 bg-neutral-900 rounded-xl border border-gray-600 justify-start items-center gap-1 flex">
                     <input
                       id="name"
                       type="name"
@@ -399,7 +441,7 @@ const Hero2 = () => {
                       className="text-gray-400 placeholder:text-gray-400 placeholder:text-base placeholder:font-medium placeholder:leading-normal placeholder:tracking-tight"
                     />
                   </div>
-                  <div className="grow shrink basis-0 h-[41px] p-4 bg-neutral-900 rounded-xl border border-gray-600 justify-start items-center gap-1 flex">
+                  <div className="w-[50%] h-[41px] p-4 bg-neutral-900 rounded-xl border border-gray-600 justify-start items-center gap-1 flex">
                     <input
                       id="lastName"
                       type="lastName"
@@ -415,7 +457,7 @@ const Hero2 = () => {
                     />
                   </div>
                 </div>
-                <div className="w-[445px] h-[41px] p-4 bg-neutral-900 rounded-xl border border-gray-600 justify-start items-center gap-1 inline-flex">
+                <div className="w-[100%] sm:w-[445px] h-[41px] p-4 bg-neutral-900 rounded-xl border border-gray-600 justify-start items-center gap-1 inline-flex">
                   <input
                     id="email"
                     type="email"
@@ -435,7 +477,7 @@ const Hero2 = () => {
                   name="companySize"
                   value={companySize}
                   onChange={onCompanySizeChanged}
-                  className="w-[445px] h-[41px] pl-4 bg-neutral-900 rounded-xl border border-gray-600 justify-start items-center gap-1 inline-flex text-gray-400 text-base font-medium leading-normal tracking-tight"
+                  className="w-[100%] h-[41px] pl-3 bg-neutral-900 rounded-xl border border-gray-600 justify-start items-center gap-1 inline-flex text-gray-400 text-base font-medium leading-normal tracking-tight"
                 >
                   <option
                     className="text-gray-400 text-base font-medium leading-normal tracking-tight"
@@ -494,10 +536,16 @@ const Hero2 = () => {
                 </select>
                 <div
                   {...getRootProps()}
-                  className="w-[445px] h-[188px] bg-neutral-900 rounded-xl border border-dashed border-gray-600 flex-col justify-center items-center gap-5 inline-flex"
+                  className="w-[100%] h-[188px] bg-neutral-900 rounded-xl border border-dashed border-gray-600 flex-col justify-center items-center gap-5 inline-flex"
                 >
                   <input {...getInputProps()} />
-                  {imageSrc && <img src={imageSrc} alt="Uploaded" className='h-full w-full object-cover rounded-xl' />}
+                  {imageSrc && (
+                    <img
+                      src={imageSrc}
+                      alt="Uploaded"
+                      className="h-full w-full object-cover rounded-xl"
+                    />
+                  )}
                   {!imageSrc &&
                     (isDragActive ? (
                       <p>Drop the files here ...</p>
@@ -567,7 +615,7 @@ const Hero2 = () => {
 
               <button
                 onClick={() => onSubmitBtnClicked()}
-                className="w-[445px] h-14 bg-emerald-600 rounded border-none flex justify-between items-center pl-48 pr-14"
+                className="w-[100%] h-14 bg-emerald-600 rounded border-none flex justify-center sm:justify-between gap-5 sm:gap-0 items-center px-0 sm:pl-48 sm:pr-14"
               >
                 <span className="text-center text-white text-base font-semibold leading-tight">
                   Let’s go
@@ -659,7 +707,7 @@ const Hero2 = () => {
           </div>
         </div>
         {/* supporters */}
-        <div className="flex justify-center mb-5 md:mb-0">
+        <div className="flex justify-center mb-20 md:mb-0">
           <div className="w-[40rem] md:w-[56rem] lg:w-[70rem] xl:w-[90rem] h-[50px] justify-start items-center gap-[7px] md:gap-[15px] lg:gap-[41px] xl:gap-[70px] mt-16 mb-20 flex flex-col md:flex-row md:inline-flex">
             <div className="w-px h-[50px] opacity-70 bg-gray-800" />
             <div className="w-[73.69px] h-[18px] relative">
@@ -903,11 +951,11 @@ const Hero2 = () => {
       </section>
       <Teams />
       <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950 mt-20">
-        <div className="pb-16">
+        <div className="w-[70%] mx-auto pb-16">
           <p className="text-center text-emerald-600 text-[15px] font-normal leading-[27px] mb-3">
             Flex Impact
           </p>
-          <h3 className="w-[60%] mb-5 mx-auto text-center text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
+          <h3 className="w-[100%] mb-5 mx-0 sm:mx-auto text-center text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[30px] sm:text-[46px] font-bold leading-[40.20px] sm:leading-[55.20px]">
             Lorem ipsum is a placeholder text commonly used to
           </h3>
           <p className="w-[40%] mx-auto text-center text-slate-400 text-base font-normal leading-7">
@@ -915,7 +963,7 @@ const Hero2 = () => {
             visual form of a document or a typeface without
           </p>
         </div>
-        <div className="w-[70%] mx-auto h-[727px] bg-gradient-to-br from-slate-950 to-gray-950 rounded-[14px] border border-gray-800">
+        <div className="w-[70%] mx-auto h-[100%] bg-gradient-to-br from-slate-950 to-gray-950 rounded-[14px] border border-gray-800">
           <img
             src="/img/graph.png"
             alt="graph"
@@ -923,16 +971,16 @@ const Hero2 = () => {
           />
         </div>
       </section>
-      <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950 pt-[248px]">
-        <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-between mb-40 lg:mb-60">
+      <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950 pt-20 sm:pt-[248px]">
+        <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-between mb-20 sm:mb-40 lg:mb-60">
           <div className="mb-5 lg:mb-0">
-            <p className="text-emerald-600 text-[15px] font-normal leading-[27px] mb-2">
+            <p className="text-emerald-600 text-center sm:text-left text-[15px] font-normal leading-[27px] mb-2">
               Screenshots
             </p>
-            <h3 className="w-[522px] mb-5 text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
+            <h3 className="w-[100%] sm:w-[522px] mb-5 text-center sm:text-left text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
               Chart Feedback on Readability
             </h3>
-            <p className="w-[522px] text-slate-200 text-base font-thin leading-7">
+            <p className="w-[100%] sm:w-[522px] text-slate-200 text-center sm:text-left text-base font-thin leading-7">
               Lorem ipsum is a placeholder text commonly used to demonstrate the
               visual form of a document or a typeface without
             </p>
@@ -1033,30 +1081,30 @@ const Hero2 = () => {
               </p>
             </div>
           </div>
-          <div className="w-[553px] lg:w-[30%] h-[440px] lg:h-[90%]">
+          <div className="w-[100%] sm:w-[553px] lg:w-[30%] h-[100%] sm:h-[440px] lg:h-[90%]">
             <img
               src="/img/Screenshot_4.png"
               alt="screenshot1"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-fit"
             />
           </div>
         </div>
-        <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-between mb-40 lg:mb-60">
-          <div className="w-[553px] lg:w-[30%] h-[440px] lg:h-[90%]">
+        <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-between mb-20 sm:mb-40 lg:mb-60">
+          <div className="w-[100%] sm:w-[553px] lg:w-[30%] h-[100%] sm:h-[440px] lg:h-[90%]">
             <img
               src="/img/Screenshot_4.png"
               alt="screenshot1"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-fit"
             />
           </div>
           <div className="mt-5 lg:mt-0">
-            <p className="text-emerald-600 text-[15px] font-normal leading-[27px] mb-2">
+            <p className="text-emerald-600 text-center sm:text-left text-[15px] font-normal leading-[27px] mb-2">
               Describe
             </p>
-            <h3 className="w-[522px] mb-5 text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
+            <h3 className="w-[100%] sm:w-[522px] mb-5 text-center sm:text-left text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
               Contrast, text size & readability
             </h3>
-            <p className="w-[522px] text-slate-200 text-base font-thin leading-7">
+            <p className="w-[100%] sm:w-[522px] text-center sm:text-left text-slate-200 text-base font-thin leading-7">
               Lorem ipsum is a placeholder text commonly used to demonstrate the
               visual form of a document or a typeface without
             </p>
@@ -1160,13 +1208,13 @@ const Hero2 = () => {
         </div>
         <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-between">
           <div className="mb-5 lg:mb-0">
-            <p className="text-emerald-600 text-[15px] font-normal leading-[27px] mb-2">
+            <p className="text-emerald-600 text-center sm:text-left text-[15px] font-normal leading-[27px] mb-2">
               Screenshots
             </p>
-            <h3 className="w-[522px] mb-5 text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
+            <h3 className="w-[100%] sm:w-[522px] mb-5 text-center sm:text-left text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
               Improvement Suggestions to act on
             </h3>
-            <p className="w-[522px] text-slate-200 text-base font-thin leading-7">
+            <p className="w-[100%] sm:w-[522px] text-center sm:text-left text-slate-200 text-base font-thin leading-7">
               Lorem ipsum is a placeholder text commonly used to demonstrate the
               visual form of a document or a typeface without
             </p>
@@ -1267,16 +1315,16 @@ const Hero2 = () => {
               </p>
             </div>
           </div>
-          <div className="w-[553px] lg:w-[30%] h-[440px] lg:h-[90%]">
+          <div className="w-[100%] sm:w-[553px] lg:w-[30%] h-[100%] sm:h-[440px] lg:h-[90%]">
             <img
               src="/img/Screenshot_4.png"
               alt="screenshot1"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-fit"
             />
           </div>
         </div>
       </section>
-      <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950 pt-[248px] pb-[248px]">
+      <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950 pt-20 sm:pt-[248px] pb-[248px]">
         <div className="flex flex-col items-center justify-center lg:flex-row lg:items-start lg:justify-between h-auto">
           <div className="mb-7 lg:mb-0 text-center lg:text-left">
             <p className="text-emerald-600 text-[15px] font-normal leading-[27px] mb-2">
@@ -1292,7 +1340,133 @@ const Hero2 = () => {
               typeface without
             </p>
           </div>
-          <div>
+          <div id="accordion-collapse" data-accordion="collapse">
+            <h2 id="accordion-collapse-heading-1">
+              <button
+                type="button"
+                onClick={() => setShow('accordion-collapse-body-1')}
+                className="flex items-center justify-between w-full px-5 pb-10 font-medium rtl:text-right text-gray-500 border-b border-gray-700 hover:bg-gray-800 gap-3"
+                data-accordion-target="#accordion-collapse-body-1"
+                aria-expanded="true"
+                aria-controls="accordion-collapse-body-1"
+              >
+                <span>Lorem ipsum is a placeholder text commonly used to</span>
+                {toggleIcons('accordion-collapse-body-1')}
+              </button>
+            </h2>
+            <div
+              id="accordion-collapse-body-1"
+              className={`${
+                show === 'accordion-collapse-body-1' ? '' : 'hidden'
+              }`}
+              aria-labelledby="accordion-collapse-heading-1"
+            >
+              <div className="p-5">
+                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                  Lorem ipsum is a placeholder text commonly used to demonstrate
+                  the visual form of a document or a typeface without
+                </p>
+                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                  Lorem ipsum is a placeholder text commonly used to demonstrate
+                  the visual form
+                </p>
+              </div>
+            </div>
+            <h2 id="accordion-collapse-heading-2">
+              <button
+                type="button"
+                onClick={() => setShow('accordion-collapse-body-2')}
+                className="flex items-center justify-between w-full px-5 py-10 font-medium rtl:text-right text-gray-500 border-b border-gray-700 hover:bg-gray-800 gap-3"
+                data-accordion-target="#accordion-collapse-body-2"
+                aria-expanded="false"
+                aria-controls="accordion-collapse-body-2"
+              >
+                <span>Lorem ipsum is a placeholder text commonly used to</span>
+                {toggleIcons('accordion-collapse-body-2')}
+              </button>
+            </h2>
+            <div
+              id="accordion-collapse-body-2"
+              className={`${
+                show === 'accordion-collapse-body-2' ? '' : 'hidden'
+              }`}
+              aria-labelledby="accordion-collapse-heading-2"
+            >
+              <div className="p-5">
+                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                  Lorem ipsum is a placeholder text commonly used to demonstrate
+                  the visual form of a document or a typeface without
+                </p>
+                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                  Lorem ipsum is a placeholder text commonly used to demonstrate
+                  the visual form
+                </p>
+              </div>
+            </div>
+            <h2 id="accordion-collapse-heading-3">
+              <button
+                type="button"
+                onClick={() => setShow('accordion-collapse-body-3')}
+                className="flex items-center justify-between w-full px-5 py-10 font-medium rtl:text-right text-gray-500 border-b border-gray-700 hover:bg-gray-800 gap-3"
+                data-accordion-target="#accordion-collapse-body-3"
+                aria-expanded="false"
+                aria-controls="accordion-collapse-body-3"
+              >
+                <span>Lorem ipsum is a placeholder text commonly used to</span>
+                {toggleIcons('accordion-collapse-body-3')}
+              </button>
+            </h2>
+            <div
+              id="accordion-collapse-body-3"
+              className={`${
+                show === 'accordion-collapse-body-3' ? '' : 'hidden'
+              }`}
+              aria-labelledby="accordion-collapse-heading-3"
+            >
+              <div className="p-5">
+                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                  Lorem ipsum is a placeholder text commonly used to demonstrate
+                  the visual form of a document or a typeface without
+                </p>
+                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                  Lorem ipsum is a placeholder text commonly used to demonstrate
+                  the visual form
+                </p>
+              </div>
+            </div>
+            <h2 id="accordion-collapse-heading-4">
+              <button
+                type="button"
+                onClick={() => setShow('accordion-collapse-body-4')}
+                className="flex items-center justify-between w-full px-5 py-10 font-medium rtl:text-right text-gray-500 border-b border-gray-700 hover:bg-gray-800 gap-3"
+                data-accordion-target="#accordion-collapse-body-4"
+                aria-expanded="false"
+                aria-controls="accordion-collapse-body-4"
+              >
+                <span>Lorem ipsum is a placeholder text commonly used to</span>
+                {toggleIcons('accordion-collapse-body-4')}
+              </button>
+            </h2>
+            <div
+              id="accordion-collapse-body-4"
+              className={`${
+                show === 'accordion-collapse-body-4' ? '' : 'hidden'
+              }`}
+              aria-labelledby="accordion-collapse-heading-4"
+            >
+              <div className="p-5">
+                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                  Lorem ipsum is a placeholder text commonly used to demonstrate
+                  the visual form of a document or a typeface without
+                </p>
+                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                  Lorem ipsum is a placeholder text commonly used to demonstrate
+                  the visual form
+                </p>
+              </div>
+            </div>
+          </div>
+          {/* <div>
             <div className="grid grid-cols-3 items-start gap-40 h-[74px]">
               <div className="text-slate-200 text-lg font-normal leading-7 tracking-tight grid col-span-2">
                 Lorem ipsum is a placeholder text commonly used to
@@ -1429,10 +1603,9 @@ const Hero2 = () => {
               </div>
             </div>
             <div className="w-[85%] h-px opacity-70 bg-gray-800" />
-          </div>
+          </div> */}
         </div>
       </section>
-      <Footer />
     </>
   );
 };

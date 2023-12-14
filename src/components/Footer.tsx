@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <section className="py-10 opacity-70 bg-gradient-to-r, from-[#1F233900] to-[#1F244D] border border-indigo-950 backdrop-blur-[80px]">
+    <section className="py-10 opacity-70 bg-gradient-to-r, from-[#1F233900] to-[#1F244D] border-t border-indigo-950 backdrop-blur-[80px]">
       <div className="grid grid-cols-2 gap-5 md:grid-cols-3 md:gap-0">
         <div className="flex justify-center col-span-2 md:col-span-1"> 
           <div>

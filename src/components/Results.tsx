@@ -37,6 +37,8 @@ const Results = () => {
     }
   }, [router.query.token]);
 
+  console.log(data, 'data')
+
   const improve = JSON.parse(data[0]?.improvements || '[]');
   const improve1 = improve[0];
 
@@ -48,6 +50,8 @@ const Results = () => {
   const parsedPositivesData = JSON.parse(parsedPositives || '[]');
 
   const rating = JSON.parse(data[0]?.rating || '[]');
+
+  const dashboard = JSON.parse(data[0]?.dashboard || '[]')
 
   const data2 = rating.map((item: { score: any }) => item.score);
 
@@ -70,11 +74,11 @@ const Results = () => {
           to save feedback
         </p>
       </div>
-      <h1 className="w-[80%] md:w-[40%] lg:w-[37%] mx-auto text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[58px] md:text-[60px] font-bold leading-[76.80px]">
-        Name Dashboard
+      <h1 className="w-[100%] text-center mx-auto text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[50px] sm:text-[58px] lg:text-[60px] font-bold leading-[76.80px]">
+        {dashboard && dashboard.length > 0 ? dashboard : 'Name Dashboard'}
       </h1>
       {/* image section */}
-      <div className="w-[80%] h-[448px] mx-auto rounded-lg mt-16 mb-16">
+      <div className="w-[80%] h-[250px] sm:h-[300px] md:h-[380px] lg:h-[448px] mx-auto rounded-lg mt-16 mb-16">
         <img
           src={
             data[0]?.image
@@ -82,7 +86,7 @@ const Results = () => {
               : '/img/background.jpg'
           }
           alt="photo"
-          className="w-full h-full object-cover rounded-lg"
+          className="w-full h-full object-fit rounded-lg"
         />
       </div>
       {/* <h3 className="h-15 text-white text-[32px] font-extrabold my-5">
@@ -114,10 +118,10 @@ const Results = () => {
 
       {/* Rating breakdown */}
       <div>
-        <h3 className="w-[30%] text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[32px] font-extrabold mb-8">
+        <h3 className="w-[100%] text-center sm:text-left sm:w[50%] xl:w-[30%] text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[32px] font-extrabold mb-8">
           Rating Breakdown
         </h3>
-        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <ul className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {rating.map((item: any, i: any) => (
             <>
               {i === 0 && (
@@ -209,9 +213,9 @@ const Results = () => {
                               y2="20.4839"
                               gradientUnits="userSpaceOnUse"
                             >
-                              <stop stop-color="#A330FF" stop-opacity="0.7" />
-                              <stop offset="0.393247" stop-color="#BC3DCB" />
-                              <stop offset="1" stop-color="#E3507A" />
+                              <stop stopColor="#A330FF" stopOpacity="0.7" />
+                              <stop offset="0.393247" stopColor="#BC3DCB" />
+                              <stop offset="1" stopColor="#E3507A" />
                             </linearGradient>
                           </defs>
                         </svg>
@@ -241,12 +245,12 @@ const Results = () => {
                               y2="20.5133"
                               gradientUnits="userSpaceOnUse"
                             >
-                              <stop stop-color="#FFDB30" stop-opacity="0.82" />
-                              <stop offset="0.393247" stop-color="#E27034" />
+                              <stop stopColor="#FFDB30" stopOpacity="0.82" />
+                              <stop offset="0.393247" stopColor="#E27034" />
                               <stop
                                 offset="1"
-                                stop-color="#3EDEF6"
-                                stop-opacity="0.73"
+                                stopColor="#3EDEF6"
+                                stopOpacity="0.73"
                               />
                             </linearGradient>
                           </defs>
@@ -287,8 +291,8 @@ const Results = () => {
                               y2="23.7"
                               gradientUnits="userSpaceOnUse"
                             >
-                              <stop stop-color="#ABEC79" />
-                              <stop offset="1" stop-color="#17638E" />
+                              <stop stopColor="#ABEC79" />
+                              <stop offset="1" stopColor="#17638E" />
                             </linearGradient>
                             <linearGradient
                               id="paint1_linear_95_29"
@@ -298,8 +302,8 @@ const Results = () => {
                               y2="37.1667"
                               gradientUnits="userSpaceOnUse"
                             >
-                              <stop stop-color="#ABEC79" />
-                              <stop offset="1" stop-color="#17638E" />
+                              <stop stopColor="#ABEC79" />
+                              <stop offset="1" stopColor="#17638E" />
                             </linearGradient>
                             <linearGradient
                               id="paint2_linear_95_29"
@@ -309,8 +313,8 @@ const Results = () => {
                               y2="27.1833"
                               gradientUnits="userSpaceOnUse"
                             >
-                              <stop stop-color="#ABEC79" />
-                              <stop offset="1" stop-color="#17638E" />
+                              <stop stopColor="#ABEC79" />
+                              <stop offset="1" stopColor="#17638E" />
                             </linearGradient>
                           </defs>
                         </svg>
@@ -350,8 +354,8 @@ const Results = () => {
                               y2="12.974"
                               gradientUnits="userSpaceOnUse"
                             >
-                              <stop stop-color="#CB6699" />
-                              <stop offset="1" stop-color="#CD8067" />
+                              <stop stopColor="#CB6699" />
+                              <stop offset="1" stopColor="#CD8067" />
                             </linearGradient>
                             <linearGradient
                               id="paint1_linear_95_282"
@@ -361,8 +365,8 @@ const Results = () => {
                               y2="18.6304"
                               gradientUnits="userSpaceOnUse"
                             >
-                              <stop stop-color="#CB6699" />
-                              <stop offset="1" stop-color="#CD8067" />
+                              <stop stopColor="#CB6699" />
+                              <stop offset="1" stopColor="#CD8067" />
                             </linearGradient>
                             <linearGradient
                               id="paint2_linear_95_282"
@@ -372,8 +376,8 @@ const Results = () => {
                               y2="18.6218"
                               gradientUnits="userSpaceOnUse"
                             >
-                              <stop stop-color="#CB6699" />
-                              <stop offset="1" stop-color="#CD8067" />
+                              <stop stopColor="#CB6699" />
+                              <stop offset="1" stopColor="#CD8067" />
                             </linearGradient>
                           </defs>
                         </svg>
@@ -403,8 +407,8 @@ const Results = () => {
                               y2="50.9581"
                               gradientUnits="userSpaceOnUse"
                             >
-                              <stop stop-color="#7B61FF" />
-                              <stop offset="1" stop-color="#CD8067" />
+                              <stop stopColor="#7B61FF" />
+                              <stop offset="1" stopColor="#CD8067" />
                             </linearGradient>
                           </defs>
                         </svg>
@@ -442,7 +446,7 @@ const Results = () => {
 
       {/* Good Feedback */}
       <div className="w-full px-4 py-6 bg-white bg-opacity-5 rounded-2xl flex-col justify-start items-start gap-8 inline-flex mt-16">
-        <h3 className="w-[70%] md:w-[30%] text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[32px] font-extrabold">
+        <h3 className="w-[100%] text-center sm:text-left sm:w[50%] xl:w-[30%] text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[32px] font-extrabold">
           Good Feedback
         </h3>
 
@@ -469,14 +473,14 @@ const Results = () => {
 
       {/* Areas for improvement */}
       <div className="mt-16 pb-16">
-        <h3 className="w-[70%] md:w-[30%] text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[32px] font-extrabold mb-8">
+        <h3 className="w-[100%] text-center sm:text-left sm:w[50%] xl:w-[30%] text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[32px] font-extrabold mb-8">
           Areas for Improvement
         </h3>
-        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <ul className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {parsedData.map((item: any, index: any) => (
             <li
               className={`col-span-1 p-4 bg-neutral-900 rounded-2xl border border-gray-900 justify-start items-center gap-4 inline-flex ${
-                index === parsedData.length - 1 ? 'w-[204%]' : ''
+                index === parsedData.length - 1 ? 'lg:w-[204%]' : ''
               }`}
             >
               <div className="w-[52px] h-[52px] p-2 bg-white bg-opacity-10 rounded-xl justify-center items-center gap-2 flex">

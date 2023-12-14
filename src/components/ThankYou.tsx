@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import Footer from './Footer';
 import { useEffect } from 'react';
 
 const ThankYou = () => {
@@ -10,23 +9,23 @@ const ThankYou = () => {
 
   return (
     <>
-      <section className="mt-[27px]">
-        <div className="flex justify-center">
-          <div>
-            <div>
-              <h1 className="text-center text-indigo-50 text-[54px] sm:text-[58px] md:text-[64px] font-bold leading-[76.80px]">
+      <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950">
+        <div className="flex justify-center mt-[27px]">
+          <div className='w-full'>
+            <div className='w-full'>
+              <h1 className="w-full mx-auto text-center text-indigo-50 text-[54px] sm:text-[58px] md:text-[64px] font-bold leading-[76.80px]">
                 Thank You!
               </h1>
-              <p className="text-center mx-auto w-[350px] sm:w-[450px] md:w-[627px] lg:w-[806px] text-slate-300 text-sm lg:text-lg font-normal leading-loose mt-4">
+              <p className="text-center mx-auto w-full sm:w-[450px] md:w-[627px] lg:w-[806px] text-slate-300 text-sm lg:text-lg font-normal leading-loose mt-4">
                 An email will be sent to {email} in the next few minutes with a
                 link to your personalized Dashboard feedback 😎
               </p>
             </div>
-            <div className="w-[450px] h-[260px] sm:w-[600px] sm:h-[300px] md:w-[720px] md:h-[370px] lg:w-[853px] lg:h-[480px] rounded-md bg-black bg-opacity-0 mx-auto my-14">
+            <div className="w-full sm:w-[70%] mx-auto rounded-md bg-black bg-opacity-0 my-14">
               <img
                 src="/img/Video-player.jpg"
                 alt="video"
-                className="h-full w-full object-cover rounded-md"
+                className="h-full w-full object-fit rounded-md"
               />
               {/* <iframe
                 style={{borderRadius: '6px'}}
@@ -400,7 +399,6 @@ const ThankYou = () => {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 };

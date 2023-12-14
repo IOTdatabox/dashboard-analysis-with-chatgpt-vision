@@ -145,7 +145,9 @@ export default async function handler(
                              "Title": [Accessibility]
                              "score": [provide appropriate score for accessibility out of 10, ensure it's between 2 and 9]
                              "description": [Accessibility Description]
+                            5. Dashboard: [This is a dashboard, can you please come up with a title for it that is no longer than 3 words]
                             Do not include anything on Mobile responsiveness.
+                            Note that a 'v' (down caret icon) is often used to identify chart interactivity and can be interacted with.
                             Please consider Desktop screens only. Do not consider mobile devices.
                             also Improvements section format like this [{"title":"","Description":"","PossibleSolution":""},{"title":"","Description":"","PossibleSolution":""}].
                             also Positives section format like this [{"title":"","Description":""},{"title":"","Description":""}].
@@ -200,6 +202,7 @@ export default async function handler(
     const secondAnswer = parseSection(content, '2. Positives');
     const thirdAnswer = parseSection(content, '3. Improvements');
     const fourthAnswer = parseSection(content, '4. Rating');
+    const fifthAnswer = parseSection(content, '5. Dashboard')
 
     let dataTypeString = secondAnswer.split('*');
     let jobTypeString = thirdAnswer.split('*');
@@ -209,6 +212,7 @@ export default async function handler(
       secondAnswer: dataTypeString,
       thirdAnswer: jobTypeString, // Assuming you want to include the split string of thirdAnswer
       fourthAnswer: fourthAnswer,
+      fifthAnswer: fifthAnswer
     };
 
     const { data, error } = await supabase
@@ -221,6 +225,7 @@ export default async function handler(
           positives: apiResponse.secondAnswer,
           improvements: apiResponse.thirdAnswer,
           rating: apiResponse.fourthAnswer,
+          dashboard: apiResponse.fifthAnswer,
           token: generateRandomToken(),
         },
       ])

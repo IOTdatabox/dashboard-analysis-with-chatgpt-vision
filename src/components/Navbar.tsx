@@ -47,16 +47,16 @@ const Navbar = () => {
                       />
                     </div>
                   </div>
-                  <div className="justify-center items-center gap-[60px] inline-flex">
+                  {/* <div className="justify-center items-center gap-[60px] inline-flex">
                     <div className="text-center text-slate-300 text-base font-medium font-['Manrope'] leading-7">
                       Home
                     </div>
                     <div className="text-center text-slate-300 text-base font-normal font-['Manrope'] leading-7">
                       Pricing
                     </div>
-                  </div>
-                  <div>
-                    {/* <div className="ml-4 flex items-center md:ml-6 mt-3">
+                  </div> */}
+                  {/* <div>
+                    <div className="ml-4 flex items-center md:ml-6 mt-3">
                       {token ? (
                         <button
                           onClick={() => handleLogout()}
@@ -72,8 +72,8 @@ const Navbar = () => {
                           Login
                         </Link>
                       )}
-                    </div> */}
-                  </div>
+                    </div>
+                  </div> */}
                 </div>
               </div>
 
