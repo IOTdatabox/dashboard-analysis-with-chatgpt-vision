@@ -480,10 +480,10 @@ const Results = () => {
           Areas for Improvement
         </h3>
         <ul className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {parsedData.map((item: any, index: any) => (
+        {parsedData.map((item: any, index: any) => (
             <li
-              className={`col-span-1 p-4 bg-neutral-900 rounded-2xl border border-gray-900 justify-start items-center gap-4 inline-flex ${
-                index === parsedData.length - 1 ? 'lg:w-[204%]' : ''
+            key={item.id || index}
+            className={`col-span-1 p-4 bg-neutral-900 rounded-2xl border border-gray-900 justify-start items-center gap-4 inline-flex ${index === parsedData.length - 1 ? 'w-[204%]' : ''
               }`}
             >
               <div className="w-[52px] h-[52px] p-2 bg-white bg-opacity-10 rounded-xl justify-center items-center gap-2 flex">
