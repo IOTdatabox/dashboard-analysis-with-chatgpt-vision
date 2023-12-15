@@ -39,15 +39,14 @@ const Results = () => {
 
   console.log(data, 'data')
 
+  console.log("Improvements")
+  console.log(data[0]?.improvements);
+  
   const improve = JSON.parse(data[0]?.improvements || '[]');
-  const improve1 = improve[0];
-
-  const parsedData = JSON.parse(improve1 || '[]');
 
   const positives = JSON.parse(data[0]?.positives || '[]');
-  const parsedPositives = positives[0];
 
-  const parsedPositivesData = JSON.parse(parsedPositives || '[]');
+  // const parsedPositivesData = JSON.parse(parsedPositives || '[]');
 
   const rating = JSON.parse(data[0]?.rating || '[]');
 
@@ -450,7 +449,7 @@ const Results = () => {
           Good Feedback
         </h3>
 
-        {parsedPositivesData.map((item: any, index: any) => (
+        {positives.map((item: any, index: any) => (
           <div
             key={item.uniqueIdentifier || index} // Replace 'item.uniqueIdentifier' with a unique identifier from your item if available
             className="w-full h-auto p-4 rounded-2xl border border-gray-900 justify-start items-center gap-4 inline-flex"
@@ -480,10 +479,10 @@ const Results = () => {
           Areas for Improvement
         </h3>
         <ul className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {parsedData.map((item: any, index: any) => (
+        {improve.map((item: any, index: any) => (
             <li
             key={item.id || index}
-            className={`col-span-1 p-4 bg-neutral-900 rounded-2xl border border-gray-900 justify-start items-center gap-4 inline-flex ${index === parsedData.length - 1 ? 'w-[204%]' : ''
+            className={`col-span-1 p-4 bg-neutral-900 rounded-2xl border border-gray-900 justify-start items-center gap-4 inline-flex ${index === improve.length - 1 ? 'w-[204%]' : ''
               }`}
             >
               <div className="w-[52px] h-[52px] p-2 bg-white bg-opacity-10 rounded-xl justify-center items-center gap-2 flex">

@@ -101,61 +101,61 @@ export default async function handler(
             {
               type: 'text',
               text: `Attached is a Data Dashboard. Please reply in the following format:
-                            1. Purpose: [provide 3 positives & 7 areas improvement of the dashboard.]
-                            2. Positives:
-                             "Title": [Positive Aspect 1]
-                             "description": [Positive Point 1 Description]
-                             "Title": [Positive Aspect 2]
-                             "description": [Positive Point 2 Description]
-                             "Title": [Positive Aspect 3]
-                             "description": [Positive Point 3 Description]
-                            3. Improvements:
-                             "Title": [Improvement Aspect 1]
-                            "description": [Improvement Point 1 Description]
-                              "Possible Solution": [Your possible solution for Improvement Aspect 1]
-                             "Title": [Improvement Aspect 2]
-                            "description": [Improvement Point 2 Description]
-                              "Possible Solution": [Your possible solution for Improvement Aspect 2]
-                             "Title": [Improvement Aspect 3]
-                            "description": [Improvement Point 3 Description]
-                              "Possible Solution": [Your possible solution for Improvement Aspect 3]
-                             "Title": [Improvement Aspect 4]
-                            "description": [Improvement Point 4 Description]
-                              "Possible Solution": [Your possible solution for Improvement Aspect 4]
-                             "Title": [Improvement Aspect 5]
-                            "description": [Improvement Point 5 Description]
-                              "Possible Solution": [Your possible solution for Improvement Aspect 5]
-                             "Title": [Improvement Aspect 6]
-                            "description": [Improvement Point 6 Description]
-                              "Possible Solution": [Your possible solution for Improvement Aspect 6]
-                             "Title": [Improvement Aspect 7]
-                            "description": [Improvement Point 7 Description]
-                              "Possible Solution": [Your possible solution for Improvement Aspect 7]
-                            4. Rating: [provide appropriate score for readability, color usage, chart selection, understandability, accessibility out of 10]
-                              "Title": [Readability] 
-                             "score": [provide appropriate score for readability out of 10, ensure it's between 2 and 9]
-                              "description": [Readability Description]
-                              "Title": [Color Usage]
-                             "score": [provide appropriate score for color-usage out of 10, ensure it's between 2 and 9]
-                             "description": [Color Usage Description]
-                             "Title": [Chart Selection]
-                             "score": [provide appropriate score for chart selection out of 10, ensure it's between 2 and 9]
-                             "description": [Chart Selection Description]
-                             "Title": [Understandability]
-                             "score": [provide appropriate score for understandability out of 10, ensure it's between 2 and 9]
-                             "description": [Understandability Description]
-                             "Title": [Accessibility]
-                             "score": [provide appropriate score for accessibility out of 10, ensure it's between 2 and 9]
-                             "description": [Accessibility Description]
-                            5. Dashboard: [Suggest a always unique and concise title for the dashboard, no longer than 3 words. Ensure it is appropriate and not empty.]
-                            Do not include anything on Mobile responsiveness.
-                            Note that a 'v' (down caret icon) is often used to identify chart interactivity and can be interacted with.
-                            Do not consider data interactivity point for improvements.
-                            Please consider Desktop screens only. Do not consider mobile devices.
-                            also Improvements section format like this [{"title":"","Description":"","PossibleSolution":""},{"title":"","Description":"","PossibleSolution":""}].
-                            also Positives section format like this [{"title":"","Description":""},{"title":"","Description":""}].
-                            also Rating section format like this [{"title":"","score":"","Description":""},{"title":"","score":"","Description":""}]
-                            `,
+              1. Purpose: [provide 3 positives & 7 areas improvement of the dashboard.]
+              2. Positives:
+               "Title": [Positive Aspect 1]
+               "description": [Positive Point 1 Description]
+               "Title": [Positive Aspect 2]
+               "description": [Positive Point 2 Description]
+               "Title": [Positive Aspect 3]
+               "description": [Positive Point 3 Description]
+              3. Improvements:
+               "Title": [Improvement Aspect 1]
+               "description": [Improvement Point 1 Description]
+               "Possible Solution": [Your possible solution for Improvement Aspect 1]
+               "Title": [Improvement Aspect 2]
+               "description": [Improvement Point 2 Description]
+               "Possible Solution": [Your possible solution for Improvement Aspect 2]
+               "Title": [Improvement Aspect 3]
+               "description": [Improvement Point 3 Description]
+               "Possible Solution": [Your possible solution for Improvement Aspect 3]
+               "Title": [Improvement Aspect 4]
+               "description": [Improvement Point 4 Description]
+               "Possible Solution": [Your possible solution for Improvement Aspect 4]
+               "Title": [Improvement Aspect 5]
+               "description": [Improvement Point 5 Description]
+               "Possible Solution": [Your possible solution for Improvement Aspect 5]
+               "Title": [Improvement Aspect 6]
+               "description": [Improvement Point 6 Description]
+               "Possible Solution": [Your possible solution for Improvement Aspect 6]
+               "Title": [Improvement Aspect 7]
+               "description": [Improvement Point 7 Description]
+               "Possible Solution": [Your possible solution for Improvement Aspect 7]
+              4. Rating: [provide appropriate score for readability, color usage, chart selection, understandability, accessibility out of 10]
+               "Title": [Readability] 
+               "score": [provide appropriate score for readability out of 10, ensure it's between 2 and 9]
+               "description": [Readability Description]
+               "Title": [Color Usage]
+               "score": [provide appropriate score for color-usage out of 10, ensure it's between 2 and 9]
+               "description": [Color Usage Description]
+               "Title": [Chart Selection]
+               "score": [provide appropriate score for chart selection out of 10, ensure it's between 2 and 9]
+               "description": [Chart Selection Description]
+               "Title": [Understandability]
+               "score": [provide appropriate score for understandability out of 10, ensure it's between 2 and 9]
+               "description": [Understandability Description]
+               "Title": [Accessibility]
+               "score": [provide appropriate score for accessibility out of 10, ensure it's between 2 and 9]
+               "description": [Accessibility Description]
+              5. Dashboard: [Suggest a always unique and concise title for the dashboard, no longer than 3 words. Ensure it is appropriate and not empty.]
+              Do not include anything on Mobile responsiveness.
+              Note that a 'v' (down caret icon) is often used to identify chart interactivity and can be interacted with.
+              Do not consider data interactivity point for improvements.
+              Improvements section format like this [{"title":"","Description":"","PossibleSolution":""},{"title":"","Description":"","PossibleSolution":""}].
+              Positives section format like this [{"title":"","Description":""},{"title":"","Description":""}].
+              Rating section format like this [{"title":"","score":"","Description":""},{"title":"","score":"","Description":""}]
+              Dashboard section's name must be alwasys "Dashboard".
+              Never include a "-" at the beginning of any section.`,
             },
             {
               type: 'image_url',
@@ -194,7 +194,7 @@ export default async function handler(
       payload,
       { headers }
     );
-    
+
     const responseParsed = response.data;
     console.log('response-data', responseParsed.usage);
 
@@ -204,6 +204,7 @@ export default async function handler(
     if (responseParsed.choices && responseParsed.choices.length > 0) {
       const content = responseParsed.choices[0].message.content;
 
+      console.log("❤", content);
       // const content = totalResponse;
 
       const firstAnswer = parseSection(content, '1. Purpose');
@@ -212,16 +213,27 @@ export default async function handler(
       const fourthAnswer = parseSection(content, '4. Rating');
       const fifthAnswer = parseSection(content, '5. Dashboard');
 
-      let dataTypeString = secondAnswer.split('*');
-      let jobTypeString = thirdAnswer.split('*');
+
 
       const apiResponse = {
         firstAnswer: firstAnswer,
-        secondAnswer: dataTypeString,
-        thirdAnswer: jobTypeString, // Assuming you want to include the split string of thirdAnswer
+        secondAnswer: secondAnswer,
+        thirdAnswer: thirdAnswer,
         fourthAnswer: fourthAnswer,
         fifthAnswer: fifthAnswer,
       };
+
+      console.log("❤");
+      console.log(firstAnswer)
+      console.log("❤");
+      console.log(secondAnswer)
+      console.log("❤");
+      console.log(thirdAnswer)
+      console.log("❤");
+      console.log(fourthAnswer)
+      console.log("❤");
+      console.log(fifthAnswer)
+
 
       const { data, error } = await supabase
         .from('results')
