@@ -18,13 +18,16 @@ const parseSection = (content: string, sectionName: string) => {
 };
 
 const generateLink = async (token: String) => {
-
   const generatedLink = `${process.env.NEXT_PUBLIC_URL}results?token=${token}`;
   console.log(generatedLink, 'generatedLink');
   return generatedLink;
 };
 
-const sendEmailWithLink = async (toEmail: string, link: any, userName: string) => {
+const sendEmailWithLink = async (
+  toEmail: string,
+  link: any,
+  userName: string
+) => {
   const msg = {
     to: toEmail, // Recipient email address
     from: {
@@ -89,8 +92,7 @@ export default async function handler(
     console.log('Image Base64 Length:', imageBase64.length);
     console.log('Email:', toEmail);
 
-    const payload: OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming =
-    {
+    const payload = {
       model: 'gpt-4-vision-preview',
       messages: [
         {
@@ -145,113 +147,123 @@ export default async function handler(
                              "Title": [Accessibility]
                              "score": [provide appropriate score for accessibility out of 10, ensure it's between 2 and 9]
                              "description": [Accessibility Description]
-                            5. Dashboard: [This is a dashboard, can you please come up with a title for it that is no longer than 3 words]
+                            5. Dashboard: [Suggest a always unique and concise title for the dashboard, no longer than 3 words. Ensure it is appropriate and not empty.]
                             Do not include anything on Mobile responsiveness.
                             Note that a 'v' (down caret icon) is often used to identify chart interactivity and can be interacted with.
+                            Do not consider data interactivity point for improvements.
                             Please consider Desktop screens only. Do not consider mobile devices.
                             also Improvements section format like this [{"title":"","Description":"","PossibleSolution":""},{"title":"","Description":"","PossibleSolution":""}].
                             also Positives section format like this [{"title":"","Description":""},{"title":"","Description":""}].
                             also Rating section format like this [{"title":"","score":"","Description":""},{"title":"","score":"","Description":""}]
                             `,
+            },
+            {
+              type: 'image_url',
+              image_url: {
+                url: `data:image/jpeg;base64,${imageBase64}`,
+                detail: 'high',
               },
-              {
-                type: 'image_url',
-                image_url: {
-                  url: `data:image/jpeg;base64,${imageBase64}`,
-                  detail: 'high',
-                },
-              },
-            ],
-          },
-        ],
-        max_tokens: 3000,
-        stream: true,
-      };
-
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-
-    const response = await openai.chat.completions.create(payload);
-    let totalResponse = '';
-    for await (const part of response) {
-      totalResponse = totalResponse.concat(part.choices[0].delta.content ?? '');
-    }
-
-    console.log(JSON.stringify(totalResponse));
-
-    // const headers = {
-    //   'Content-Type': 'application/json',
-    //   Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, // Use environment variable for API key
-    // };
-    // console.log('start axios');
-
-    // const response = await axios.post(
-    //   'https://api.openai.com/v1/chat/completions',
-    //   payload,
-    //   { headers }
-    // );
-    console.log('responseParsed', response);
-
-    // if (responseParsed.choices && responseParsed.choices.length > 0) {
-    // const content = responseParsed.choices[0].message.content;
-
-    const content = totalResponse;
-
-    const firstAnswer = parseSection(content, '1. Purpose');
-    const secondAnswer = parseSection(content, '2. Positives');
-    const thirdAnswer = parseSection(content, '3. Improvements');
-    const fourthAnswer = parseSection(content, '4. Rating');
-    const fifthAnswer = parseSection(content, '5. Dashboard')
-
-    let dataTypeString = secondAnswer.split('*');
-    let jobTypeString = thirdAnswer.split('*');
-
-    const apiResponse = {
-      firstAnswer: firstAnswer,
-      secondAnswer: dataTypeString,
-      thirdAnswer: jobTypeString, // Assuming you want to include the split string of thirdAnswer
-      fourthAnswer: fourthAnswer,
-      fifthAnswer: fifthAnswer
+            },
+          ],
+        },
+      ],
+      max_tokens: 3000,
+      // stream: true,
     };
 
-    const { data, error } = await supabase
-      .from('results')
-      .upsert([
-        {
-          email: toEmail,
-          // user_id: userId,
-          image: imageBase64,
-          positives: apiResponse.secondAnswer,
-          improvements: apiResponse.thirdAnswer,
-          rating: apiResponse.fourthAnswer,
-          dashboard: apiResponse.fifthAnswer,
-          token: generateRandomToken(),
-        },
-      ])
-      .select();
+    // const openai = new OpenAI({
+    //   apiKey: process.env.OPENAI_API_KEY,
+    // });
 
-    if (error) {
-      console.error('Supabase Error:', error.message);
-      return res.status(500).json({ message: 'Internal Server Error', error });
-    }
-
-    const token = data.map((d) => d.token).toString();
-
-    const link = await generateLink(token);
-
-    const emailResponse = await sendEmailWithLink(toEmail, link, userName);
-    if (emailResponse.success) {
-      res.status(200).json({
-        message: emailResponse.message,
-        data: { firstAnswer, secondAnswer, thirdAnswer },
-      });
-      console.log('Email sent successfully');
-    } else {
-      res.status(500).json({ error: emailResponse.error });
-      console.log('Unknown error occurred');
-    }
+    // const response = await openai.chat.completions.create(payload);
+    // let totalResponse = '';
+    // for await (const part of response) {
+    //   totalResponse = totalResponse.concat(part.choices[0].delta.content ?? '');
     // }
+
+    // console.log(JSON.stringify(totalResponse));
+
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, // Use environment variable for API key
+    };
+    console.log('start axios');
+
+    const response = await axios.post(
+      'https://api.openai.com/v1/chat/completions',
+      payload,
+      { headers }
+    );
+    
+    const responseParsed = response.data;
+    console.log('response-data', responseParsed.usage);
+
+    const reqTokens = responseParsed.usage.prompt_tokens;
+    const resTokens = responseParsed.usage.completion_tokens;
+
+    if (responseParsed.choices && responseParsed.choices.length > 0) {
+      const content = responseParsed.choices[0].message.content;
+
+      // const content = totalResponse;
+
+      const firstAnswer = parseSection(content, '1. Purpose');
+      const secondAnswer = parseSection(content, '2. Positives');
+      const thirdAnswer = parseSection(content, '3. Improvements');
+      const fourthAnswer = parseSection(content, '4. Rating');
+      const fifthAnswer = parseSection(content, '5. Dashboard');
+
+      let dataTypeString = secondAnswer.split('*');
+      let jobTypeString = thirdAnswer.split('*');
+
+      const apiResponse = {
+        firstAnswer: firstAnswer,
+        secondAnswer: dataTypeString,
+        thirdAnswer: jobTypeString, // Assuming you want to include the split string of thirdAnswer
+        fourthAnswer: fourthAnswer,
+        fifthAnswer: fifthAnswer,
+      };
+
+      const { data, error } = await supabase
+        .from('results')
+        .upsert([
+          {
+            email: toEmail,
+            // user_id: userId,
+            image: imageBase64,
+            positives: apiResponse.secondAnswer,
+            improvements: apiResponse.thirdAnswer,
+            rating: apiResponse.fourthAnswer,
+            dashboard: apiResponse.fifthAnswer,
+            token: generateRandomToken(),
+            request_tokens: reqTokens,
+            response_tokens: resTokens,
+          },
+        ])
+        .select();
+
+      if (error) {
+        console.error('Supabase Error:', error.message);
+        return res
+          .status(500)
+          .json({ message: 'Internal Server Error', error });
+      }
+
+      const token = data.map((d) => d.token).toString();
+
+      const link = await generateLink(token);
+
+      const emailResponse = await sendEmailWithLink(toEmail, link, userName);
+      if (emailResponse.success) {
+        res.status(200).json({
+          message: emailResponse.message,
+          data: { firstAnswer, secondAnswer, thirdAnswer, reqTokens, resTokens },
+        });
+        console.log('Email sent successfully');
+      } else {
+        res.status(500).json({ error: emailResponse.error });
+        console.log('Unknown error occurred');
+      }
+    }
   } catch (error) {
     if (axios.isAxiosError(error)) {
       // This means the error is related to Axios or the OpenAI API call

@@ -5,7 +5,7 @@ import Card2 from './Card2';
 const Teams = () => {
   return (
     <section className="overflow-hidden py-10 ">
-      <div className="w-full h-[760px] flex-col justify-start items-start gap-[82px] inline-flex">
+      <div className="w-full h-[760px] flex-col justify-start items-center lg:items-start gap-[82px] inline-flex">
         <div className="mx-auto">
           <p className="text-center text-emerald-600 text-[15px] font-normal leading-[27px]">
             Testimonials
@@ -15,7 +15,7 @@ const Teams = () => {
           </h3>
         </div>
 
-        <div className="grid grid-rows-1 lg:grid-flow-col lg:gap-5 lg:my-5 lg:ms-[4rem] justify-center ">
+        <div className="grid grid-rows-1 lg:grid-flow-col gap-10 lg:gap-5 lg:my-5 lg:ms-[4rem] justify-center ">
           <Card2
             name="John Doe"
             detail="Lorem ipsum is a placeholder text commonly used to Lorem ipsum

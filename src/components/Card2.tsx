@@ -3,10 +3,10 @@ import React from 'react';
 
 const Card2 = ({ name, detail, occupation }: any) => {
   return (
-    <div className="flex flex-col lg:flex-row">
-      <div className="w-[423px] h-[230px] ml-[100px] mr-[22px]">
-        <div className="w-[392px] h-48 flex-col justify-center lg:justify-start items-start gap-[30px] inline-flex relative">
-          <div className="absolute top-[-13px] lg:top-0 left-[-22px] lg:left-[-24px]">
+    <div className="w-[100%] pl-8 lg:pl-0 flex flex-col lg:flex-row justify-center lg:justify-start">
+      <div className="w-[100%] h-auto lg:w-[423px] lg:h-[230px] m-auto lg:ml-[100px] lg:mr-[22px] flex">
+        <div className="w-[100%] h-auto lg:w-[392px] lg:h-48 flex-col justify-center lg:justify-start items-start gap-[30px] inline-flex relative">
+          <div className="absolute top-0 left-[-22px] lg:left-[-24px]">
             <svg
               width="82"
               height="78"
@@ -34,8 +34,8 @@ const Card2 = ({ name, detail, occupation }: any) => {
               <g id="Iconly/Sharp/Bold/Star 12">
                 <path
                   id="Fill 268"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M11.1664 6.83479L8.99968 0.982544L6.83368 6.83479L0.982178 9.00004L6.83368 11.1653L8.99968 17.0175L11.1664 11.1653L17.0179 9.00004L11.1664 6.83479Z"
                   fill="#C2CDE7"
                 />
@@ -52,8 +52,8 @@ const Card2 = ({ name, detail, occupation }: any) => {
               <g id="Iconly/Sharp/Bold/Star 12">
                 <path
                   id="Fill 268"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M11.1664 6.83479L8.99968 0.982544L6.83368 6.83479L0.982178 9.00004L6.83368 11.1653L8.99968 17.0175L11.1664 11.1653L17.0179 9.00004L11.1664 6.83479Z"
                   fill="#C2CDE7"
                 />
@@ -70,8 +70,8 @@ const Card2 = ({ name, detail, occupation }: any) => {
               <g id="Iconly/Sharp/Bold/Star 12">
                 <path
                   id="Fill 268"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M11.1664 6.83479L8.99968 0.982544L6.83368 6.83479L0.982178 9.00004L6.83368 11.1653L8.99968 17.0175L11.1664 11.1653L17.0179 9.00004L11.1664 6.83479Z"
                   fill="#C2CDE7"
                 />
@@ -88,8 +88,8 @@ const Card2 = ({ name, detail, occupation }: any) => {
               <g id="Iconly/Sharp/Bold/Star 12">
                 <path
                   id="Fill 268"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M11.1664 6.83479L8.99968 0.982544L6.83368 6.83479L0.982178 9.00004L6.83368 11.1653L8.99968 17.0175L11.1664 11.1653L17.0179 9.00004L11.1664 6.83479Z"
                   fill="#C2CDE7"
                 />
@@ -105,25 +105,25 @@ const Card2 = ({ name, detail, occupation }: any) => {
               <g id="Iconly/Sharp/Bold/Star 12">
                 <path
                   id="Fill 268"
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
+                  fillRule="evenodd"
+                  clipRule="evenodd"
                   d="M11.1664 6.83479L8.99968 0.982544L6.83368 6.83479L0.982178 9.00004L6.83368 11.1653L8.99968 17.0175L11.1664 11.1653L17.0179 9.00004L11.1664 6.83479Z"
                   fill="#C2CDE7"
                 />
               </g>
             </svg>
           </div>
-          <div className="w-[345px] text-slate-200 text-base leading-7 tracking-tight">
+          <div className="w-[100%] lg:w-[345px] text-slate-200 text-base leading-7 tracking-tight">
             {detail}
           </div>
           <div className="flex justify-evenly items-center">
-            <div className="w-[54px] h-[54px] bg-red-400 rounded-[300px] flex-col justify-start items-start inline-flex">
+            <div className="w-auto h-auto lg:w-[54px] lg:h-[54px] bg-red-400 rounded-[300px] flex-col justify-start items-start inline-flex">
               <img
                 className="w-full h-full rounded-[300px] object-cover"
                 src="/img/cardImg2.png"
               />
             </div>
-            <div className="w-[165px] h-[50px] ml-5">
+            <div className="w-[100%] lg:w-[165px] h-auto lg:h-[50px] ml-5">
               <div className="text-slate-300 text-base font-semibold leading-7">
                 {name}
               </div>
@@ -134,7 +134,7 @@ const Card2 = ({ name, detail, occupation }: any) => {
           </div>
         </div>
       </div>
-      <div className="w-px h-[156px] opacity-70 border border-gray-800" />
+      <div className="w-px h-[156px] opacity-70 border border-gray-800 hidden lg:block" />
     </div>
   );
 };
