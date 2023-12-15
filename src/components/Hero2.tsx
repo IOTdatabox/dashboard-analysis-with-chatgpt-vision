@@ -489,6 +489,7 @@ const Hero2 = () => {
                       border: 'none',
                       background: 'transparent',
                       outline: 0,
+                      width: '100%'
                     }}
                     className="text-gray-400 placeholder:text-gray-400 placeholder:text-base placeholder:font-medium placeholder:leading-normal placeholder:tracking-tight"
                     placeholder="Email"
