@@ -44,10 +44,10 @@ const ThankYou = () => {
                 on <a href="https://vimeo.com">Vimeo</a>.
               </p> */}
             </div>
-            <div className="flex justify-center gap-5 sm:gap-8 md:gap-16 pb-28">
+            <div className="flex justify-center gap-3 sm:gap-8 md:gap-16 pb-28">
               <div className="text-center flex flex-col items-center w-[80px] md:w-[100px] gap-4 md:gap-8">
-                <div className="h-[108px] w-[147px]">
-                  <div className="p-10">
+                <div className="w-[71px] h-[67px] sm:h-[108px] sm:w-[147px]">
+                  <div className="p-0 sm:p-10">
                     <svg
                       width="64"
                       height="64"
@@ -88,8 +88,8 @@ const ThankYou = () => {
                           y2="27.5134"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                         <linearGradient
                           id="paint1_linear_75_268"
@@ -99,8 +99,8 @@ const ThankYou = () => {
                           y2="27.715"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                         <linearGradient
                           id="paint2_linear_75_268"
@@ -110,8 +110,8 @@ const ThankYou = () => {
                           y2="5.64098"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                         <linearGradient
                           id="paint3_linear_75_268"
@@ -121,8 +121,8 @@ const ThankYou = () => {
                           y2="4.3567"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -139,8 +139,8 @@ const ThankYou = () => {
                 </p>
               </div>
               <div className="text-center flex flex-col items-center w-[80px] md:w-[100px] gap-4 md:gap-8">
-                <div className="h-[108px] w-[147px]">
-                  <div className="p-10">
+                <div className="w-[71px] h-[67px] sm:h-[108px] sm:w-[147px]">
+                  <div className="p-0 sm:p-10">
                     <svg
                       width="64"
                       height="64"
@@ -171,8 +171,8 @@ const ThankYou = () => {
                           y2="10.0077"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                         <linearGradient
                           id="paint1_linear_75_44"
@@ -182,8 +182,8 @@ const ThankYou = () => {
                           y2="24.9295"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -198,8 +198,8 @@ const ThankYou = () => {
                 </p>
               </div>
               <div className="text-center flex flex-col items-center w-[80px] md:w-[100px] gap-4 md:gap-8">
-                <div className="h-[108px] w-[147px]">
-                  <div className="p-10">
+                <div className="w-[71px] h-[67px] sm:h-[108px] sm:w-[147px]">
+                  <div className="p-0 sm:p-10">
                     <svg
                       width="64"
                       height="64"
@@ -235,8 +235,8 @@ const ThankYou = () => {
                           y2="15.9578"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                         <linearGradient
                           id="paint1_linear_75_22"
@@ -246,8 +246,8 @@ const ThankYou = () => {
                           y2="15.9564"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                         <linearGradient
                           id="paint2_linear_75_22"
@@ -257,8 +257,8 @@ const ThankYou = () => {
                           y2="34.9119"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -273,8 +273,8 @@ const ThankYou = () => {
                 </p>
               </div>
               <div className="text-center flex flex-col items-center w-[80px] md:w-[100px] gap-4 md:gap-8">
-                <div className="h-[108px] w-[147px]">
-                  <div className="p-10">
+                <div className="w-[71px] h-[67px] sm:h-[108px] sm:w-[147px]">
+                  <div className="p-0 sm:p-10">
                     <svg
                       width="64"
                       height="64"
@@ -325,8 +325,8 @@ const ThankYou = () => {
                           y2="40.948"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                         <linearGradient
                           id="paint1_linear_75_8"
@@ -336,8 +336,8 @@ const ThankYou = () => {
                           y2="35.3763"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                         <linearGradient
                           id="paint2_linear_75_8"
@@ -347,8 +347,8 @@ const ThankYou = () => {
                           y2="29.8448"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                         <linearGradient
                           id="paint3_linear_75_8"
@@ -358,8 +358,8 @@ const ThankYou = () => {
                           y2="15.4161"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                         <linearGradient
                           id="paint4_linear_75_8"
@@ -369,8 +369,8 @@ const ThankYou = () => {
                           y2="14.0767"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                         <linearGradient
                           id="paint5_linear_75_8"
@@ -380,8 +380,8 @@ const ThankYou = () => {
                           y2="5.64098"
                           gradientUnits="userSpaceOnUse"
                         >
-                          <stop stop-color="#EBF1FF" />
-                          <stop offset="1" stop-color="#B3C0DE" />
+                          <stop stopColor="#EBF1FF" />
+                          <stop offset="1" stopColor="#B3C0DE" />
                         </linearGradient>
                       </defs>
                     </svg>

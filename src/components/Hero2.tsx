@@ -91,12 +91,14 @@ const Hero2 = () => {
   const addUserData = async (
     userName: any,
     userEmail: any,
-    companySize: any
+    companySize: any,
+    totalReqTokens: number,
+    totalResTokens: number
   ) => {
     // check email already exists
     const { data: existingData, error: selectError } = await supabase
       .from('users')
-      .select('token')
+      .select('token, total_request_tokens, total_response_tokens')
       .eq('email', email);
 
     if (selectError) {
@@ -110,12 +112,21 @@ const Hero2 = () => {
 
     if (existingData && existingData.length > 0) {
       // Email exists, retrieve current token
-      // tokenCount = existingData[existingData.length - 1].token + 1;
       const { data, error } = await supabase
         .from('users')
-        .update({ token: existingData[0].token + 1 })
+        .update({
+          token: existingData[0].token + 1,
+          total_request_tokens:
+            existingData[0].total_request_tokens + totalReqTokens,
+          total_response_tokens:
+            existingData[0].total_response_tokens + totalResTokens,
+        })
         .eq('email', email)
         .select();
+
+      if (error) {
+        console.log('cannot update data into users', error);
+      }
     } else {
       const { data, error } = await supabase
         .from('users')
@@ -125,6 +136,8 @@ const Hero2 = () => {
             email: userEmail,
             companySize: companySize,
             token: tokenCount,
+            total_request_tokens: totalReqTokens,
+            total_response_tokens: totalResTokens,
           },
         ])
         .select();
@@ -214,7 +227,14 @@ const Hero2 = () => {
         setSecondAnswerOptions(data.data.secondAnswer.slice(1).split('*'));
         setThirdAnswerOptions(data.data.thirdAnswer.slice(1).split('*'));
         console.log(data);
-        await addUserData(name + ' ' + lastName, email, companySize);
+        console.log(data.data.reqTokens);
+        await addUserData(
+          name + ' ' + lastName,
+          email,
+          companySize,
+          data.data.reqTokens,
+          data.data.resTokens
+        );
         setIsLoading(false);
       } else {
         const errorData = await response.json();
@@ -318,9 +338,9 @@ const Hero2 = () => {
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="M9 5 5 1 1 5"
           />
         </svg>
@@ -337,9 +357,9 @@ const Hero2 = () => {
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="M9 5 5 1 1 5"
           />
         </svg>
@@ -352,15 +372,15 @@ const Hero2 = () => {
       <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950">
         {isLoading && <Spinner />}
         <div className="w-full py-4 md:mb-20 items-center justify-center flex-col xl:flex-row flex xl:items-start xl:justify-between">
-          <div className="w-auto xl:w-[50%] 2xl:w-auto rounded-lg overflow-hidden mb-10 lg:mb-0 lg:p-10">
+          <div className="w-[100%] xl:w-[50%] 2xl:w-auto rounded-lg overflow-hidden mb-10 lg:mb-0 lg:p-10">
             <div className="text-emerald-600 text-center xl:text-left text-[19px] sm:text-[28px] font-normal leading-loose mb-[24px]">
               Empowering Your Business
             </div>
             <div className="w-[100%]">
-              <h1 className="w-[520px] mx-auto xl:mx-0 2xl:w-[580px] text-center xl:text-left px-[120px] sm:px-0 text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[25px] sm:text-[58px] 2xl:text-[63px] font-bold leading-[51.8px] sm:leading-[76.80px] mb-[26px] inline-block tracking-tight">
+              <h1 className="w-[100%] mx-auto xl:mx-0 2xl:w-[580px] text-center xl:text-left px-0 text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[25px] sm:text-[58px] 2xl:text-[63px] font-bold leading-[51.8px] sm:leading-[76.80px] mb-[26px] inline-block tracking-tight">
                 Powerful solutions for your Dashboard
               </h1>
-              <p className="w-[58%] mx-auto sm:w-[540px] 2xl:w-[632px] text-center px-10 sm:px-0 xl:text-left text-slate-200 text-sm lg:text-lg font-normal leading-loose mb-[26px]">
+              <p className="w-[100%] mx-auto sm:w-[540px] 2xl:w-[632px] text-center px-0 xl:text-left text-slate-200 text-sm lg:text-lg font-normal leading-loose mb-[26px]">
                 Lorem ipsum is a placeholder text commonly used to demonstrate
                 the visual form of a document or a typeface without
               </p>
@@ -368,12 +388,12 @@ const Hero2 = () => {
                 <img
                   src="/img/productTwo.png"
                   alt="product"
-                  className="w-[160px] lg:w-[170px] h-[63px] lg:h-[73px] mr-[25px] sm:mr-[30px] lg:mr-[40px]"
+                  className="w-[170px] h-[73px] mr-0 sm:mr-[30px] lg:mr-[40px]"
                 />
                 <img
                   src="/img/productTwo.png"
                   alt="product"
-                  className="w-[160px] lg:w-[170px] h-[63px] lg:h-[73px] mr-[25px] sm:mr-[30px] lg:mr-[40px]"
+                  className="w-[170px] h-[73px] mr-0 sm:mr-[30px] lg:mr-[40px]"
                 />
               </div>
               <div className="flex flex-col sm:flex-row justify-center xl:justify-start items-center">
@@ -390,8 +410,8 @@ const Hero2 = () => {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M13.0892 10.6095C13.2454 10.4533 13.3332 10.2413 13.3332 10.0204C13.3332 9.79939 13.2454 9.58746 13.0892 9.43119L8.375 4.71702C8.29813 4.63743 8.20617 4.57395 8.1045 4.53027C8.00283 4.4866 7.89348 4.46361 7.78284 4.46265C7.67219 4.46169 7.56245 4.48277 7.46004 4.52467C7.35763 4.56657 7.26458 4.62845 7.18634 4.7067C7.10809 4.78494 7.04622 4.87798 7.00432 4.9804C6.96242 5.08281 6.94133 5.19254 6.94229 5.30319C6.94325 5.41384 6.96624 5.52319 7.00992 5.62486C7.05359 5.72653 7.11708 5.81849 7.19667 5.89536L11.3217 10.0204L7.19667 14.1454C7.04487 14.3025 6.96087 14.513 6.96277 14.7315C6.96467 14.95 7.05231 15.159 7.20682 15.3135C7.36133 15.468 7.57034 15.5557 7.78883 15.5576C8.00733 15.5595 8.21783 15.4755 8.375 15.3237L13.0892 10.6095Z"
                         fill="white"
                       />
@@ -417,7 +437,7 @@ const Hero2 = () => {
               </div>
             </div>
           </div>
-          <div className="w-[100%] sm:w-[445px] h-[488px] flex-col justify-start items-start gap-6 inline-flex">
+          <div className="w-[100%] sm:w-[80%] lg:w-[70%] xl:w-[445px] h-[100%] flex-col justify-start items-start gap-6 inline-flex">
             <div className="w-full flex-col justify-start items-center gap-[30px] flex lg:pt-10">
               <div className="px-2.5 justify-start items-start gap-2.5 inline-flex">
                 <h2 className="text-center text-white text-2xl font-bold leading-[31.20px]">
@@ -437,6 +457,7 @@ const Hero2 = () => {
                         border: 'none',
                         background: 'transparent',
                         outline: 0,
+                        width: '100%',
                       }}
                       className="text-gray-400 placeholder:text-gray-400 placeholder:text-base placeholder:font-medium placeholder:leading-normal placeholder:tracking-tight"
                     />
@@ -452,12 +473,13 @@ const Hero2 = () => {
                         border: 'none',
                         background: 'transparent',
                         outline: 0,
+                        width: '100%',
                       }}
                       className="text-gray-400 placeholder:text-gray-400 placeholder:text-base placeholder:font-medium placeholder:leading-normal placeholder:tracking-tight"
                     />
                   </div>
                 </div>
-                <div className="w-[100%] sm:w-[445px] h-[41px] p-4 bg-neutral-900 rounded-xl border border-gray-600 justify-start items-center gap-1 inline-flex">
+                <div className="w-[100%] h-[41px] p-4 bg-neutral-900 rounded-xl border border-gray-600 justify-start items-center gap-1 inline-flex">
                   <input
                     id="email"
                     type="email"
@@ -536,7 +558,7 @@ const Hero2 = () => {
                 </select>
                 <div
                   {...getRootProps()}
-                  className="w-[100%] h-[188px] bg-neutral-900 rounded-xl border border-dashed border-gray-600 flex-col justify-center items-center gap-5 inline-flex"
+                  className="w-[100%] h-[100%] p-8 bg-neutral-900 rounded-xl border border-dashed border-gray-600 flex-col justify-center items-center gap-5 inline-flex"
                 >
                   <input {...getInputProps()} />
                   {imageSrc && (
@@ -564,8 +586,8 @@ const Hero2 = () => {
                                 d="M36.1368 14.9524L36.229 14.9799L36.233 14.9753C36.6707 15.0546 37.1049 14.7926 37.2335 14.3585C38.4051 10.4217 42.0962 7.67158 46.2086 7.67158C46.6955 7.67158 47.0903 7.2767 47.0903 6.78984C47.0903 6.30297 46.6955 5.90811 46.2086 5.90811C41.1545 5.90811 36.9073 9.27319 35.5435 13.8559C35.4044 14.3227 35.6703 14.8132 36.1368 14.9524Z"
                                 fill="#018979"
                                 stroke="#F9FFF9"
-                                stroke-width="0.3"
-                                stroke-linecap="round"
+                                strokeWidth="0.3"
+                                strokeLinecap="round"
                               />
                               <path
                                 d="M56.4523 42.645H52.0619C51.6579 42.645 51.3302 42.3173 51.3302 41.9132C51.3302 41.5092 51.6579 41.1815 52.0619 41.1815H56.4523C62.5042 41.1815 67.4282 36.2574 67.4282 30.2055C67.4282 24.1536 62.5042 19.2296 56.4523 19.2296H56.3467C56.1345 19.2296 55.9327 19.1376 55.7937 18.9771C55.6547 18.8167 55.592 18.604 55.6223 18.3938C55.6876 17.9381 55.7206 17.4802 55.7206 17.0344C55.7206 11.7895 51.4529 7.52185 46.208 7.52185C44.1675 7.52185 42.2216 8.1595 40.5804 9.36632C40.2198 9.63132 39.7076 9.51372 39.499 9.11701C34.851 0.266242 22.7108 -0.922326 16.4167 6.77707C13.7653 10.0207 12.7235 14.2402 13.5583 18.3526C13.6503 18.8068 13.3027 19.2301 12.8412 19.2301H12.548C6.49612 19.2301 1.57205 24.1542 1.57205 30.2061C1.57205 36.258 6.49612 41.182 12.548 41.182H16.9383C17.3423 41.182 17.6701 41.5098 17.6701 41.9138C17.6701 42.3178 17.3424 42.6455 16.9383 42.6455H12.548C5.68902 42.6455 0.108521 37.065 0.108521 30.206C0.108521 23.5395 5.38007 18.0807 11.9736 17.7797C11.3542 13.5131 12.5386 9.20949 15.2836 5.85092C22.0223 -2.39306 34.9365 -1.46902 40.3956 7.72362C42.1372 6.63176 44.1301 6.05898 46.2078 6.05898C52.5623 6.05898 57.5977 11.4675 57.1571 17.7865C63.6899 18.1529 68.8914 23.5828 68.8914 30.2055C68.8914 37.065 63.3109 42.645 56.4519 42.645L56.4523 42.645Z"
@@ -575,22 +597,22 @@ const Hero2 = () => {
                                 d="M15.9585 41.5C15.9585 51.67 24.2322 59.9435 34.402 59.9435C44.5719 59.9435 52.8455 51.6698 52.8455 41.5C52.8455 31.3301 44.5719 23.0565 34.402 23.0565C24.2321 23.0565 15.9585 31.3302 15.9585 41.5ZM17.7223 41.5C17.7223 32.3031 25.205 24.8203 34.402 24.8203C43.5989 24.8203 51.0817 32.303 51.0817 41.5C51.0817 50.6969 43.5989 58.1797 34.402 58.1797C25.2051 58.1797 17.7223 50.697 17.7223 41.5Z"
                                 fill="#018979"
                                 stroke="#F9FFF9"
-                                stroke-width="0.3"
-                                stroke-linecap="round"
+                                strokeWidth="0.3"
+                                strokeLinecap="round"
                               />
                               <path
                                 d="M34.0507 48.8642C34.0507 49.2428 34.3578 49.5499 34.7364 49.5499C35.115 49.5499 35.4221 49.2433 35.4221 48.8642V34.9356C35.4221 34.557 35.115 34.2499 34.7364 34.2499C34.3578 34.2499 34.0507 34.557 34.0507 34.9356V48.8642Z"
                                 fill="#018979"
                                 stroke="#018979"
-                                stroke-width="0.3"
-                                stroke-linecap="round"
+                                strokeWidth="0.3"
+                                strokeLinecap="round"
                               />
                               <path
                                 d="M34.7364 35.9067L30.9357 39.7074L34.7364 35.9067ZM34.7364 35.9067L38.5372 39.7075C38.6709 39.8412 38.8469 39.9083 39.022 39.9083L34.7364 35.9067ZM29.9658 39.7075C30.2336 39.9753 30.668 39.9754 30.9356 39.7075L39.022 39.9083C39.1969 39.9083 39.373 39.8418 39.5069 39.7074C39.7748 39.4395 39.7748 39.0055 39.5069 38.7377L35.2212 34.452C34.9534 34.1842 34.5191 34.1841 34.2515 34.452C34.2514 34.4521 34.2514 34.4521 34.2514 34.4521L29.9658 38.7377C29.6979 39.0056 29.6979 39.4396 29.9658 39.7075Z"
                                 fill="#018979"
                                 stroke="#018979"
-                                stroke-width="0.3"
-                                stroke-linecap="round"
+                                strokeWidth="0.3"
+                                strokeLinecap="round"
                               />
                             </svg>
                           </div>
@@ -615,7 +637,7 @@ const Hero2 = () => {
 
               <button
                 onClick={() => onSubmitBtnClicked()}
-                className="w-[100%] h-14 bg-emerald-600 rounded border-none flex justify-center sm:justify-between gap-5 sm:gap-0 items-center px-0 sm:pl-48 sm:pr-14"
+                className="w-[100%] h-14 bg-emerald-600 rounded border-none flex justify-center xl:justify-between gap-5 xl:gap-0 items-center px-0 xl:pl-48 xl:pr-14"
               >
                 <span className="text-center text-white text-base font-semibold leading-tight">
                   Let’s go
@@ -628,8 +650,8 @@ const Hero2 = () => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M13.0892 10.6095C13.2454 10.4533 13.3332 10.2413 13.3332 10.0204C13.3332 9.79939 13.2454 9.58746 13.0892 9.43119L8.375 4.71702C8.29813 4.63743 8.20617 4.57395 8.1045 4.53027C8.00283 4.4866 7.89348 4.46361 7.78284 4.46265C7.67219 4.46169 7.56245 4.48277 7.46004 4.52467C7.35763 4.56657 7.26458 4.62845 7.18634 4.7067C7.10809 4.78494 7.04622 4.87798 7.00432 4.9804C6.96242 5.08281 6.94133 5.19254 6.94229 5.30319C6.94325 5.41384 6.96624 5.52319 7.00992 5.62486C7.05359 5.72653 7.11708 5.81849 7.19667 5.89536L11.3217 10.0204L7.19667 14.1454C7.04487 14.3025 6.96087 14.513 6.96277 14.7315C6.96467 14.95 7.05231 15.159 7.20682 15.3135C7.36133 15.468 7.57034 15.5557 7.78883 15.5576C8.00733 15.5595 8.21783 15.4755 8.375 15.3237L13.0892 10.6095Z"
                     fill="white"
                   />
@@ -708,7 +730,7 @@ const Hero2 = () => {
         </div>
         {/* supporters */}
         <div className="flex justify-center mb-20 md:mb-0">
-          <div className="w-[40rem] md:w-[56rem] lg:w-[70rem] xl:w-[90rem] h-[50px] justify-start items-center gap-[7px] md:gap-[15px] lg:gap-[41px] xl:gap-[70px] mt-16 mb-20 flex flex-col md:flex-row md:inline-flex">
+          <div className="w-[40rem] md:w-[56rem] lg:w-[70rem] xl:w-[90rem] h-[50px] justify-start items-center gap-[12px] md:gap-[15px] lg:gap-[41px] xl:gap-[70px] mt-16 mb-20 flex flex-col md:flex-row md:inline-flex">
             <div className="w-px h-[50px] opacity-70 bg-gray-800" />
             <div className="w-[73.69px] h-[18px] relative">
               <svg
@@ -754,7 +776,7 @@ const Hero2 = () => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g id="veroxfloor" clip-path="url(#clip0_323_1594)">
+                <g id="veroxfloor" clipPath="url(#clip0_323_1594)">
                   <path
                     id="Vector"
                     d="M7.3452 17.7221L0.33313 0.277832H3.92505L9.0578 13.2916L14.2209 0.277832H17.8128L10.7653 17.7221H7.3452Z"
@@ -832,7 +854,7 @@ const Hero2 = () => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g id="Behance " clip-path="url(#clip0_323_1607)">
+                <g id="Behance " clipPath="url(#clip0_323_1607)">
                   <path
                     id="Vector"
                     d="M8.82869 0C9.65551 0 10.4187 0.064238 11.1184 0.254408C11.818 0.381612 12.3904 0.63602 12.8992 0.95403C13.408 1.27204 13.7896 1.71725 14.044 2.29031C14.2985 2.86209 14.4257 3.56235 14.4257 4.32557C14.4257 5.21536 14.2349 5.97922 13.7896 6.55164C13.408 7.12342 12.772 7.63224 12.0088 8.01385C13.09 8.33186 13.9168 8.90364 14.4257 9.6675C14.9345 10.4307 15.2525 11.3848 15.2525 12.466C15.2525 13.3558 15.0617 14.1196 14.7437 14.7557C14.4257 15.3917 13.9168 15.9641 13.3444 16.3457C12.772 16.728 12.0724 17.046 11.3092 17.2361C10.5459 17.4263 9.78272 17.5541 9.01949 17.5541H0.496826V0H8.82869ZM8.31987 7.12342C9.01949 7.12342 9.59191 6.93262 10.0371 6.61461C10.4823 6.2966 10.6731 5.72418 10.6731 5.02456C10.6731 4.64295 10.6095 4.26133 10.4823 4.00693C10.3551 3.75252 10.1643 3.56171 9.90992 3.37091C9.65551 3.2437 9.4011 3.1165 9.08309 3.0529C8.76508 2.98929 8.44707 2.98929 8.06546 2.98929H4.37655V7.12342H8.31987ZM8.51068 14.6285C8.89229 14.6285 9.2739 14.5649 9.59191 14.5019C9.90992 14.4377 10.2279 14.3104 10.4823 14.1196C10.7367 13.9288 10.9276 13.738 11.1184 13.42C11.2456 13.102 11.3728 12.7198 11.3728 12.2752C11.3728 11.3848 11.1184 10.7487 10.6095 10.3029C10.1007 9.92127 9.4011 9.7311 8.57428 9.7311H4.37655V14.6285H8.51068ZM20.7859 14.5649C21.2947 15.0737 22.0579 15.3281 23.0755 15.3281C23.7752 15.3281 24.4112 15.1373 24.92 14.8193C25.4288 14.437 25.7468 14.056 25.874 13.6738H28.9905C28.4817 15.2002 27.7185 16.2821 26.7008 16.9811C25.6832 17.6171 24.4748 17.9994 23.0119 17.9994C21.9943 17.9994 21.1039 17.8079 20.277 17.4899C19.4502 17.1719 18.8142 16.7273 18.2418 16.0913C17.6694 15.5189 17.2241 14.8193 16.9697 13.9918C16.6517 13.165 16.5245 12.2752 16.5245 11.2569C16.5245 10.3029 16.6517 9.41309 16.9697 8.58563C17.2878 7.75881 17.733 7.05982 18.3054 6.4238C18.8778 5.85138 19.5774 5.34257 20.3406 5.02456C21.1675 4.70655 21.9943 4.51574 23.0119 4.51574C24.0932 4.51574 25.0472 4.70655 25.874 5.15176C26.7008 5.59698 27.3369 6.10579 27.8457 6.86901C28.3545 7.56864 28.7361 8.39483 28.9905 9.28589C29.1177 10.1763 29.1813 11.0667 29.1177 12.0844H19.8954C19.8954 13.102 20.277 14.056 20.7859 14.5649ZM24.7928 7.88665C24.3476 7.44143 23.6479 7.18702 22.8211 7.18702C22.2487 7.18702 21.8035 7.31359 21.4219 7.50503C21.0403 7.69584 20.7859 7.94961 20.5315 8.20466C20.277 8.4597 20.1498 8.77707 20.0862 9.09508C20.0226 9.41309 19.959 9.66687 19.959 9.92191H25.6832C25.556 8.96788 25.238 8.33186 24.7928 7.88665ZM34.0787 0V6.61461H34.1423C34.5875 5.85138 35.1599 5.34257 35.8595 5.02456C36.5592 4.70655 37.1952 4.51574 37.8948 4.51574C38.8488 4.51574 39.612 4.64294 40.1845 4.89735C40.7569 5.15176 41.2657 5.53337 41.5837 5.97859C41.9017 6.4238 42.1561 6.99622 42.2833 7.63224C42.4105 8.26826 42.4741 8.96852 42.4741 9.79471V17.6178H38.976V10.4307C38.976 9.34949 38.7852 8.58627 38.4672 8.07745C38.1492 7.56864 37.5768 7.31423 36.75 7.31423C35.7959 7.31423 35.0963 7.63224 34.7147 8.14169C34.2695 8.71347 34.0787 9.6675 34.0787 10.9395V17.6178H30.5806V0H34.0787ZM45.0182 6.74181C45.3998 6.16939 45.845 5.78778 46.4175 5.40553C46.9899 5.08752 47.6259 4.83375 48.3255 4.70591C49.0251 4.57871 49.7241 4.51511 50.4244 4.51511C51.0604 4.51511 51.6964 4.57871 52.3967 4.64231C53.0327 4.70591 53.6687 4.89608 54.1769 5.15112C54.7493 5.4049 55.1309 5.78714 55.5132 6.23236C55.8306 6.67821 56.0214 7.31423 56.0214 8.07745V14.7557C56.0214 15.3281 56.085 15.9005 56.1486 16.41C56.2128 16.9188 56.4023 17.364 56.5938 17.6178H53.0321C52.9042 17.4905 52.8406 17.2361 52.7777 17.046C52.7141 16.8545 52.7141 16.6008 52.7141 16.41C52.1416 16.9817 51.5056 17.364 50.7424 17.6178C49.9792 17.8722 49.216 17.9358 48.4527 17.9358C47.8167 17.9358 47.3079 17.8722 46.7355 17.682C46.2267 17.5548 45.7814 17.2997 45.3362 16.9817C44.9546 16.6637 44.6366 16.2821 44.3822 15.7739C44.1914 15.2645 44.0642 14.7557 44.0642 14.056C44.0642 13.3558 44.1914 12.7198 44.4458 12.2752C44.7002 11.83 45.0182 11.4484 45.3998 11.1303C45.7814 10.8766 46.2903 10.6215 46.7991 10.4943C47.3079 10.3678 47.8167 10.2406 48.3891 10.1763L49.9156 9.98551C50.4244 9.92191 50.8696 9.85831 51.2512 9.79471C51.6328 9.6675 51.9508 9.5403 52.2052 9.34949C52.4597 9.15869 52.5233 8.90428 52.5233 8.52267C52.5233 8.14105 52.4597 7.82304 52.3324 7.63224C52.2052 7.44143 52.0144 7.25063 51.8236 7.12342C51.6322 6.99622 51.3784 6.93262 51.124 6.86965C50.8696 6.80541 50.5516 6.80541 50.2336 6.80541C49.534 6.80541 49.0251 6.93262 48.6435 7.25063C48.2619 7.56864 48.0075 8.07745 47.9439 8.71347H44.4458C44.4458 7.95025 44.7002 7.25063 45.0182 6.74181ZM51.9502 11.7028C51.76 11.7664 51.5056 11.83 51.2506 11.8936C50.9962 11.9578 50.7418 11.9578 50.4238 12.0208C50.17 12.0844 49.852 12.0844 49.5969 12.148L48.8337 12.3388C48.5793 12.4024 48.3249 12.5296 48.1977 12.6568C48.0069 12.784 47.8797 12.9748 47.7525 13.1656C47.5623 13.42 47.5623 13.6744 47.5623 13.9924C47.5623 14.3104 47.6259 14.5649 47.7531 14.7557C47.8803 14.9465 48.0075 15.1379 48.1983 15.2645C48.3891 15.3917 48.6435 15.4559 48.8979 15.5189C49.1523 15.5819 49.4061 15.5825 49.7241 15.5825C50.4244 15.5825 50.9326 15.4559 51.3142 15.2645C51.6964 15.0107 51.9502 14.7557 52.1416 14.4377C52.3324 14.1196 52.4596 13.8016 52.4596 13.4836C52.5233 13.1656 52.5233 12.9118 52.5233 12.7204V11.3848C52.3324 11.512 52.1416 11.6398 51.9502 11.7028ZM61.301 4.83375V6.61461H61.3646C61.8091 5.85138 62.3822 5.34257 63.0812 5.02456C63.7814 4.70655 64.5447 4.51574 65.2437 4.51574C66.1977 4.51574 66.9609 4.64294 67.5333 4.89735C68.1693 5.15176 68.6152 5.53337 68.9332 5.97859C69.2512 6.4238 69.505 6.99622 69.6958 7.63224C69.823 8.26826 69.8872 8.96852 69.8872 9.79471V17.6178H66.3891V10.4307C66.3891 9.34949 66.1977 8.58627 65.8797 8.07745C65.5617 7.56864 64.9892 7.25063 64.0988 7.25063C63.1448 7.25063 62.4445 7.63224 61.9999 8.20466C61.5547 8.77707 61.3639 9.7311 61.3639 11.0031V17.6814H57.8658V4.83375H61.301ZM77.709 7.12342C77.1372 7.12342 76.6914 7.25063 76.3104 7.50567C75.9288 7.75944 75.6108 8.07745 75.3564 8.5233C75.102 8.90491 74.9748 9.35013 74.8469 9.85894C74.7203 10.3684 74.7203 10.813 74.7203 11.3224C74.7203 11.767 74.784 12.2765 74.8469 12.721C74.9748 13.2305 75.1013 13.6115 75.3564 13.9931C75.6108 14.3753 75.8652 14.6933 76.2468 14.9471C76.6284 15.2015 77.073 15.3294 77.6454 15.3294C78.4729 15.3294 79.1089 15.0749 79.6171 14.6291C80.0629 14.1845 80.3809 13.5485 80.4445 12.721H83.8154C83.5617 14.4383 82.9256 15.7103 81.8431 16.6014C80.7625 17.4912 79.3633 17.937 77.6454 17.937C76.6914 17.937 75.8009 17.7462 75.0377 17.4282C74.2103 17.1102 73.5742 16.665 73.0025 16.0926C72.4307 15.5202 71.9842 14.8205 71.6662 14.0573C71.3482 13.2305 71.2216 12.403 71.2216 11.449C71.2216 10.4314 71.3482 9.54093 71.6662 8.71411C71.9842 7.88728 72.3664 7.12406 72.9382 6.48804C73.5106 5.85202 74.2103 5.40681 74.9741 5.02519C75.8003 4.70718 76.6907 4.51638 77.7084 4.51638C78.4722 4.51638 79.1718 4.64358 79.8708 4.83439C80.5698 5.02519 81.2065 5.3432 81.7153 5.72418C82.2877 6.10643 82.7329 6.61461 83.0509 7.25063C83.3689 7.82304 83.5604 8.58627 83.6234 9.41309H80.1888C80.0635 7.88665 79.2361 7.12342 77.709 7.12342ZM19.1958 1.20844H26.3192V2.92569H19.1958V1.20844ZM89.0944 14.5649C89.6039 15.0737 90.43 15.3281 91.3841 15.3281C92.0843 15.3281 92.7203 15.1373 93.2285 14.8193C93.738 14.437 94.056 14.056 94.1826 13.6738H97.2361C96.7266 15.2002 95.9641 16.2821 94.9458 16.9811C93.9275 17.6171 92.7197 17.9994 91.2569 17.9994C90.2392 17.9994 89.3488 17.8079 88.5213 17.4899C87.7385 17.198 87.0397 16.7177 86.4867 16.0913C85.9143 15.5189 85.4691 14.8193 85.2147 13.9918C84.8967 13.165 84.7695 12.2752 84.7695 11.2569C84.7695 10.3029 84.8967 9.41309 85.2147 8.58563C85.521 7.78796 85.974 7.05471 86.5503 6.4238C87.1227 5.85138 87.8224 5.34257 88.5856 5.02456C89.4124 4.70655 90.3028 4.51574 91.2569 4.51574C92.3375 4.51574 93.2915 4.70655 94.0554 5.15176C94.8815 5.59698 95.5176 6.10579 96.027 6.86901C96.5358 7.56864 96.9174 8.39483 97.1719 9.28589C97.4256 10.1757 97.4899 11.1297 97.4256 12.148H88.2033C88.2033 13.102 88.5856 14.056 89.0944 14.5649ZM93.1649 7.88665C92.7197 7.44143 92.0195 7.18702 91.1933 7.18702C90.6208 7.18702 90.175 7.31359 89.7934 7.50503C89.4118 7.69584 89.0938 7.94961 88.9036 8.20466C88.7134 8.4597 88.5213 8.77707 88.4584 9.09508C88.3954 9.41309 88.3318 9.66687 88.3318 9.92191H94.056C93.8645 8.96788 93.5465 8.33186 93.1649 7.88665Z"
@@ -951,19 +973,19 @@ const Hero2 = () => {
       </section>
       <Teams />
       <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950 mt-20">
-        <div className="w-[70%] mx-auto pb-16">
+        <div className="w-[100%] mx-auto pb-16">
           <p className="text-center text-emerald-600 text-[15px] font-normal leading-[27px] mb-3">
             Flex Impact
           </p>
           <h3 className="w-[100%] mb-5 mx-0 sm:mx-auto text-center text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[30px] sm:text-[46px] font-bold leading-[40.20px] sm:leading-[55.20px]">
             Lorem ipsum is a placeholder text commonly used to
           </h3>
-          <p className="w-[40%] mx-auto text-center text-slate-400 text-base font-normal leading-7">
+          <p className="w-[100%] mx-auto text-center text-slate-400 text-base font-normal leading-7">
             Lorem ipsum is a placeholder text commonly used to demonstrate the
             visual form of a document or a typeface without
           </p>
         </div>
-        <div className="w-[70%] mx-auto h-[100%] bg-gradient-to-br from-slate-950 to-gray-950 rounded-[14px] border border-gray-800">
+        <div className="w-[100%] sm:w-[70%] mx-auto h-[100%] bg-gradient-to-br from-slate-950 to-gray-950 rounded-[14px] border border-gray-800">
           <img
             src="/img/graph.png"
             alt="graph"
@@ -1005,9 +1027,9 @@ const Hero2 = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
@@ -1037,9 +1059,9 @@ const Hero2 = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
@@ -1069,9 +1091,9 @@ const Hero2 = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
@@ -1129,9 +1151,9 @@ const Hero2 = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
@@ -1161,9 +1183,9 @@ const Hero2 = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
@@ -1193,9 +1215,9 @@ const Hero2 = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
@@ -1239,9 +1261,9 @@ const Hero2 = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
@@ -1271,9 +1293,9 @@ const Hero2 = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
@@ -1303,9 +1325,9 @@ const Hero2 = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
@@ -1325,27 +1347,29 @@ const Hero2 = () => {
         </div>
       </section>
       <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950 pt-20 sm:pt-[248px] pb-[248px]">
-        <div className="flex flex-col items-center justify-center lg:flex-row lg:items-start lg:justify-between h-auto">
-          <div className="mb-7 lg:mb-0 text-center lg:text-left">
+        <div className="w-full flex flex-col items-center justify-center lg:flex-row lg:items-start lg:justify-between h-auto">
+          <div className="w-[100%] lg:w-[35%] xl:w-[40%] mb-7 lg:mb-0 text-center lg:text-left">
             <p className="text-emerald-600 text-[15px] font-normal leading-[27px] mb-2">
               Frequently Asked Questions
             </p>
-            <h3 className="w-[522px] mb-5 text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
-              Lorem ipsum is a <br />
-              placeholder
+            <h3 className="w-full mb-5 text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
+              Lorem ipsum is a placeholder
             </h3>
-            <p className="w-[522px] text-slate-200 text-base font-thin leading-7">
-              Lorem ipsum is a placeholder text commonly used to <br />
-              demonstrate the visual form of a document or a <br />
-              typeface without
+            <p className="w-full text-slate-200 text-base font-thin leading-7">
+              Lorem ipsum is a placeholder text commonly used to demonstrate the
+              visual form of a document or a typeface without
             </p>
           </div>
-          <div id="accordion-collapse" data-accordion="collapse">
+          <div
+            id="accordion-collapse"
+            data-accordion="collapse"
+            className="w-[100%] lg:w-[60%]"
+          >
             <h2 id="accordion-collapse-heading-1">
               <button
                 type="button"
                 onClick={() => setShow('accordion-collapse-body-1')}
-                className="flex items-center justify-between w-full px-5 pb-10 font-medium rtl:text-right text-gray-500 border-b border-gray-700 hover:bg-gray-800 gap-3"
+                className="flex items-center justify-between w-full px-5 p-10 font-medium rtl:text-right text-gray-500 border-b border-gray-700 hover:bg-gray-800 gap-3"
                 data-accordion-target="#accordion-collapse-body-1"
                 aria-expanded="true"
                 aria-controls="accordion-collapse-body-1"
@@ -1484,17 +1508,17 @@ const Hero2 = () => {
                       id="Vector 1"
                       d="M12 5.1626V19.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                     <path
                       id="Vector 2"
                       d="M19 12.1626L5 12.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
@@ -1518,17 +1542,17 @@ const Hero2 = () => {
                       id="Vector 1"
                       d="M12 5.1626V19.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                     <path
                       id="Vector 2"
                       d="M19 12.1626L5 12.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
@@ -1552,17 +1576,17 @@ const Hero2 = () => {
                       id="Vector 1"
                       d="M12 5.1626V19.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                     <path
                       id="Vector 2"
                       d="M19 12.1626L5 12.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
@@ -1586,17 +1610,17 @@ const Hero2 = () => {
                       id="Vector 1"
                       d="M12 5.1626V19.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                     <path
                       id="Vector 2"
                       d="M19 12.1626L5 12.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </g>
                 </svg>
