@@ -42,7 +42,7 @@ const Hero2 = () => {
   const [token, setToken] = useState('');
   const [show, setShow] = useState('');
 
-  useEffect(() => {}, [thirdAnswerOptions]);
+  useEffect(() => { }, [thirdAnswerOptions]);
 
   useEffect(() => {
     const tokenData = localStorage.getItem('token');
@@ -374,15 +374,14 @@ const Hero2 = () => {
         <div className="w-full py-4 md:mb-20 items-center justify-center flex-col xl:flex-row flex xl:items-start xl:justify-between">
           <div className="w-[100%] xl:w-[50%] 2xl:w-auto rounded-lg overflow-hidden mb-10 lg:mb-0 lg:p-10">
             <div className="text-emerald-600 text-center xl:text-left text-[19px] sm:text-[28px] font-normal leading-loose mb-[24px]">
-              Empowering Your Business
+              Empower Your Teams & Clients.
             </div>
             <div className="w-[100%]">
               <h1 className="w-[100%] mx-auto xl:mx-0 2xl:w-[580px] text-center xl:text-left px-0 text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[25px] sm:text-[58px] 2xl:text-[63px] font-bold leading-[51.8px] sm:leading-[76.80px] mb-[26px] inline-block tracking-tight">
-                Powerful solutions for your Dashboard
+                Data Dashboard Feedback In Minutes
               </h1>
               <p className="w-[100%] mx-auto sm:w-[540px] 2xl:w-[632px] text-center px-0 xl:text-left text-slate-200 text-sm lg:text-lg font-normal leading-loose mb-[26px]">
-                Lorem ipsum is a placeholder text commonly used to demonstrate
-                the visual form of a document or a typeface without
+                Recieve an AI Driven review of your dashboard emailed directly to you in 90 seconds!
               </p>
               <div className="flex flex-col items-center sm:items-start sm:flex-row justify-normal sm:justify-center xl:justify-start mb-[26px]">
                 <img
@@ -390,11 +389,11 @@ const Hero2 = () => {
                   alt="product"
                   className="w-[170px] h-[73px] mr-0 sm:mr-[30px] lg:mr-[40px]"
                 />
-                <img
+                {/* <img
                   src="/img/productTwo.png"
                   alt="product"
                   className="w-[170px] h-[73px] mr-0 sm:mr-[30px] lg:mr-[40px]"
-                />
+                /> */}
               </div>
               <div className="flex flex-col sm:flex-row justify-center xl:justify-start items-center">
                 <div className="w-[160px] sm:w-[200px] h-14 mb-5 sm:mb-0">
@@ -972,18 +971,18 @@ const Hero2 = () => {
           </div>
         </div>
       </section>
-      <Teams />
+      {/* <Teams /> */}
       <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950 mt-20">
         <div className="w-[100%] mx-auto pb-16">
           <p className="text-center text-emerald-600 text-[15px] font-normal leading-[27px] mb-3">
-            Flex Impact
+            How it works
           </p>
           <h3 className="w-[100%] mb-5 mx-0 sm:mx-auto text-center text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[30px] sm:text-[46px] font-bold leading-[40.20px] sm:leading-[55.20px]">
-            Lorem ipsum is a placeholder text commonly used to
+            The Best UX/UI principals in dashboard design have been applied to our AI model.
+
           </h3>
           <p className="w-[100%] mx-auto text-center text-slate-400 text-base font-normal leading-7">
-            Lorem ipsum is a placeholder text commonly used to demonstrate the
-            visual form of a document or a typeface without
+            You receive a write up of your report based on 6 core functions.
           </p>
         </div>
         <div className="w-[100%] sm:w-[70%] mx-auto h-[100%] bg-gradient-to-br from-slate-950 to-gray-950 rounded-[14px] border border-gray-800">
@@ -998,14 +997,13 @@ const Hero2 = () => {
         <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-between mb-20 sm:mb-40 lg:mb-60">
           <div className="mb-5 lg:mb-0">
             <p className="text-emerald-600 text-center sm:text-left text-[15px] font-normal leading-[27px] mb-2">
-              Screenshots
+              Screenshots of your dashboards
             </p>
             <h3 className="w-[100%] sm:w-[522px] mb-5 text-center sm:text-left text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
-              Chart Feedback on Readability
+              Feedback on Readability
             </h3>
             <p className="w-[100%] sm:w-[522px] text-slate-200 text-center sm:text-left text-base font-thin leading-7">
-              Lorem ipsum is a placeholder text commonly used to demonstrate the
-              visual form of a document or a typeface without
+              Does your dashboard make sense from a 3rd party perspective? We hope to find out.
             </p>
             <div className="flex items-center mt-8 mb-[18px]">
               <div className="w-[34px] h-[34px] bg-neutral-800 rounded-full">
@@ -1036,7 +1034,7 @@ const Hero2 = () => {
                 </svg>
               </div>
               <p className="text-slate-200 text-[15px] font-thin leading-[27px] ml-3.5">
-                Scale your busLorem ipsum is a placeholder
+                Read text & charts
               </p>
             </div>
             <div className="flex items-center mb-[18px]">
@@ -1068,7 +1066,7 @@ const Hero2 = () => {
                 </svg>
               </div>
               <p className="text-slate-200 text-[15px] font-thin leading-[27px] ml-3.5">
-                Lorem ipsum is a placeholder text commonly used to
+                Understand visual hierarchy
               </p>
             </div>
             <div className="flex items-center mb-[18px]">
@@ -1100,7 +1098,7 @@ const Hero2 = () => {
                 </svg>
               </div>
               <p className="text-slate-200 text-[15px] font-thin leading-[27px] ml-3.5">
-                Lorem ipsum is a placeholder
+                Build relations
               </p>
             </div>
           </div>
@@ -1122,14 +1120,13 @@ const Hero2 = () => {
           </div>
           <div className="mt-5 lg:mt-0">
             <p className="text-emerald-600 text-center sm:text-left text-[15px] font-normal leading-[27px] mb-2">
-              Describe
+              Visual Improvemet
             </p>
             <h3 className="w-[100%] sm:w-[522px] mb-5 text-center sm:text-left text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
               Contrast, text size & readability
             </h3>
             <p className="w-[100%] sm:w-[522px] text-center sm:text-left text-slate-200 text-base font-thin leading-7">
-              Lorem ipsum is a placeholder text commonly used to demonstrate the
-              visual form of a document or a typeface without
+              We take into account the wholistic dashboard to make sure it visually make sense to read through.
             </p>
             <div className="flex items-center mt-8 mb-[18px]">
               <div className="w-[34px] h-[34px] bg-neutral-800 rounded-full">
@@ -1160,7 +1157,7 @@ const Hero2 = () => {
                 </svg>
               </div>
               <p className="text-slate-200 text-[15px] font-thin leading-[27px] ml-3.5">
-                Scale your busLorem ipsum is a placeholder
+                Standard distances & colors
               </p>
             </div>
             <div className="flex items-center mb-[18px]">
@@ -1192,7 +1189,7 @@ const Hero2 = () => {
                 </svg>
               </div>
               <p className="text-slate-200 text-[15px] font-thin leading-[27px] ml-3.5">
-                Lorem ipsum is a placeholder text commonly used to
+                Standard font sizes
               </p>
             </div>
             <div className="flex items-center mb-[18px]">
@@ -1224,7 +1221,7 @@ const Hero2 = () => {
                 </svg>
               </div>
               <p className="text-slate-200 text-[15px] font-thin leading-[27px] ml-3.5">
-                Lorem ipsum is a placeholder
+                Groupings & color usage
               </p>
             </div>
           </div>
@@ -1232,14 +1229,13 @@ const Hero2 = () => {
         <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-between">
           <div className="mb-5 lg:mb-0">
             <p className="text-emerald-600 text-center sm:text-left text-[15px] font-normal leading-[27px] mb-2">
-              Screenshots
+              Take Action Fast
             </p>
             <h3 className="w-[100%] sm:w-[522px] mb-5 text-center sm:text-left text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
-              Improvement Suggestions to act on
+              Improve your reports with actionable suggestions!
             </h3>
             <p className="w-[100%] sm:w-[522px] text-center sm:text-left text-slate-200 text-base font-thin leading-7">
-              Lorem ipsum is a placeholder text commonly used to demonstrate the
-              visual form of a document or a typeface without
+              We give you 3 areas you are doing well on & 7 areas to improve.
             </p>
             <div className="flex items-center mt-8 mb-[18px]">
               <div className="w-[34px] h-[34px] bg-neutral-800 rounded-full">
@@ -1270,7 +1266,7 @@ const Hero2 = () => {
                 </svg>
               </div>
               <p className="text-slate-200 text-[15px] font-thin leading-[27px] ml-3.5">
-                Scale your busLorem ipsum is a placeholder
+                Every critique comes with a suggestion
               </p>
             </div>
             <div className="flex items-center mb-[18px]">
@@ -1302,7 +1298,7 @@ const Hero2 = () => {
                 </svg>
               </div>
               <p className="text-slate-200 text-[15px] font-thin leading-[27px] ml-3.5">
-                Lorem ipsum is a placeholder text commonly used to
+                Every suggestion has improvements
               </p>
             </div>
             <div className="flex items-center mb-[18px]">
@@ -1334,7 +1330,7 @@ const Hero2 = () => {
                 </svg>
               </div>
               <p className="text-slate-200 text-[15px] font-thin leading-[27px] ml-3.5">
-                Lorem ipsum is a placeholder
+                You can implement then get more feedback
               </p>
             </div>
           </div>
@@ -1354,12 +1350,11 @@ const Hero2 = () => {
               Frequently Asked Questions
             </p>
             <h3 className="w-full mb-5 text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[46px] font-bold leading-[55.20px]">
-              Lorem ipsum is a placeholder
-            </h3>
-            <p className="w-full text-slate-200 text-base font-thin leading-7">
+              Answer to your most pressing questions!             </h3>
+            {/* <p className="w-full text-slate-200 text-base font-thin leading-7">
               Lorem ipsum is a placeholder text commonly used to demonstrate the
               visual form of a document or a typeface without
-            </p>
+            </p> */}
           </div>
           <div
             id="accordion-collapse"
@@ -1375,26 +1370,25 @@ const Hero2 = () => {
                 aria-expanded="true"
                 aria-controls="accordion-collapse-body-1"
               >
-                <span>Lorem ipsum is a placeholder text commonly used to</span>
+                <span>What does this cost? </span>
                 {toggleIcons('accordion-collapse-body-1')}
               </button>
             </h2>
             <div
               id="accordion-collapse-body-1"
-              className={`${
-                show === 'accordion-collapse-body-1' ? '' : 'hidden'
-              }`}
+              className={`${show === 'accordion-collapse-body-1' ? '' : 'hidden'
+                }`}
               aria-labelledby="accordion-collapse-heading-1"
             >
               <div className="p-5">
                 <p className="mb-2 text-gray-500 dark:text-gray-400">
-                  Lorem ipsum is a placeholder text commonly used to demonstrate
-                  the visual form of a document or a typeface without
+                  Currently it’s 100% free. We might implement a usage limit if people abuse it,
+                  but currently its intended to be useful to have practitioners, managers, founders, & directors get feedback fast!
                 </p>
-                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                {/* <p className="mb-2 text-gray-500 dark:text-gray-400">
                   Lorem ipsum is a placeholder text commonly used to demonstrate
                   the visual form
-                </p>
+                </p> */}
               </div>
             </div>
             <h2 id="accordion-collapse-heading-2">
@@ -1406,26 +1400,25 @@ const Hero2 = () => {
                 aria-expanded="false"
                 aria-controls="accordion-collapse-body-2"
               >
-                <span>Lorem ipsum is a placeholder text commonly used to</span>
+                <span>Can I talk to a person? </span>
                 {toggleIcons('accordion-collapse-body-2')}
               </button>
             </h2>
             <div
               id="accordion-collapse-body-2"
-              className={`${
-                show === 'accordion-collapse-body-2' ? '' : 'hidden'
-              }`}
+              className={`${show === 'accordion-collapse-body-2' ? '' : 'hidden'
+                }`}
               aria-labelledby="accordion-collapse-heading-2"
             >
               <div className="p-5">
                 <p className="mb-2 text-gray-500 dark:text-gray-400">
-                  Lorem ipsum is a placeholder text commonly used to demonstrate
-                  the visual form of a document or a typeface without
+                  If you would like to have a real person review or build you a better dashboard,
+                  please visit VisionLabs.com & we will be happy to help get you moving to a better & more actionable future!
                 </p>
-                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                {/* <p className="mb-2 text-gray-500 dark:text-gray-400">
                   Lorem ipsum is a placeholder text commonly used to demonstrate
                   the visual form
-                </p>
+                </p> */}
               </div>
             </div>
             <h2 id="accordion-collapse-heading-3">
@@ -1437,29 +1430,39 @@ const Hero2 = () => {
                 aria-expanded="false"
                 aria-controls="accordion-collapse-body-3"
               >
-                <span>Lorem ipsum is a placeholder text commonly used to</span>
+                <span>Who can see my dashboard?</span>
                 {toggleIcons('accordion-collapse-body-3')}
               </button>
             </h2>
             <div
               id="accordion-collapse-body-3"
-              className={`${
-                show === 'accordion-collapse-body-3' ? '' : 'hidden'
-              }`}
+              className={`${show === 'accordion-collapse-body-3' ? '' : 'hidden'
+                }`}
               aria-labelledby="accordion-collapse-heading-3"
             >
               <div className="p-5">
                 <p className="mb-2 text-gray-500 dark:text-gray-400">
-                  Lorem ipsum is a placeholder text commonly used to demonstrate
-                  the visual form of a document or a typeface without
+                  We utilize OpenAI API & Anthropic API. Both platforms will receive the image & abide by their terms of service & operating.
                 </p>
                 <p className="mb-2 text-gray-500 dark:text-gray-400">
-                  Lorem ipsum is a placeholder text commonly used to demonstrate
-                  the visual form
+                  Open AI &nbsp;
+                  <a href="https://openai.com/policies/terms-of-use" className="text-blue-500 hover:underline">Terms of Use</a>
+                  , &nbsp;
+                  <a href="https://openai.com/policies/usage-policies" className="text-blue-500 hover:underline">Policies</a>
+                  ,
+                </p>
+                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                  Anthropic &nbsp;
+                  <a href="https://console.anthropic.com/legal/terms" className="text-blue-500 hover:underline">Terms of Use</a>
+                  ,
+                </p>
+                <p className="mb-2 text-gray-500 dark:text-gray-400">
+                  If you would like an enterprise instance, please &nbsp;
+                  <a href="https://visionlabs.com/contact/" className="text-blue-500 hover:underline">Contact Us</a>
                 </p>
               </div>
             </div>
-            <h2 id="accordion-collapse-heading-4">
+            {/* <h2 id="accordion-collapse-heading-4">
               <button
                 type="button"
                 onClick={() => setShow('accordion-collapse-body-4')}
@@ -1474,9 +1477,8 @@ const Hero2 = () => {
             </h2>
             <div
               id="accordion-collapse-body-4"
-              className={`${
-                show === 'accordion-collapse-body-4' ? '' : 'hidden'
-              }`}
+              className={`${show === 'accordion-collapse-body-4' ? '' : 'hidden'
+                }`}
               aria-labelledby="accordion-collapse-heading-4"
             >
               <div className="p-5">
@@ -1489,7 +1491,7 @@ const Hero2 = () => {
                   the visual form
                 </p>
               </div>
-            </div>
+            </div> */}
           </div>
           {/* <div>
             <div className="grid grid-cols-3 items-start gap-40 h-[74px]">
