@@ -98,7 +98,7 @@ const Hero2 = () => {
     if (userCount === null || submissionCount === null) {
       return 'Loading...';
     }
-    return `${userCount} Users, ${submissionCount} Submissions`;
+    return `${userCount} Users, ${submissionCount} number of dashboards reviewed`;
   };
 
   const router = useRouter();
