@@ -62,6 +62,45 @@ const Hero2 = () => {
     }
   }, []);
 
+  const [userCount, setUserCount] = useState<number | null>(null);
+  const [submissionCount, setSubmissionCount] = useState<number | null>(null);
+
+
+  useEffect(() => {
+    const fetchUserCount = async () => {
+      const { count, error } = await supabase
+        .from('users')
+        .select('*', { count: 'exact' });
+
+      if (error) {
+        console.error('Error fetching data:', error);
+      } else {
+        setUserCount(count);
+      }
+
+      // Fetch other table count
+      const { count: resultCount, error: resultCountError } = await supabase
+        .from('results')
+        .select('*', { count: 'exact' });
+
+      if (resultCountError) {
+        console.error('Error fetching other table data:', resultCountError);
+      } else {
+        setSubmissionCount(resultCount);
+      }
+
+    };
+
+    fetchUserCount();
+  }, []);
+
+  const displayText = () => {
+    if (userCount === null || submissionCount === null) {
+      return 'Loading...';
+    }
+    return `${userCount} Users, ${submissionCount} Submissions`;
+  };
+
   const router = useRouter();
 
   const onEmailChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -417,7 +456,7 @@ const Hero2 = () => {
                     </svg>
                   </button>
                 </div>
-                <div className="w-[237px] h-[54px] relative ml-[40px] flex">
+                <div className="w-[300px] h-[54px] relative ml-[40px] flex">
                   <div className="w-auto h-auto justify-start relative items-start inline-flex">
                     <div className="absolute w-12 h-12 bg-slate-400 rounded-[200px] border-2 border-zinc-950 justify-center items-center flex">
                       <img className="w-12 h-12" src="/img/12.png" />
@@ -430,7 +469,7 @@ const Hero2 = () => {
                     </div>
                   </div>
                   <div className="left-[120px] sm:left-[130px] top-[13px] absolute text-slate-300 text-base font-normal leading-7">
-                    +4.7K Users
+                    {displayText()}
                   </div>
                 </div>
               </div>
