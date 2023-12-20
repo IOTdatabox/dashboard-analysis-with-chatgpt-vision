@@ -16,6 +16,7 @@ export default function Document() {
           }}
         />
                   <link rel="icon" href="/Vision Labs Icon2.png" />
+                  <meta property="og:image" content="/reviewmydashboard.jpg" />
       </Head>
 
       <body>

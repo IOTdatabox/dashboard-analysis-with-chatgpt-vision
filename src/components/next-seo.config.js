@@ -8,7 +8,7 @@ export default {
       description: 'Open Graph Receive an AI data powered review of your dashboard to improve readability, usage, and understandability.',
       images: [
         {
-          url: '/Review My Dashboard.jpg',
+          url: '/reviewmydashboard.jpg',
           width: 1200,
           height: 630,
           alt: 'Og Image Alt',
