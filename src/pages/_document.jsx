@@ -15,6 +15,7 @@ export default function Document() {
             `,
           }}
         />
+                  <link rel="icon" href="/Vision Labs Icon2.png" />
       </Head>
 
       <body>
