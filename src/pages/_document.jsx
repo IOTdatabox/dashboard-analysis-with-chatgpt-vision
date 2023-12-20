@@ -4,6 +4,20 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+      <meta
+          property="og:title"
+          content="Open Graph AI Dashboard Reviewer"
+        />
+        <meta
+          property="og:description"
+          content="Open Graph Receive an AI data powered review of your dashboard to improve readability, usage, and understandability."
+        />
+        <meta
+          property="og:image"
+          content="https://reviewmydashboard.visionlabs.com/reviewmydashboard.jpg"
+        />
+        <meta property="og:url" content="https://reviewmydashboard.visionlabs.com/" />
+
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -15,8 +29,7 @@ export default function Document() {
             `,
           }}
         />
-                  <link rel="icon" href="/Vision Labs Icon2.png" />
-                  <meta property="og:image" content="/reviewmydashboard.jpg" />
+        <link rel="icon" href="/Vision Labs Icon2.png" />
       </Head>
 
       <body>
