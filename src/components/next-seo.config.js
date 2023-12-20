@@ -4,8 +4,8 @@ export default {
     openGraph: {
       type: 'website',
       url: 'https://reviewmydashboard.visionlabs.com/',
-      title: 'AI Dashboard Reviewer',
-      description: 'Receive an AI data powered review of your dashboard to improve readability, usage, and understandability.',
+      title: 'Open Graph AI Dashboard Reviewer',
+      description: 'Open Graph Receive an AI data powered review of your dashboard to improve readability, usage, and understandability.',
       images: [
         {
           url: '/Review My Dashboard.jpg',
@@ -14,7 +14,7 @@ export default {
           alt: 'Og Image Alt',
         },
       ],
-      site_name: 'AI Dashboard Reviewer',
+      site_name: 'Title AI Dashboard Reviewer',
     },
   };
   
