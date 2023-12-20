@@ -4,17 +4,18 @@ export default {
     openGraph: {
       type: 'website',
       url: 'https://reviewmydashboard.visionlabs.com/',
-      title: 'Open Graph AI Dashboard Reviewer',
-      description: 'Open Graph Receive an AI data powered review of your dashboard to improve readability, usage, and understandability.',
+      title: 'OAI Dashboard Reviewer',
+      description: 'Receive an AI data powered review of your dashboard to improve readability, usage, and understandability.',
       images: [
         {
-          url: '/reviewmydashboard.jpg',
-          width: 1200,
-          height: 630,
+          url: 'https://reviewmydashboard.visionlabs.com/reviewmydashboard.jpg',
+          width: 800,
+          height: 400,
           alt: 'Og Image Alt',
+          type: 'image/jpeg',
         },
       ],
-      site_name: 'Title AI Dashboard Reviewer',
+      siteName: 'AI Dashboard Reviewer',
     },
   };
   

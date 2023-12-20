@@ -492,7 +492,7 @@ const Hero2 = () => {
             </div>
           </div>
           <div className="w-[100%] sm:w-[80%] lg:w-[70%] xl:w-[445px] h-[100%] flex-col justify-start items-start gap-6 inline-flex">
-            <div className="w-full flex-col justify-start items-center gap-[30px] flex lg:pt-10">
+            <div className="w-full flex-col justify-start items-center gap-[20px] flex lg:pt-10">
               <div className="px-2.5 justify-start items-start gap-2.5 inline-flex">
                 <h2 className="text-center text-white text-2xl font-bold leading-[31.20px]">
                   Get Started Now

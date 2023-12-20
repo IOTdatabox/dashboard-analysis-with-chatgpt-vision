@@ -4,19 +4,19 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-      <meta
+      {/* <meta
           property="og:title"
-          content="Open Graph AI Dashboard Reviewer"
+          content="AI Dashboard Reviewer"
         />
         <meta
           property="og:description"
-          content="Open Graph Receive an AI data powered review of your dashboard to improve readability, usage, and understandability."
+          content="Receive an AI data powered review of your dashboard to improve readability, usage, and understandability."
         />
         <meta
           property="og:image"
           content="https://reviewmydashboard.visionlabs.com/reviewmydashboard.jpg"
         />
-        <meta property="og:url" content="https://reviewmydashboard.visionlabs.com/" />
+        <meta property="og:url" content="https://reviewmydashboard.visionlabs.com/" /> */}
 
         <script
           dangerouslySetInnerHTML={{
