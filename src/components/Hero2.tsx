@@ -420,7 +420,7 @@ const Hero2 = () => {
     <>
       <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950">
         {isLoading && <Spinner />}
-        <div className="w-full py-4 md:mb-20 items-center justify-center flex-col xl:flex-row flex xl:items-start xl:justify-between">
+        <div className="w-full py-4 md:mb-20 items-center justify-center flex-col xl:flex-row flex xl:items-start xl:justify-around">
           <div className="w-[100%] xl:w-[50%] 2xl:w-auto rounded-lg overflow-hidden mb-10 lg:mb-0 lg:p-10">
             <div className="text-emerald-600 text-center xl:text-left text-[19px] sm:text-[28px] font-normal leading-loose mb-[24px]">
               Empower Your Teams & Clients.
