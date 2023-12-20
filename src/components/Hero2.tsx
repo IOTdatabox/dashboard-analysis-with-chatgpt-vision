@@ -1050,7 +1050,7 @@ const Hero2 = () => {
         </div>
       </section>
       <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950 pt-20 sm:pt-[248px]">
-        <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-between mb-20 sm:mb-40 lg:mb-60">
+        <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-around mb-20 sm:mb-40 lg:mb-60">
           <div className="mb-5 lg:mb-0">
             <p className="text-emerald-600 text-center sm:text-left text-[15px] font-normal leading-[27px] mb-2">
               Screenshots of your dashboards
@@ -1166,7 +1166,7 @@ const Hero2 = () => {
             />
           </div>
         </div>
-        <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-between mb-20 sm:mb-40 lg:mb-60">
+        <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-around mb-20 sm:mb-40 lg:mb-60">
           <div className="w-[100%] sm:w-[553px] lg:w-[30%] h-[100%] sm:h-[440px] lg:h-[90%]">
             <img
               src="/img/Screenshot_4.png"
@@ -1282,7 +1282,7 @@ const Hero2 = () => {
             </div>
           </div>
         </div>
-        <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-between">
+        <div className="w-full h-auto flex flex-col items-center lg:flex-row justify-center lg:justify-around">
           <div className="mb-5 lg:mb-0">
             <p className="text-emerald-600 text-center sm:text-left text-[15px] font-normal leading-[27px] mb-2">
               Take Action Fast
@@ -1400,7 +1400,7 @@ const Hero2 = () => {
         </div>
       </section>
       <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950 pt-20 sm:pt-[248px] pb-[248px]">
-        <div className="w-full flex flex-col items-center justify-center lg:flex-row lg:items-start lg:justify-between h-auto">
+        <div className="w-full flex flex-col items-center justify-center lg:flex-row lg:items-start lg:justify-around h-auto">
           <div className="w-[100%] lg:w-[35%] xl:w-[40%] mb-7 lg:mb-0 text-center lg:text-left">
             <p className="text-emerald-600 text-[15px] font-normal leading-[27px] mb-2">
               Frequently Asked Questions

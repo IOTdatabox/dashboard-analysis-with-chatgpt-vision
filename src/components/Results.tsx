@@ -64,7 +64,7 @@ const Results = () => {
   const averageOutOf10 = (average / 10) * 10;
 
   return (
-    <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950">
+    <section className="container max-w-[82rem] mx-auto text-gray-600 body-font bg-gray-950">
       {isLoading && <Spinner />}
 
       <div className="w-[90%] md:w-[60%] lg:w-[50%] h-auto mx-auto p-2 bg-rose-600 bg-opacity-10 rounded-lg border border-rose-600 my-7">

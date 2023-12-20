@@ -13,7 +13,6 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <DefaultSeo {...SEO} />
-      <Component {...pageProps} />
       <div className='flex flex-col min-h-screen'>
         <MainLayout>
           <Component {...pageProps} />
