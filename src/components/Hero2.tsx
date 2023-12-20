@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import Spinner from './spinner/Spinner';
 import Teams from './Teams';
 import { supabase } from '@/client';
+import TermsAndConditionCheck from './TermsAndConditionCheckbox';
 
 const Hero2 = () => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -98,7 +99,7 @@ const Hero2 = () => {
     if (userCount === null || submissionCount === null) {
       return 'Loading...';
     }
-    return `${userCount} Users, ${submissionCount} number of dashboards reviewed`;
+    return `${userCount} Users, ${submissionCount} dashboards reviewed`;
   };
 
   const router = useRouter();
@@ -126,6 +127,12 @@ const Hero2 = () => {
   //   setCountToken(countToken + 1);
   //   console.log(countToken, 'countToken')
   // };
+
+  const [termsChecked, setTermsChecked] = useState(false);
+
+  const handleTermsChange = (checked: boolean | ((prevState: boolean) => boolean)) => {
+    setTermsChecked(checked);
+  };
 
   const addUserData = async (
     userName: any,
@@ -223,6 +230,9 @@ const Hero2 = () => {
       toast('Please fill up all form data', { type: 'error' });
       return;
     }
+    if (!termsChecked) {
+      toast.error('Please agree to the terms and conditions');
+      return;}
 
     setTimeout(() => {
       toast('An Email will be Sent in the next few minutes!', {
@@ -419,23 +429,29 @@ const Hero2 = () => {
               <h1 className="w-[100%] mx-auto xl:mx-0 2xl:w-[580px] text-center xl:text-left px-0 text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[25px] sm:text-[58px] 2xl:text-[63px] font-bold leading-[51.8px] sm:leading-[76.80px] mb-[26px] inline-block tracking-tight">
                 Data Dashboard Feedback In Minutes
               </h1>
-              <p className="w-[100%] mx-auto sm:w-[540px] 2xl:w-[632px] text-center px-0 xl:text-left text-slate-200 text-sm lg:text-lg font-normal leading-loose mb-[26px]">
-                Recieve an AI Driven review of your dashboard emailed directly to you in 90 seconds!
+              <p className="w-[100%] mx-auto sm:w-[540px] 2xl:w-[632px] text-center px-0 xl:text-left text-slate-200 text-sm lg:text-lg font-normal leading-loose mb-[18px]">
+                1. Upload Dashboard Screenshot
               </p>
-              <div className="flex flex-col items-center sm:items-start sm:flex-row justify-normal sm:justify-center xl:justify-start mb-[26px]">
+              <p className="w-[100%] mx-auto sm:w-[540px] 2xl:w-[632px] text-center px-0 xl:text-left text-slate-200 text-sm lg:text-lg font-normal leading-loose mb-[18px]">
+                2. Receive Detailed Dashboard Review
+              </p>
+              <p className="w-[100%] mx-auto sm:w-[540px] 2xl:w-[632px] text-center px-0 xl:text-left text-slate-200 text-sm lg:text-lg font-normal leading-loose mb-[18px]">
+                3. Implement Feedback & Share
+              </p>
+              {/* <div className="flex flex-col items-center sm:items-start sm:flex-row justify-normal sm:justify-center xl:justify-start mb-[26px]">
                 <img
                   src="/img/productTwo.png"
                   alt="product"
                   className="w-[170px] h-[73px] mr-0 sm:mr-[30px] lg:mr-[40px]"
                 />
-                {/* <img
+                <img
                   src="/img/productTwo.png"
                   alt="product"
                   className="w-[170px] h-[73px] mr-0 sm:mr-[30px] lg:mr-[40px]"
-                /> */}
-              </div>
+                />
+              </div> */}
               <div className="flex flex-col sm:flex-row justify-center xl:justify-start items-center">
-                <div className="w-[160px] sm:w-[200px] h-14 mb-5 sm:mb-0">
+                {/* <div className="w-[160px] sm:w-[200px] h-14 mb-5 sm:mb-0">
                   <button className="w-[160px] sm:w-[200px] h-14 bg-emerald-600 rounded border-none flex justify-between items-center pl-8 sm:pl-16 pr-5">
                     <span className="text-center text-white text-base font-semibold leading-tight">
                       Start Free
@@ -455,8 +471,8 @@ const Hero2 = () => {
                       />
                     </svg>
                   </button>
-                </div>
-                <div className="w-[300px] h-[54px] relative ml-[40px] flex">
+                </div> */}
+                <div className="w-[400px] h-[54px] relative ml-[40px] flex">
                   <div className="w-auto h-auto justify-start relative items-start inline-flex">
                     <div className="absolute w-12 h-12 bg-slate-400 rounded-[200px] border-2 border-zinc-950 justify-center items-center flex">
                       <img className="w-12 h-12" src="/img/12.png" />
@@ -468,7 +484,7 @@ const Hero2 = () => {
                       <img className="w-12 h-12" src="/img/2.png" />
                     </div>
                   </div>
-                  <div className="left-[120px] sm:left-[130px] top-[13px] absolute text-slate-300 text-base font-normal leading-7">
+                  <div className="left-[130px] sm:left-[130px] top-[13px] absolute text-slate-300 text-base font-normal leading-7">
                     {displayText()}
                   </div>
                 </div>
@@ -673,13 +689,13 @@ const Hero2 = () => {
                     ))}
                 </div>
               </div>
-
+              <TermsAndConditionCheck onCheck={handleTermsChange} />
               <button
                 onClick={() => onSubmitBtnClicked()}
-                className="w-[100%] h-14 bg-emerald-600 rounded border-none flex justify-center xl:justify-between gap-5 xl:gap-0 items-center px-0 xl:pl-48 xl:pr-14"
+                className="w-[100%] h-14 bg-emerald-600 rounded border-none flex justify-center xl:justify-between gap-5 xl:gap-0 items-center px-0 xl:pl-32 xl:pr-14"
               >
                 <span className="text-center text-white text-base font-semibold leading-tight">
-                  Let’s go
+                  Analyze My Dashboard
                 </span>
                 <svg
                   width="20"
@@ -768,7 +784,8 @@ const Hero2 = () => {
           </div>
         </div>
         {/* supporters */}
-        <div className="flex justify-center mb-20 md:mb-0">
+        { /*Comment this out until we have real logos from real users.*/}
+        {/* <div className="flex justify-center mb-20 md:mb-0">
           <div className="w-[40rem] md:w-[56rem] lg:w-[70rem] xl:w-[90rem] h-[50px] justify-start items-center gap-[12px] md:gap-[15px] lg:gap-[41px] xl:gap-[70px] mt-16 mb-20 flex flex-col md:flex-row md:inline-flex">
             <div className="w-px h-[50px] opacity-70 bg-gray-800" />
             <div className="w-[73.69px] h-[18px] relative">
@@ -1008,7 +1025,7 @@ const Hero2 = () => {
             </div>
             <div className="w-px h-[50px] opacity-50 bg-slate-800 bg-opacity-0" />
           </div>
-        </div>
+        </div> */}
       </section>
       {/* <Teams /> */}
       <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950 mt-20">

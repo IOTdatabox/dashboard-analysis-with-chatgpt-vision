@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import LoginPage from '@/components/LoginPage';
+import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
+import TermsAndCondition from '@/components/TermsAndCondition';
 
 const Index = () => {
+
   return (
     <div>
       <Navbar />
-      <LoginPage />
+      <TermsAndCondition />
     </div>
   );
 };

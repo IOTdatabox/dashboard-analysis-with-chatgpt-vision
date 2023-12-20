@@ -40,9 +40,11 @@ const Navbar = () => {
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
                       <img
-                        src="/img/Logo-3-1024x272.png"
-                        alt="Vision"
-                        className="h-[75px] w-[260px] md:h-[51px] md:w-[192px] hover:cursor-pointer"
+                        src="/img/Review My Dashboard white.png"
+                        alt="VisionLabs"
+                        // className="h-[75px] w-[260px] md:h-[51px] md:w-[192px] hover:cursor-pointer"
+                        className="h-[70px] w-[357px] md:h-[70px] md:w-[357px] hover:cursor-pointer"
+
                         onClick={() => router.push('/')}
                       />
                     </div>

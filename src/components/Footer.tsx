@@ -1,19 +1,20 @@
+import Link from 'next/link';
 import React from 'react';
 
 const Footer = () => {
   return (
-    <section className="py-10 opacity-70 bg-gradient-to-r, from-[#1F233900] to-[#1F244D] border-t border-indigo-950 backdrop-blur-[80px]">
+    <section className="mt-auto w-full bottom-0 left-0 py-10 opacity-70 bg-gradient-to-r, from-[#1F233900] to-[#1F244D] border-t border-indigo-950 backdrop-blur-[80px]">
       <div className="grid grid-cols-2 gap-5 md:grid-cols-3 md:gap-0">
         <div className="flex justify-center col-span-2 md:col-span-1"> 
           <div>
             <div className="w-48 h-[51px]">
               <img src="/img/Logo-3-1024x272.png" alt="logo" />
             </div>
-            <p className="text-slate-200 text-base font-normal leading-7 mt-2.5">
+            {/* <p className="text-slate-200 text-base font-normal leading-7 mt-2.5">
               Lorem ipsum is a placeholder text <br />
               commonly used to
-            </p>
-            <div className="flex items-center gap-3 mt-[72px]">
+            </p> */}
+            {/* <div className="flex items-center gap-3 mt-[72px]">
               <div className="w-10 h-10 bg-gray-800 rounded-md border-none">
                 <div className="p-2.5">
                   <svg
@@ -92,13 +93,13 @@ const Footer = () => {
                   </svg>
                 </div>
               </div>
-            </div>
+            </div> */}
             <p className='text-slate-400 text-xs font-thin leading-snug mt-5'>Copyright ©2023 Vision Labs</p>
           </div>
         </div>
         <div className="col-span-2 md:pr-[40%] md:pl-[10%]">
           <div className="flex justify-evenly md:justify-between">
-            <div>
+            {/* <div>
               <h4 className="text-white text-base font-semibold leading-7 tracking-wide">
                 Quick Links
               </h4>
@@ -128,13 +129,13 @@ const Footer = () => {
                   Blog
                 </a>
               </div>
-            </div>
+            </div> */}
             <div>
               <h4 className="text-white text-base font-semibold leading-7 tracking-wide">
                 Account
               </h4>
               <div className="flex flex-col">
-                <a
+                {/* <a
                   className="text-slate-200 text-[15px] font-thin leading-[51px]"
                   href="#"
                 >
@@ -145,19 +146,19 @@ const Footer = () => {
                   href="#"
                 >
                   Register
-                </a>
-                <a
+                </a> */}
+                <Link
                   className="text-slate-200 text-[15px] font-thin leading-[51px]"
-                  href="#"
+                  href="/termsandconditions"
                 >
                   Privacy Policy
-                </a>
-                <a
+                </Link>
+                <Link
                   className="text-slate-200 text-[15px] font-thin leading-[51px]"
-                  href="#"
+                  href="/contact"
                 >
                   Support
-                </a>
+                </Link>
               </div>
             </div>
           </div>

@@ -41,7 +41,7 @@ const Results = () => {
 
   console.log("Improvements")
   console.log(data[0]?.improvements);
-  
+
   const improve = JSON.parse(data[0]?.improvements || '[]');
 
   const positives = JSON.parse(data[0]?.positives || '[]');
@@ -69,8 +69,9 @@ const Results = () => {
 
       <div className="w-[90%] md:w-[60%] lg:w-[50%] h-auto mx-auto p-2 bg-rose-600 bg-opacity-10 rounded-lg border border-rose-600 my-7">
         <p className="text-center text-white text-base font-normal leading-tight">
-          This page will be deleted once you leave this page - Create an account
-          to save feedback
+          This review will be deleted in 12 hours - Looking for more? &nbsp;
+          <a href="https://visionlabs.com/contact/?utm_source=reviewmydashboard&utm_medium=email&utm_campaign=reviewmydashboard&utm_content=delivery-email"
+              className="text-blue-500 hover:underline">Contact Vision Labs</a>
         </p>
       </div>
       <h1 className="w-[100%] text-center mx-auto text-transparent bg-gradient-to-r from-[#EBF1FF] to-[#B3C0DE] bg-clip-text text-[50px] sm:text-[58px] lg:text-[60px] font-bold leading-[76.80px]">
@@ -479,11 +480,11 @@ const Results = () => {
           Areas for Improvement
         </h3>
         <ul className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {improve.map((item: any, index: any) => (
+          {improve.map((item: any, index: any) => (
             <li
-            key={item.id || index}
-            className={`col-span-1 p-4 bg-neutral-900 rounded-2xl border border-gray-900 justify-start items-center gap-4 inline-flex ${index === improve.length - 1 ? 'w-[204%]' : ''
-              }`}
+              key={item.id || index}
+              className={`col-span-1 p-4 bg-neutral-900 rounded-2xl border border-gray-900 justify-start items-center gap-4 inline-flex ${index === improve.length - 1 ? 'w-[204%]' : ''
+                }`}
             >
               <div className="w-[52px] h-[52px] p-2 bg-white bg-opacity-10 rounded-xl justify-center items-center gap-2 flex">
                 <div className="text-slate-300 text-xl font-normal leading-9">
