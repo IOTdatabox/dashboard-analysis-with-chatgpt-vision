@@ -4,7 +4,7 @@ export default {
     openGraph: {
       type: 'website',
       url: 'https://reviewmydashboard.visionlabs.com/',
-      title: 'OAI Dashboard Reviewer',
+      title: 'AI Dashboard Reviewer',
       description: 'Receive an AI data powered review of your dashboard to improve readability, usage, and understandability.',
       images: [
         {
