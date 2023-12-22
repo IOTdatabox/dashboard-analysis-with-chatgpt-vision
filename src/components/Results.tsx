@@ -78,7 +78,7 @@ const Results = () => {
         {dashboard && dashboard.length > 0 ? dashboard : 'Name Dashboard'}
       </h1>
       {/* image section */}
-      <div className="w-[80%] h-[250px] sm:h-[300px] md:h-[380px] lg:h-[448px] mx-auto rounded-lg mt-16 mb-16">
+      <div className="w-[80%] h-full mx-auto rounded-lg mt-16 mb-16">
         <img
           src={
             data[0]?.image
@@ -86,7 +86,7 @@ const Results = () => {
               : '/img/background.jpg'
           }
           alt="photo"
-          className="w-full h-full object-fit rounded-lg"
+          className="w-full h-full object-cover rounded-lg"
         />
       </div>
       {/* <h3 className="h-15 text-white text-[32px] font-extrabold my-5">

@@ -33,9 +33,6 @@ const Hero2 = () => {
   const [companySize, setCompanySize] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const [firstAnswer, setFirstAnswer] = useState('');
-  const [secondAnswerOptions, setSecondAnswerOptions] = useState<string[]>([]);
-  const [thirdAnswerOptions, setThirdAnswerOptions] = useState<string[]>([]);
 
   const [imageSrc, setImageSrc] = useState<string | null | undefined>('');
   const [id, setId] = useState({ user: { id: '' } });
@@ -43,7 +40,6 @@ const Hero2 = () => {
   const [token, setToken] = useState('');
   const [show, setShow] = useState('');
 
-  useEffect(() => { }, [thirdAnswerOptions]);
 
   useEffect(() => {
     const tokenData = localStorage.getItem('token');
@@ -269,14 +265,6 @@ const Hero2 = () => {
     try {
       if (response.ok) {
         const data = await response.json();
-        setFirstAnswer(data.data.firstAnswer);
-
-        console.log(data.data.firstAnswer);
-
-        setSecondAnswerOptions(data.data.secondAnswer.slice(1).split('*'));
-        setThirdAnswerOptions(data.data.thirdAnswer.slice(1).split('*'));
-        console.log(data);
-        console.log(data.data.reqTokens);
         await addUserData(
           name + ' ' + lastName,
           email,
