@@ -154,7 +154,7 @@ export default async function handler(
               Improvements section format like this [{"title":"","Description":"","PossibleSolution":""},{"title":"","Description":"","PossibleSolution":""}].
               Positives section format like this [{"title":"","Description":""},{"title":"","Description":""}].
               Rating section format like this [{"title":"","score":"","Description":""},{"title":"","score":"","Description":""}]
-              Dashboard section's name must be alwasys "Dashboard".
+              Dashboard section's format like this "dashboard name"
               Never include a "-" at the beginning of any section.`,
             },
             {
