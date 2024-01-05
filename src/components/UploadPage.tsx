@@ -811,7 +811,7 @@ const UploadPage = () => {
                                 d="M36.1368 14.9524L36.229 14.9799L36.233 14.9753C36.6707 15.0546 37.1049 14.7926 37.2335 14.3585C38.4051 10.4217 42.0962 7.67158 46.2086 7.67158C46.6955 7.67158 47.0903 7.2767 47.0903 6.78984C47.0903 6.30297 46.6955 5.90811 46.2086 5.90811C41.1545 5.90811 36.9073 9.27319 35.5435 13.8559C35.4044 14.3227 35.6703 14.8132 36.1368 14.9524Z"
                                 fill="#018979"
                                 stroke="#F9FFF9"
-                                stroke-width="0.3"
+                                strokeWidth="0.3"
                                 stroke-linecap="round"
                               />
                               <path
@@ -822,21 +822,21 @@ const UploadPage = () => {
                                 d="M15.9585 41.5C15.9585 51.67 24.2322 59.9435 34.402 59.9435C44.5719 59.9435 52.8455 51.6698 52.8455 41.5C52.8455 31.3301 44.5719 23.0565 34.402 23.0565C24.2321 23.0565 15.9585 31.3302 15.9585 41.5ZM17.7223 41.5C17.7223 32.3031 25.205 24.8203 34.402 24.8203C43.5989 24.8203 51.0817 32.303 51.0817 41.5C51.0817 50.6969 43.5989 58.1797 34.402 58.1797C25.2051 58.1797 17.7223 50.697 17.7223 41.5Z"
                                 fill="#018979"
                                 stroke="#F9FFF9"
-                                stroke-width="0.3"
+                                strokeWidth="0.3"
                                 stroke-linecap="round"
                               />
                               <path
                                 d="M34.0507 48.8642C34.0507 49.2428 34.3578 49.5499 34.7364 49.5499C35.115 49.5499 35.4221 49.2433 35.4221 48.8642V34.9356C35.4221 34.557 35.115 34.2499 34.7364 34.2499C34.3578 34.2499 34.0507 34.557 34.0507 34.9356V48.8642Z"
                                 fill="#018979"
                                 stroke="#018979"
-                                stroke-width="0.3"
+                                strokeWidth="0.3"
                                 stroke-linecap="round"
                               />
                               <path
                                 d="M34.7364 35.9067L30.9357 39.7074L34.7364 35.9067ZM34.7364 35.9067L38.5372 39.7075C38.6709 39.8412 38.8469 39.9083 39.022 39.9083L34.7364 35.9067ZM29.9658 39.7075C30.2336 39.9753 30.668 39.9754 30.9356 39.7075L39.022 39.9083C39.1969 39.9083 39.373 39.8418 39.5069 39.7074C39.7748 39.4395 39.7748 39.0055 39.5069 38.7377L35.2212 34.452C34.9534 34.1842 34.5191 34.1841 34.2515 34.452C34.2514 34.4521 34.2514 34.4521 34.2514 34.4521L29.9658 38.7377C29.6979 39.0056 29.6979 39.4396 29.9658 39.7075Z"
                                 fill="#018979"
                                 stroke="#018979"
-                                stroke-width="0.3"
+                                strokeWidth="0.3"
                                 stroke-linecap="round"
                               />
                             </svg>
@@ -875,8 +875,8 @@ const UploadPage = () => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M13.0892 10.6095C13.2454 10.4533 13.3332 10.2413 13.3332 10.0204C13.3332 9.79939 13.2454 9.58746 13.0892 9.43119L8.375 4.71702C8.29813 4.63743 8.20617 4.57395 8.1045 4.53027C8.00283 4.4866 7.89348 4.46361 7.78284 4.46265C7.67219 4.46169 7.56245 4.48277 7.46004 4.52467C7.35763 4.56657 7.26458 4.62845 7.18634 4.7067C7.10809 4.78494 7.04622 4.87798 7.00432 4.9804C6.96242 5.08281 6.94133 5.19254 6.94229 5.30319C6.94325 5.41384 6.96624 5.52319 7.00992 5.62486C7.05359 5.72653 7.11708 5.81849 7.19667 5.89536L11.3217 10.0204L7.19667 14.1454C7.04487 14.3025 6.96087 14.513 6.96277 14.7315C6.96467 14.95 7.05231 15.159 7.20682 15.3135C7.36133 15.468 7.57034 15.5557 7.78883 15.5576C8.00733 15.5595 8.21783 15.4755 8.375 15.3237L13.0892 10.6095Z"
                     fill="white"
                   />
@@ -1250,7 +1250,7 @@ const UploadPage = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
+                      strokeWidth="1.4"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1282,7 +1282,7 @@ const UploadPage = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
+                      strokeWidth="1.4"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1314,7 +1314,7 @@ const UploadPage = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
+                      strokeWidth="1.4"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1374,7 +1374,7 @@ const UploadPage = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
+                      strokeWidth="1.4"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1406,7 +1406,7 @@ const UploadPage = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
+                      strokeWidth="1.4"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1438,7 +1438,7 @@ const UploadPage = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
+                      strokeWidth="1.4"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1484,7 +1484,7 @@ const UploadPage = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
+                      strokeWidth="1.4"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1516,7 +1516,7 @@ const UploadPage = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
+                      strokeWidth="1.4"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1548,7 +1548,7 @@ const UploadPage = () => {
                       id="Vector 3"
                       d="M12 16.9444L15.3333 20.5L22 12.5"
                       stroke="#018979"
-                      stroke-width="1.4"
+                      strokeWidth="1.4"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1603,7 +1603,7 @@ const UploadPage = () => {
                       id="Vector 1"
                       d="M12 5.1626V19.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1611,7 +1611,7 @@ const UploadPage = () => {
                       id="Vector 2"
                       d="M19 12.1626L5 12.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1637,7 +1637,7 @@ const UploadPage = () => {
                       id="Vector 1"
                       d="M12 5.1626V19.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1645,7 +1645,7 @@ const UploadPage = () => {
                       id="Vector 2"
                       d="M19 12.1626L5 12.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1671,7 +1671,7 @@ const UploadPage = () => {
                       id="Vector 1"
                       d="M12 5.1626V19.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1679,7 +1679,7 @@ const UploadPage = () => {
                       id="Vector 2"
                       d="M19 12.1626L5 12.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1705,7 +1705,7 @@ const UploadPage = () => {
                       id="Vector 1"
                       d="M12 5.1626V19.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />
@@ -1713,7 +1713,7 @@ const UploadPage = () => {
                       id="Vector 2"
                       d="M19 12.1626L5 12.1626"
                       stroke="#E7EAF3"
-                      stroke-width="2"
+                      strokeWidth="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     />

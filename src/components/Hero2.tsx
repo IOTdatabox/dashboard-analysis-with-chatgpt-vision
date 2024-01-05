@@ -668,8 +668,7 @@ const Hero2 = () => {
                           </div>
                           <div className="p-[5px] justify-start items-start gap-2.5 inline-flex">
                             <div className="text-center text-neutral-400 text-xs font-normal leading-[18px]">
-                              Supported formates: JPEG, PNG, GIF, MP4, PDF, PSD,
-                              AI, Word, PPT
+                              Supported formates: PNG (.png), JPEG (.jpeg and .jpg) or WEBP (.webp)
                             </div>
                           </div>
                         </div>

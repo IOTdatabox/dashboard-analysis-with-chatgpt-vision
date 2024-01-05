@@ -52,7 +52,11 @@ const Results = () => {
 
   const dashboard = JSON.parse(data[0]?.dashboard || '[]')
 
-  const data2 = rating.map((item: { score: any }) => item.score);
+  const data2 = rating.map((item: { Score: any }) => item.Score);
+
+  console.log("Rating", rating);
+  console.log("Original Score", data2);
+  console.log("Good Feedback", positives);
 
   const numericData = data2.map(Number);
 
@@ -124,7 +128,7 @@ const Results = () => {
         <ul className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {rating.map((item: any, i: any) => (
             <>
-              {i === 0 && (
+              {/* {i === 0 && (
                 <li
                   key={i}
                   className="col-span-1 p-4 bg-neutral-900 rounded-2xl border border-gray-900 justify-start items-center gap-4 inline-flex"
@@ -137,8 +141,7 @@ const Results = () => {
                           height="41"
                           viewBox="0 0 40 41"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
+                          xmlns="http://www.w3.org/2000/svg">
                           <g id="vuesax/bold/status-up">
                             <g id="status-up">
                               <path
@@ -179,7 +182,7 @@ const Results = () => {
                     </div>
                   </div>
                 </li>
-              )}
+              )} */}
               <li
                 key={i}
                 className="col-span-1 p-4 bg-neutral-900 rounded-2xl border border-gray-900 justify-start items-center gap-4 inline-flex"
@@ -419,18 +422,18 @@ const Results = () => {
                 <div className="grow shrink basis-0 flex-col justify-start items-start gap-4 inline-flex">
                   <div className="self-stretch justify-between items-center inline-block lg:inline-flex">
                     <div className="grow shrink basis-0 text-white text-base font-medium">
-                      {item.title}
+                      {item.Title}
                     </div>
                     <div className="rounded justify-start items-center gap-2 flex">
                       <div className="w-[142px] h-3 relative">
                         <div className="w-[142px] h-3 left-0 top-0 absolute bg-gray-800 rounded" />
                         <div
                           className="h-3 left-0 top-0 absolute bg-emerald-600 rounded"
-                          style={{ width: Math.round(item.score) * 10 + '%' }}
+                          style={{ width: Math.round(item.Score) * 10 + '%' }}
                         />
                       </div>
                       <div className="text-white text-base font-medium">
-                        {item.score}/10
+                        {item.Score}/10
                       </div>
                     </div>
                   </div>
@@ -463,7 +466,7 @@ const Results = () => {
             <div className="grow shrink basis-0 flex-col justify-start items-start gap-4 inline-flex">
               <div className="self-stretch justify-between items-center inline-flex">
                 <div className="grow shrink basis-0 text-white text-lg font-bold">
-                  {item.title}
+                  {item.Title}
                 </div>
               </div>
               <div className="self-stretch text-slate-300 text-base font-normal leading-7">
@@ -495,7 +498,7 @@ const Results = () => {
                 <div className="self-stretch h-auto flex-col justify-start items-start flex">
                   <div className="self-stretch justify-between items-center inline-flex">
                     <div className="grow shrink basis-0 text-white text-lg font-bold">
-                      {item.title}
+                      {item.Title}
                     </div>
                   </div>
                   <div className="self-stretch text-slate-300 text-base font-normal leading-7">
