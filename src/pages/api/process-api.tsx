@@ -80,7 +80,6 @@ export default async function handler(
   }
 
   try {
-    console.log('❤❤❤❤');
     const imageBase64 = req.body.image; // Assuming image is sent in base64 format
     const toEmail = req.body.email;
     // const userId = req.body.userId;
@@ -89,8 +88,6 @@ export default async function handler(
       console.error('No image data found in the request body');
       return res.status(400).json({ message: 'No image data provided' });
     }
-    console.log('Image Base64 Length:', imageBase64.length);
-    console.log('Email:', toEmail);
 
     const payload = {
       model: 'gpt-4-vision-preview',
@@ -183,7 +180,6 @@ export default async function handler(
     //   totalResponse = totalResponse.concat(part.choices[0].delta.content ?? '');
     // }
 
-    // console.log(JSON.stringify(totalResponse));
 
     const headers = {
       'Content-Type': 'application/json',
@@ -198,7 +194,6 @@ export default async function handler(
     );
 
     const responseParsed = response.data;
-    console.log('response-data', responseParsed.usage);
 
     const reqTokens = responseParsed.usage.prompt_tokens;
     const resTokens = responseParsed.usage.completion_tokens;

@@ -21,6 +21,8 @@ const Hero2 = () => {
       reader.readAsDataURL(file);
     } else {
       setImageSrc('');
+      toast('Please upload an valid format of image', { type: 'error' });
+
     }
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -228,7 +230,8 @@ const Hero2 = () => {
     }
     if (!termsChecked) {
       toast.error('Please agree to the terms and conditions');
-      return;}
+      return;
+    }
 
     setTimeout(() => {
       toast('An Email will be Sent in the next few minutes!', {
@@ -247,7 +250,28 @@ const Hero2 = () => {
     // const parsedData = JSON.parse(data || '');
     // const userInfo = parsedData.user.user_metadata;
 
-    const response = await fetch('/api/process-api', {
+    const campaignResponse = await fetch('/api/active-campaign-api', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        userName: name + ' ' + lastName,
+        companySize: companySize
+      }),
+    });
+
+
+    if (!campaignResponse.ok) {
+      throw new Error(`HTTP error! Status: ${campaignResponse.status}`);
+    }
+
+    const data = await campaignResponse.json();
+    console.log('Success:', data);
+
+
+    const processResponse = await fetch('/api/process-api', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -260,11 +284,11 @@ const Hero2 = () => {
       }),
     });
 
-    console.log(response, 'openai-response');
+    console.log(processResponse, 'openai-response');
 
     try {
-      if (response.ok) {
-        const data = await response.json();
+      if (processResponse.ok) {
+        const data = await processResponse.json();
         await addUserData(
           name + ' ' + lastName,
           email,
@@ -274,9 +298,9 @@ const Hero2 = () => {
         );
         setIsLoading(false);
       } else {
-        const errorData = await response.json();
+        const errorData = await processResponse.json();
         console.log(errorData);
-        toast('Error inside response!', { type: 'error' });
+        toast('Error inside response of Open AI!', { type: 'error' });
         console.error('Failed to fetch API');
         setIsLoading(false); // Stop loading in case of error
       }
@@ -285,81 +309,6 @@ const Hero2 = () => {
       console.error('Error:', error);
       setIsLoading(false); // Stop loading in case of error
     }
-
-    // const currTime = new Date().toUTCString();
-
-    // const result = isTimeDifference12Hours(createdAt, currTime);
-    // console.log(result, 'result');
-
-    // if (result) {
-    //   toast('Your trial period is over. Please buy subscription to continue', {
-    //     type: 'error',
-    //   });
-    // } else {
-    //   const nameInput = document.getElementById('name') as HTMLInputElement;
-    //   const name = nameInput.value.trim();
-    //   if (
-    //     name === '' ||
-    //     !isValidEmail(email) ||
-    //     imageSrc == null ||
-    //     imageSrc == undefined ||
-    //     imageSrc == ''
-    //   ) {
-    //     toast('Please fill up all form data', { type: 'error' });
-    //     return;
-    //   }
-
-    //   setTimeout(() => {
-    //     toast('An Email will be Sent in the next few minutes!', {
-    //       type: 'success',
-    //     });
-    //     setIsLoading(false);
-    //     router.push(`/thankyou?email=${email}`);
-    //   }, 4000);
-
-    //   setIsLoading(true);
-    //   const base64String = imageSrc?.split(',')[1];
-
-    //   const userId = id.user.id;
-
-    //   const response = await fetch('/api/process-api', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       image: base64String,
-    //       email: email,
-    //       userId: userId,
-    //     }),
-    //   });
-
-    //   console.log(response, 'openai-response');
-
-    //   try {
-    //     if (response.ok) {
-    //       const data = await response.json();
-    //       setFirstAnswer(data.data.firstAnswer);
-
-    //       console.log(data.data.firstAnswer);
-
-    //       setSecondAnswerOptions(data.data.secondAnswer.slice(1).split('*'));
-    //       setThirdAnswerOptions(data.data.thirdAnswer.slice(1).split('*'));
-    //       console.log(data);
-    //       setIsLoading(false);
-    //     } else {
-    //       const errorData = await response.json();
-    //       console.log(errorData);
-    //       toast('Error inside response!', { type: 'error' });
-    //       console.error('Failed to fetch API');
-    //       setIsLoading(false); // Stop loading in case of error
-    //     }
-    //   } catch (error) {
-    //     toast('Internal Server Error!', { type: 'error' });
-    //     console.error('Error:', error);
-    //     setIsLoading(false); // Stop loading in case of error
-    //   }
-    // }
   };
 
   const toggleIcons = (id: String) => {
