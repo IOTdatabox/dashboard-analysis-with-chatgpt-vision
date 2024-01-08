@@ -55,7 +55,7 @@ async function integrateActiveCampaign(email, firstName, lastName, companySize) 
         const tagResponse = await axios.post(`${baseURL}/contactTags`, {
             contactTag: {
                 contact: newContactId,
-                tag: 105
+                tag: 108
             }
         }, config);
         console.log('Contact Tag Created:', tagResponse.data);
