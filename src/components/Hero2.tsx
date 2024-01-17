@@ -119,7 +119,7 @@ const Hero2 = () => {
   const isValidEmail = (email: string) => {
     const regex = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return regex.test(email);
-};
+  };
 
   // const tokenCount = () => {
   //   setCountToken(countToken + 1);
@@ -977,12 +977,15 @@ const Hero2 = () => {
             You receive a write up of your report based on 6 core functions.
           </p>
         </div>
-        <div className="w-[100%] sm:w-[70%] mx-auto h-[100%] bg-gradient-to-br from-slate-950 to-gray-950 rounded-[14px] border border-gray-800">
-          <img
-            src="/img/graph.png"
-            alt="graph"
-            className="w-full h-full object-cover rounded-[14px]"
-          />
+        <div className="relative" style={{ paddingTop: '56.25%' }}>
+          <iframe
+            src="https://player.vimeo.com/video/903867286?h=95e9d0cb44&badge=0&autopause=0&player_id=0&app_id=58479"
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            className="absolute top-0 left-0 w-full h-full"
+            title="Review My Dashboard - Overview-4k"
+          >
+          </iframe>
         </div>
       </section>
       <section className="container max-w-[90rem] mx-auto text-gray-600 body-font bg-gray-950 pt-20 sm:pt-[248px]">

@@ -16,33 +16,20 @@ const ThankYou = () => {
               <h1 className="w-full mx-auto text-center text-indigo-50 text-[54px] sm:text-[58px] md:text-[64px] font-bold leading-[76.80px]">
                 Thank You!
               </h1>
-              <p className="text-center mx-auto w-full sm:w-[450px] md:w-[627px] lg:w-[806px] text-slate-300 text-sm lg:text-lg font-normal leading-loose mt-4">
+              <p className="text-center mx-auto w-full sm:w-[450px] md:w-[627px] lg:w-[806px] text-slate-300 text-sm lg:text-lg font-normal leading-loose my-4">
                 An email will be sent to {email} in the next few minutes with a
                 link to your personalized Dashboard feedback 😎
               </p>
             </div>
-            <div className="w-full sm:w-[70%] mx-auto rounded-md bg-black bg-opacity-0 my-14">
-              <img
-                src="/img/Video-player.jpg"
-                alt="video"
-                className="h-full w-full object-fit rounded-md"
-              />
-              {/* <iframe
-                style={{borderRadius: '6px'}}
-                src="https://player.vimeo.com/video/235215203?h=f7635d145a"
-                width="100%"
-                height="100%"
+            <div className="relative" style={{ paddingTop: '56.25%' }}>
+              <iframe
+                src="https://player.vimeo.com/video/903867286?h=95e9d0cb44&badge=0&autopause=0&player_id=0&app_id=58479"
                 frameBorder="0"
                 allow="autoplay; fullscreen; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-              <p>
-                <a href="https://vimeo.com/235215203">Vimeo Placeholder</a> from{' '}
-                <a href="https://vimeo.com/user71635169">
-                  Elementor Website Builder
-                </a>{' '}
-                on <a href="https://vimeo.com">Vimeo</a>.
-              </p> */}
+                className="absolute top-0 left-0 w-full h-full"
+                title="Review My Dashboard - Overview-4k"
+              >
+              </iframe>
             </div>
             <div className="flex justify-center gap-3 sm:gap-8 md:gap-16 pb-28">
               <div className="text-center flex flex-col items-center w-[80px] md:w-[100px] gap-4 md:gap-8">
