@@ -23,11 +23,11 @@ const ThankYou = () => {
             </div>
             <div className="relative" style={{ paddingTop: '56.25%' }}>
               <iframe
-                src="https://player.vimeo.com/video/903867286?h=95e9d0cb44&badge=0&autopause=0&player_id=0&app_id=58479"
+                src="https://player.vimeo.com/video/903867534?h=4b5012bfea&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
                 frameBorder="0"
                 allow="autoplay; fullscreen; picture-in-picture"
                 className="absolute top-0 left-0 w-full h-full"
-                title="Review My Dashboard - Overview-4k"
+                title="Review My Dashboard - How it works-4k"
               >
               </iframe>
             </div>
