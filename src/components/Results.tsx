@@ -73,7 +73,7 @@ const Results = () => {
 
       <div className="w-[90%] md:w-[60%] lg:w-[50%] h-auto mx-auto p-2 bg-rose-600 bg-opacity-10 rounded-lg border border-rose-600 my-7">
         <p className="text-center text-white text-base font-normal leading-tight">
-          This review will be deleted in 12 hours - Looking for more? &nbsp;
+        Looking for even more actionable reporting?&nbsp;-&nbsp;
           <a href="https://visionlabs.com/contact/?utm_source=reviewmydashboard&utm_medium=email&utm_campaign=reviewmydashboard&utm_content=delivery-email"
               className="text-blue-500 hover:underline">Contact Vision Labs</a>
         </p>
