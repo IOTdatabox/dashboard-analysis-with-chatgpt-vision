@@ -165,7 +165,7 @@ const UploadPage = () => {
     }
 
     setTimeout(() => {
-      toast('An Email will be Sent in the next few minutes!', {
+      toast('An email will be sent in the next few minutes!', {
         type: 'success',
       });
       setIsLoading(false);

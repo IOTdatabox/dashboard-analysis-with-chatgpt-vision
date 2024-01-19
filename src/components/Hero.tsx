@@ -76,7 +76,7 @@ const Hero = () => {
         setSecondAnswerOptions(data.data.secondAnswer.slice(1).split('*'));
         setThirdAnswerOptions(data.data.thirdAnswer.slice(1).split('*'));
         console.log(data);
-        toast('An Email will be Sent in the next few minutes!', { type: 'success' });
+        toast('An email will be sent in the next few minutes!', { type: 'success' });
         setIsLoading(false);
       } else {
         toast('Internal Server Error!', { type: 'error' });
