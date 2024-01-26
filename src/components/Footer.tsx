@@ -153,12 +153,14 @@ const Footer = () => {
                 >
                   Privacy Policy
                 </Link>
-                <Link
+                <a
                   className="text-slate-200 text-[15px] font-thin leading-[51px]"
-                  href="/contact"
+                  href="https://visionlabs.com/Contact/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Support
-                </Link>
+                </a>
               </div>
             </div>
           </div>
